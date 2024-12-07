@@ -22,14 +22,15 @@
                     @php
                         $increment = $stat->stat->increment ?? 1;
                         $multiplier = $stat->stat->multiplier ?? 1;
-                        if ($increment || $multiplier) {
+                        if ($increment && $stat->base != 0 || $multiplier && $stat->base != 0) {
                             // Calculate the new stat value
                             $newStat = ($stat->stat->base + $increment) * $multiplier;
 
                             // Calculate the percentage increase
                             $percentageIncrease = (($newStat - $stat->stat->base) / $stat->stat->base) * 100 . '%';
                         } else {
-                            $percentageIncrease = '1';
+                            $newStat = $increment * $multiplier;
+                            $percentageIncrease = $newStat * 100 . '%';
                         }
                     @endphp
                     This stat increases by <b>{{ $percentageIncrease }}</b> per level up.

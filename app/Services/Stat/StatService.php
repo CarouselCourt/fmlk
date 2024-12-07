@@ -34,6 +34,9 @@ class StatService extends Service {
                     }
                 }
             }
+            if (isset($data['multiplier']) && $data['multiplier'] <= 0) {
+                throw new \Exception('The multiplier must be greater than 0.');
+            }
 
             $stat = Stat::create($data);
 
@@ -72,6 +75,9 @@ class StatService extends Service {
                         throw new \Exception('Please provide a valid hex colour.');
                     }
                 }
+            }
+            if (isset($data['multiplier']) && $data['multiplier'] <= 0) {
+                throw new \Exception('The multiplier must be greater than 0.');
             }
 
             // check species_ids
