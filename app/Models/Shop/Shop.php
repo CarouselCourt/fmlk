@@ -74,7 +74,7 @@ class Shop extends Model {
      * Get the required items / assets to enter the shop.
      */
     public function limits() {
-        return $this->hasMany('App\Models\Shop\ShopLimit', 'shop_id');
+        return $this->hasMany(ShopLimit::class, 'shop_id');
     }
 
     /**********************************************************************************************

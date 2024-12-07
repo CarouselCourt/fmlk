@@ -3,6 +3,7 @@
 namespace App\Models\Skill;
 
 use App\Models\Model;
+use App\Models\Species\SpeciesLimit;
 
 class Skill extends Model {
     /**
@@ -51,35 +52,35 @@ class Skill extends Model {
      * Get the category the skill belongs to.
      */
     public function category() {
-        return $this->belongsTo('App\Models\Skill\SkillCategory', 'skill_category_id');
+        return $this->belongsTo(SkillCategory::class, 'skill_category_id');
     }
 
     /**
      * Get the children of the skill.
      */
     public function children() {
-        return $this->hasMany('App\Models\Skill\Skill', 'parent_id');
+        return $this->hasMany(self::class, 'parent_id');
     }
 
     /**
      * Get the parent the skill belongs to.
      */
     public function parent() {
-        return $this->belongsTo('App\Models\Skill\Skill', 'parent_id');
+        return $this->belongsTo(self::class, 'parent_id');
     }
 
     /**
      * Get the prerequisite the skill belongs to.
      */
     public function prerequisite() {
-        return $this->belongsTo('App\Models\Skill\Skill', 'prerequisite_id');
+        return $this->belongsTo(self::class, 'prerequisite_id');
     }
 
     /**
      * get the species limits for the skill.
      */
     public function species() {
-        return $this->hasMany('App\Models\Species\SpeciesLimit', 'type_id')->where('type', 'skill');
+        return $this->hasMany(SpeciesLimit::class, 'type_id')->where('type', 'skill');
     }
 
     /**********************************************************************************************

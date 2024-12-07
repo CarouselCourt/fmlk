@@ -3,6 +3,7 @@
 namespace App\Models\Shop;
 
 use App\Models\Model;
+use App\Models\Item\Item;
 
 class ShopLimit extends Model {
     /**
@@ -28,6 +29,6 @@ class ShopLimit extends Model {
     **********************************************************************************************/
 
     public function item() {
-        return $this->belongsTo('App\Models\Item\Item', 'item_id');
+        return $this->belongsTo(Item::class, 'item_id');
     }
 }

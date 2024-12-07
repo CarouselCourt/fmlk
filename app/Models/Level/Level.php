@@ -49,21 +49,21 @@ class Level extends Model {
      * Get the rewards attached to this level.
      */
     public function rewards() {
-        return $this->hasMany('App\Models\Level\LevelReward', 'level_id');
+        return $this->hasMany(LevelReward::class, 'level_id');
     }
 
     /**
      * Get the limits attached to this level.
      */
     public function limits() {
-        return $this->hasMany('App\Models\Level\LevelRequirement', 'level_id');
+        return $this->hasMany(LevelRequirement::class, 'level_id');
     }
 
     /**
      * Get the next level.
      */
     public function nextLevel() {
-        return $this->hasOne('App\Models\Level\Level', 'level', 'level')->where('level', $this->level + 1)->where('level_type', $this->level_type);
+        return $this->hasOne(self::class, 'level', 'level')->where('level', $this->level + 1)->where('level_type', $this->level_type);
     }
 
     /**********************************************************************************************

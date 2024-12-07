@@ -31,13 +31,13 @@ class ElementImmunity extends Model {
      * Get the element that this immunity is of.
      */
     public function element() {
-        return $this->belongsTo('App\Models\Element\Element', 'element_id');
+        return $this->belongsTo(Element::class, 'element_id');
     }
 
     /**
      * Get the element that this immunity is of.
      */
     public function immunity() {
-        return $this->belongsTo('App\Models\Element\Element', 'immunity_id');
+        return $this->belongsTo(Element::class, 'immunity_id');
     }
 }

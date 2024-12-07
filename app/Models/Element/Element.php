@@ -52,21 +52,21 @@ class Element extends Model {
      * get the element strengths.
      */
     public function strengths() {
-        return $this->hasMany('App\Models\Element\ElementWeakness', 'weakness_id');
+        return $this->hasMany(ElementWeakness::class, 'weakness_id');
     }
 
     /**
      * Get the weaknesses of this element.
      */
     public function weaknesses() {
-        return $this->hasMany('App\Models\Element\ElementWeakness', 'element_id');
+        return $this->hasMany(ElementWeakness::class, 'element_id');
     }
 
     /**
      * Get the element's immunities.
      */
     public function immunities() {
-        return $this->hasMany('App\Models\Element\ElementImmunity', 'element_id');
+        return $this->hasMany(ElementImmunity::class, 'element_id');
     }
 
     /**********************************************************************************************

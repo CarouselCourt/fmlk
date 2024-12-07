@@ -3,6 +3,7 @@
 namespace App\Models\Character;
 
 use App\Models\Model;
+use App\Models\Skill\Skill;
 
 class CharacterSkill extends Model {
     /**
@@ -38,6 +39,6 @@ class CharacterSkill extends Model {
      * Get the skill.
      */
     public function skill() {
-        return $this->belongsTo('App\Models\Skill\Skill', 'skill_id');
+        return $this->belongsTo(Skill::class, 'skill_id');
     }
 }

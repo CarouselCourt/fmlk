@@ -10,6 +10,7 @@ use App\Models\Pet\PetEvolution;
 use App\Models\Pet\PetVariant;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Loot\Loot;
 
 class UserPet extends Model {
     use SoftDeletes;
@@ -93,7 +94,7 @@ class UserPet extends Model {
      */
     public function drops() {
         if (!$this->pet->dropData) {
-            return $this->belongsTo('App\Models\Loot\Loot', 'rewardable_id', 'loot_table_id')->whereNull('loot_table_id');
+            return $this->belongsTo(Loot::class, 'rewardable_id', 'loot_table_id')->whereNull('loot_table_id');
         }
         if (!PetDrop::where('user_pet_id', $this->id)->first()) {
             PetDrop::create([
