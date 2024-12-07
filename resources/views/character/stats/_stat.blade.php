@@ -41,7 +41,7 @@
                     <p>
                         The stat applies only to the following:
                         <br />
-                        {!! $stat->displayLimits() !!}
+                        {!! $stat->stat->displayLimits() !!}
                     </p>
                 @endif
             </div>
