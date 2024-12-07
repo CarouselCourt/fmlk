@@ -740,7 +740,7 @@ class PetController extends Controller {
      *
      * @param mixed $id
      */
-    public function getEditPetLevel($id) {
+    public function getEditPetLevel($level_id, $id) {
         $petLevel = PetLevelPet::find($id);
         if (!$petLevel) {
             abort(404);
@@ -774,7 +774,7 @@ class PetController extends Controller {
      *
      * @param mixed $id
      */
-    public function postEditPetLevel(Request $request, PetService $service, $id) {
+    public function postEditPetLevel(Request $request, PetService $service, $level_id, $id) {
         $data = $request->only([
             'rewardable_id', 'rewardable_type', 'quantity',
         ]);
