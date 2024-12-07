@@ -69,7 +69,7 @@
     </div>
     <div class="form-group">
         {!! Form::label('cap', 'Drop Cap (Optional)', ['class' => 'form-label ml-3']) !!} {!! add_help('How many batches of drops are allowed to accumulate. Either set to 0 or unset to allow unlimited accumulation.') !!}
-        {!! Form::number('cap', $drop->id ?? null, ['class' => 'form-control mr-2', 'placeholder' => 'Drop Cap']) !!}
+        {!! Form::number('cap', $drop->id ? $drop->cap : null, ['class' => 'form-control mr-2', 'placeholder' => 'Drop Cap']) !!}
     </div>
 
     <div class="row">
