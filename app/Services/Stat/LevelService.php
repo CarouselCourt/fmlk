@@ -71,13 +71,19 @@ class LevelService extends Service {
      *
      * @param mixed $level
      */
-    public function deleteLevel($level) {
+    public function deleteLevel($type, $level) {
         DB::beginTransaction();
 
         try {
             // Check first if the level is currently owned or if some other site feature uses it
-            if (DB::table('user_levels')->where('current_level', '>=', $level->level)->exists()) {
-                throw new \Exception('At least one user has already reached this level.');
+            if ($type == 'Character') {
+                if (DB::table('character_levels')->where('current_level', '>=', $level->level)->exists()) {
+                    throw new \Exception('At least one character has already reached this level.');
+                }
+            } else {
+                if (DB::table('user_levels')->where('current_level', '>=', $level->level)->exists()) {
+                    throw new \Exception('At least one user has already reached this level.');
+                }
             }
             if (DB::table('prompts')->where('level_req', '>=', $level->level)->exists()) {
                 throw new \Exception('A prompt currently has this level as a requirement.');

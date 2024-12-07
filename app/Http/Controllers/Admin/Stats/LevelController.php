@@ -134,7 +134,7 @@ class LevelController extends Controller {
      *
      * @param mixed $id
      */
-    public function getDeleteLevel($id) {
+    public function getDeleteLevel($type, $id) {
         $level = Level::find($id);
 
         return view('admin.levels._delete_level', [
@@ -147,8 +147,10 @@ class LevelController extends Controller {
      *
      * @param mixed $id
      */
-    public function postDeleteLevel(Request $request, LevelService $service, $id) {
-        if ($id && $service->deleteLevel(Level::find($id))) {
+    public function postDeleteLevel(Request $request, LevelService $service, $type, $id) {
+        $type = ucfirst($type);
+
+        if ($id && $service->deleteLevel($type, Level::find($id))) {
             flash('Level deleted successfully.')->success();
         } else {
             foreach ($service->errors()->getMessages()['error'] as $error) {
@@ -156,6 +158,6 @@ class LevelController extends Controller {
             }
         }
 
-        return redirect()->to('admin/levels');
+        return redirect()->to('admin/levels/'.strtolower($type));
     }
 }
