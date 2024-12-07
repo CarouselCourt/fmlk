@@ -23,7 +23,13 @@
     @foreach ($classes as $class)
         <div class="card mb-3">
             <div class="card-body">
-                @include('world._entry', ['imageUrl' => $class->classImageUrl, 'name' => $class->displayName, 'description' => $class->description, 'searchUrl' => $class->searchUrl])
+                @include('world._entry', [
+                    'edit' => ['object' => $class, 'title' => 'Class'],
+                    'imageUrl' => $class->classImageUrl,
+                    'name' => $class->displayName,
+                    'description' => $class->parsed_description,
+                    'visible' => $class->is_visible,
+                ])
             </div>
         </div>
     @endforeach

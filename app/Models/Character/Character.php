@@ -21,6 +21,9 @@ use App\Models\Submission\SubmissionCharacter;
 use App\Models\Trade;
 use App\Models\User\User;
 use App\Models\User\UserCharacterLog;
+use App\Models\User\UserGear;
+use App\Models\User\UserPet;
+use App\Models\User\UserWeapon;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -201,21 +204,21 @@ class Character extends Model {
      * Get the character's associated pets.
      */
     public function pets() {
-        return $this->hasMany('App\Models\User\UserPet', 'character_id');
+        return $this->hasMany(UserPet::class, 'character_id');
     }
 
     /**
      * Get the character's associated gear.
      */
     public function gear() {
-        return $this->hasMany('App\Models\User\UserGear', 'character_id');
+        return $this->hasMany(UserGear::class, 'character_id');
     }
 
     /**
      * Get the character's associated weapons.
      */
     public function weapons() {
-        return $this->hasMany('App\Models\User\UserWeapon', 'character_id');
+        return $this->hasMany(UserWeapon::class, 'character_id');
     }
 
     /**
@@ -223,7 +226,7 @@ class Character extends Model {
      * Technically not a relation.
      */
     public function equipment() {
-        return $this->hasMany('App\Models\User\UserGear', 'character_id')->get()->concat($this->hasMany('App\Models\User\UserWeapon', 'character_id')->get());
+        return $this->hasMany(UserGear::class, 'character_id')->get()->concat($this->hasMany(UserWeapon::class, 'character_id')->get());
     }
 
     /**
@@ -244,14 +247,14 @@ class Character extends Model {
      * Get the character's class.
      */
     public function class() {
-        return $this->belongsTo('App\Models\Character\CharacterClass', 'class_id');
+        return $this->belongsTo(CharacterClass::class, 'class_id');
     }
 
     /**
      * Get the character's skills.
      */
     public function skills() {
-        return $this->hasMany('App\Models\Character\CharacterSkill', 'character_id');
+        return $this->hasMany(CharacterSkill::class, 'character_id');
     }
 
     /**********************************************************************************************

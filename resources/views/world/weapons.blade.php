@@ -49,8 +49,9 @@
                     'item' => $weapon,
                     'imageUrl' => $weapon->imageUrl,
                     'name' => $weapon->displayName,
-                    'description' => $weapon->description,
+                    'description' => $weapon->parsed_description,
                     'searchUrl' => $weapon->searchUrl,
+                    'visible' => $weapon->is_visible,
                 ])
             </div>
         </div>

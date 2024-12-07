@@ -11,7 +11,7 @@ use App\Models\Pet\PetDropData;
 use App\Models\Pet\PetVariantDropData;
 use App\Models\User\UserPet;
 use Carbon\Carbon;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class PetDropService extends Service {
     /*
@@ -52,7 +52,7 @@ class PetDropService extends Service {
                 'frequency'  => $data['drop_frequency'],
                 'interval'   => $data['drop_interval'],
                 'is_active'  => $data['is_active'] ?? 0,
-                'cap'        => $data['drop_cap'] ?? 0,
+                'cap'        => $data['cap'] ?? 0,
                 'name'       => $data['drop_name'] ?? 'drop',
                 'override'   => $data['override'] ?? 0,
             ]);

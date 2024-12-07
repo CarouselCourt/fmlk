@@ -11,7 +11,7 @@ class CharacterClass extends Model {
      * @var array
      */
     protected $fillable = [
-        'name', 'has_image', 'description',
+        'name', 'has_image', 'description', 'parsed_description', 'is_visible',
     ];
 
     /**
@@ -48,6 +48,28 @@ class CharacterClass extends Model {
         RELATIONS
 
     **********************************************************************************************/
+
+    /**********************************************************************************************
+
+        SCOPES
+
+    **********************************************************************************************/
+
+    /**
+     * Scope a query to show only visible classes.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed|null                            $user
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeVisible($query, $user = null) {
+        if ($user && $user->hasPower('edit_claymores')) {
+            return $query;
+        }
+
+        return $query->where('is_visible', 1);
+    }
 
     /**********************************************************************************************
 
@@ -111,5 +133,23 @@ class CharacterClass extends Model {
      */
     public function getUrlAttribute() {
         return url('world/character-classes?name='.$this->name);
+    }
+
+    /**
+     * Gets the admin edit URL.
+     *
+     * @return string
+     */
+    public function getAdminUrlAttribute() {
+        return url('admin/character-classes/edit/'.$this->id);
+    }
+
+    /**
+     * Gets the power required to edit this model.
+     *
+     * @return string
+     */
+    public function getAdminPowerAttribute() {
+        return 'edit_claymores';
     }
 }

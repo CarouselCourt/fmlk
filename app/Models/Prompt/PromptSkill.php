@@ -3,6 +3,7 @@
 namespace App\Models\Prompt;
 
 use App\Models\Model;
+use App\Models\Skill\Skill;
 
 class PromptSkill extends Model {
     /**
@@ -51,6 +52,6 @@ class PromptSkill extends Model {
      * Get the skill attached to the prompt skill.
      */
     public function skill() {
-        return $this->belongsTo('App\Models\Skill\Skill', 'skill_id');
+        return $this->belongsTo(Skill::class, 'skill_id');
     }
 }

@@ -66,6 +66,11 @@
         <p>A prerequisite is required to have at least level 1 in to enter any prompts with this skill reward.</p>
     </div>
 
+    <div class="form-group">
+        {!! Form::checkbox('is_visible', 1, $skill->id ? $skill->is_visible : 1, ['class' => 'form-check-input', 'data-toggle' => 'toggle']) !!}
+        {!! Form::label('is_visible', 'Is Visible', ['class' => 'form-check-label ml-3']) !!} {!! add_help('If this is turned off, this class will not be visible on world pages.') !!}
+    </div>
+
     <hr />
 
     @if ($skill->id)
@@ -122,7 +127,7 @@
         <h3>Preview</h3>
         <div class="card mb-3">
             <div class="card-body">
-                @include('world._skill_entry', ['imageUrl' => $skill->imageUrl, 'name' => $skill->displayName, 'description' => $skill->description, 'searchUrl' => $skill->searchUrl])
+                @include('world._skill_entry', ['imageUrl' => $skill->imageUrl, 'name' => $skill->displayName, 'description' => $skill->description, 'searchUrl' => $skill->searchUrl, 'visible' => $skill->is_visible])
             </div>
         </div>
     @endif

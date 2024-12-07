@@ -7,8 +7,8 @@ use App\Models\Element\Element;
 use App\Models\Element\Typing;
 use App\Services\ElementService;
 use App\Services\TypingManager;
-use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ElementController extends Controller {
     /*
@@ -85,7 +85,7 @@ class ElementController extends Controller {
     public function postCreateEditElement(Request $request, ElementService $service, $id = null) {
         $id ? $request->validate(Element::$updateRules) : $request->validate(Element::$createRules);
         $data = $request->only([
-            'name', 'description', 'image', 'remove_image', 'weakness_id', 'weakness_multiplier', 'immunity_id', 'colour',
+            'name', 'description', 'image', 'remove_image', 'weakness_id', 'weakness_multiplier', 'immunity_id', 'colour', 'is_visible',
         ]);
         if ($id && $service->updateElement(Element::find($id), $data, Auth::user())) {
             flash('Element updated successfully.')->success();

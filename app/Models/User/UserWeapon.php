@@ -2,6 +2,7 @@
 
 namespace App\Models\User;
 
+use App\Models\Character\Character;
 use App\Models\Claymore\Weapon;
 use App\Models\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -23,7 +24,9 @@ class UserWeapon extends Model {
      *
      * @var array
      */
-    protected $dates = ['attached_at'];
+    protected $casts = [
+        'attached_at' => 'datetime',
+    ];
 
     /**
      * The table associated with the model.

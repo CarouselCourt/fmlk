@@ -7,7 +7,7 @@ use App\Models\Character\CharacterClass;
 use App\Models\Claymore\GearCategory;
 use App\Models\Claymore\WeaponCategory;
 use App\Services\Service;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class CharacterClassService extends Service {
     /*
@@ -138,6 +138,14 @@ class CharacterClassService extends Service {
      * @return array
      */
     private function populateClassData($data, $class = null) {
+        if (isset($data['description']) && $data['description']) {
+            $data['parsed_description'] = parse($data['description']);
+        }
+
+        if (!isset($data['is_visible'])) {
+            $data['is_visible'] = 0;
+        }
+
         if (isset($data['remove_image'])) {
             if ($class && $class->has_image && $data['remove_image']) {
                 $data['has_image'] = 0;

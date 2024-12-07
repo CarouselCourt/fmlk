@@ -49,8 +49,9 @@
                     'item' => $gear,
                     'imageUrl' => $gear->imageUrl,
                     'name' => $gear->displayName,
-                    'description' => $gear->description,
+                    'description' => $gear->parsed_description,
                     'searchUrl' => $gear->searchUrl,
+                    'visible' => $gear->is_visible,
                 ])
             </div>
         </div>

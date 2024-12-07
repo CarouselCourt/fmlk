@@ -11,7 +11,7 @@ class Element extends Model {
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'parsed_description', 'has_image', 'colour',
+        'name', 'description', 'parsed_description', 'has_image', 'colour', 'is_visible',
     ];
 
     protected $appends = ['image_url'];
@@ -52,21 +52,21 @@ class Element extends Model {
      * get the element strengths.
      */
     public function strengths() {
-        return $this->hasMany('App\Models\Element\ElementWeakness', 'weakness_id');
+        return $this->hasMany(ElementWeakness::class, 'weakness_id');
     }
 
     /**
      * Get the weaknesses of this element.
      */
     public function weaknesses() {
-        return $this->hasMany('App\Models\Element\ElementWeakness', 'element_id');
+        return $this->hasMany(ElementWeakness::class, 'element_id');
     }
 
     /**
      * Get the element's immunities.
      */
     public function immunities() {
-        return $this->hasMany('App\Models\Element\ElementImmunity', 'element_id');
+        return $this->hasMany(ElementImmunity::class, 'element_id');
     }
 
     /**********************************************************************************************
@@ -74,6 +74,22 @@ class Element extends Model {
         SCOPES
 
     **********************************************************************************************/
+
+    /**
+     * Scope a query to show only visible elements.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed|null                            $user
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeVisible($query, $user = null) {
+        if ($user && $user->hasPower('edit_data')) {
+            return $query;
+        }
+
+        return $query->where('is_visible', 1);
+    }
 
     /**
      * Scope a query to sort elements in alphabetical order.

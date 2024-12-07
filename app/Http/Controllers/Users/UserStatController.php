@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Level\Level;
 use App\Models\User\User;
 use App\Services\Stat\LevelManager;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class UserStatController extends Controller {
     /**

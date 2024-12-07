@@ -4,7 +4,7 @@ namespace App\Services\Stat;
 
 use App\Models\Stat\Stat;
 use App\Services\Service;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class StatService extends Service {
     /**
@@ -33,6 +33,9 @@ class StatService extends Service {
                         throw new \Exception('Please provide a valid hex colour.');
                     }
                 }
+            }
+            if (isset($data['multiplier']) && $data['multiplier'] <= 0) {
+                throw new \Exception('The multiplier must be greater than 0.');
             }
 
             $stat = Stat::create($data);
@@ -72,6 +75,9 @@ class StatService extends Service {
                         throw new \Exception('Please provide a valid hex colour.');
                     }
                 }
+            }
+            if (isset($data['multiplier']) && $data['multiplier'] <= 0) {
+                throw new \Exception('The multiplier must be greater than 0.');
             }
 
             // check species_ids

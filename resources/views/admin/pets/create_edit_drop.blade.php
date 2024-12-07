@@ -69,7 +69,7 @@
     </div>
     <div class="form-group">
         {!! Form::label('cap', 'Drop Cap (Optional)', ['class' => 'form-label ml-3']) !!} {!! add_help('How many batches of drops are allowed to accumulate. Either set to 0 or unset to allow unlimited accumulation.') !!}
-        {!! Form::number('cap', $drop->id ?? null, ['class' => 'form-control mr-2', 'placeholder' => 'Drop Cap']) !!}
+        {!! Form::number('cap', $drop->id ? $drop->cap : null, ['class' => 'form-control mr-2', 'placeholder' => 'Drop Cap']) !!}
     </div>
 
     <div class="row">
@@ -184,7 +184,7 @@
 
             $('.delete-drop-button').on('click', function(e) {
                 e.preventDefault();
-                loadModal("{{ url('admin/data/pet/drops/delete') }}/{{ $drop->id }}", 'Delete Drop');
+                loadModal("{{ url('admin/data/pets/drops/delete') }}/{{ $drop->id }}", 'Delete Drop');
             });
 
             // on modal dismiss, ajax call to admin/data/pet/drops/widget and put into #dropped

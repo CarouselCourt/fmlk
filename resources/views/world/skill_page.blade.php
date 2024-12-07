@@ -29,7 +29,12 @@
                             <div class="col-md-3 world-entry-image"><a href="{{ $imageUrl }}" data-lightbox="entry" data-title="{{ $name }}"><img src="{{ $imageUrl }}" class="world-entry-image" /></a></div>
                         @endif
                         <div class="{{ $imageUrl ? 'col-md-9' : 'col-12' }}">
-                            <h1>{!! $name !!}</h1>
+                            <h1>
+                                @if (!$skill->is_visible)
+                                    <i class="fa fa-eye-slash mr-1"></i>
+                                @endif
+                                {!! $name !!}
+                            </h1>
                             <div class="row">
                                 @if (isset($skill->category) && $skill->category)
                                     <div class="col-md">

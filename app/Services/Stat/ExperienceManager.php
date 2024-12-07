@@ -2,14 +2,14 @@
 
 namespace App\Services\Stat;
 
+use App\Facades\Notifications;
 use App\Models\Character\Character;
 use App\Models\Character\CharacterLevel;
 use App\Models\User\User;
 use App\Models\User\UserLevel;
 use App\Services\Service;
 use Carbon\Carbon;
-use DB;
-use Notifications;
+use Illuminate\Support\Facades\DB;
 
 class ExperienceManager extends Service {
     /**
@@ -42,7 +42,7 @@ class ExperienceManager extends Service {
                         'quantity'         => $data['quantity'],
                         'sender_url'       => $staff->url,
                         'sender_name'      => $staff->name,
-                        'stat_url'         => '/stats',
+                        'stat_url'         => url('/userstats'),
                     ]);
                 } else {
                     throw new \Exception('Failed to credit exp to '.$user->name.'.');
@@ -60,7 +60,7 @@ class ExperienceManager extends Service {
                         'quantity'         => $data['quantity'],
                         'sender_url'       => $staff->url,
                         'sender_name'      => $staff->name,
-                        'stat_url'         => '/character/'.$character->slug.'/stats',
+                        'stat_url'         => url('/character/'.$character->slug.'/stats'),
                     ]);
                 } else {
                     throw new \Exception('Failed to credit exp to '.$character->fullName.'.');

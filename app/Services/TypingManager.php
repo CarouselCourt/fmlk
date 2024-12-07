@@ -3,9 +3,9 @@
 namespace App\Services;
 
 use App\Models\Element\Typing;
-use Auth;
-use DB;
-use Log;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class TypingManager extends Service {
     /*

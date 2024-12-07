@@ -74,6 +74,10 @@
             {!! Form::checkbox('allow_transfer', 1, $weapon->id ? $weapon->allow_transfer : 1, ['class' => 'form-check-input', 'data-toggle' => 'toggle']) !!}
             {!! Form::label('allow_transfer', 'Allow User → User Transfer', ['class' => 'form-check-label ml-3']) !!} {!! add_help('If this is off, users will not be able to transfer this weapon to other users. Non-account-bound weapons can be account-bound when granted to users directly.') !!}
         </div>
+        <div class="col-md form-group">
+            {!! Form::checkbox('is_visible', 1, $weapon->id ? $weapon->is_visible : 1, ['class' => 'form-check-input', 'data-toggle' => 'toggle']) !!}
+            {!! Form::label('is_visible', 'Is Visible', ['class' => 'form-check-label ml-3']) !!} {!! add_help('If this is turned off, this gear category will not be visible on world pages.') !!}
+        </div>
     </div>
 
     <div class="text-right">
@@ -111,7 +115,14 @@
         <h3>Preview</h3>
         <div class="card mb-3">
             <div class="card-body">
-                @include('world._claymore_entry', ['item' => $weapon, 'imageUrl' => $weapon->imageUrl, 'name' => $weapon->displayName, 'description' => $weapon->description, 'searchUrl' => $weapon->searchUrl])
+                @include('world._claymore_entry', [
+                    'item' => $weapon,
+                    'imageUrl' => $weapon->imageUrl,
+                    'name' => $weapon->displayName,
+                    'description' => $weapon->description,
+                    'searchUrl' => $weapon->searchUrl,
+                    'visible' => $weapon->is_visible,
+                ])
             </div>
         </div>
     @endif

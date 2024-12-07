@@ -3,6 +3,7 @@
 namespace App\Models\Skill;
 
 use App\Models\Model;
+use App\Models\Species\SpeciesLimit;
 
 class Skill extends Model {
     /**
@@ -11,7 +12,7 @@ class Skill extends Model {
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'skill_category_id', 'parent_id', 'parent_level', 'prerequisite_id', 'has_image', 'species_ids',
+        'name', 'description', 'parsed_description', 'skill_category_id', 'parent_id', 'parent_level', 'prerequisite_id', 'has_image', 'species_ids', 'is_visible',
     ];
 
     /**
@@ -51,35 +52,57 @@ class Skill extends Model {
      * Get the category the skill belongs to.
      */
     public function category() {
-        return $this->belongsTo('App\Models\Skill\SkillCategory', 'skill_category_id');
+        return $this->belongsTo(SkillCategory::class, 'skill_category_id');
     }
 
     /**
      * Get the children of the skill.
      */
     public function children() {
-        return $this->hasMany('App\Models\Skill\Skill', 'parent_id');
+        return $this->hasMany(self::class, 'parent_id');
     }
 
     /**
      * Get the parent the skill belongs to.
      */
     public function parent() {
-        return $this->belongsTo('App\Models\Skill\Skill', 'parent_id');
+        return $this->belongsTo(self::class, 'parent_id');
     }
 
     /**
      * Get the prerequisite the skill belongs to.
      */
     public function prerequisite() {
-        return $this->belongsTo('App\Models\Skill\Skill', 'prerequisite_id');
+        return $this->belongsTo(self::class, 'prerequisite_id');
     }
 
     /**
      * get the species limits for the skill.
      */
     public function species() {
-        return $this->hasMany('App\Models\Species\SpeciesLimit', 'type_id')->where('type', 'skill');
+        return $this->hasMany(SpeciesLimit::class, 'type_id')->where('type', 'skill');
+    }
+
+    /**********************************************************************************************
+
+        SCOPES
+
+    **********************************************************************************************/
+
+    /**
+     * Scope a query to show only visible skills.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed|null                            $user
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeVisible($query, $user = null) {
+        if ($user && $user->hasPower('edit_claymores')) {
+            return $query;
+        }
+
+        return $query->where('is_visible', 1);
     }
 
     /**********************************************************************************************
@@ -162,5 +185,23 @@ class Skill extends Model {
      */
     public function getAssetTypeAttribute() {
         return 'skills';
+    }
+
+    /**
+     * Gets the admin edit URL.
+     *
+     * @return string
+     */
+    public function getAdminUrlAttribute() {
+        return url('admin/data/skills/edit/'.$this->id);
+    }
+
+    /**
+     * Gets the power required to edit this model.
+     *
+     * @return string
+     */
+    public function getAdminPowerAttribute() {
+        return 'edit_claymores';
     }
 }

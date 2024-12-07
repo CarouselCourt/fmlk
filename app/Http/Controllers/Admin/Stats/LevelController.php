@@ -13,8 +13,8 @@ use App\Models\Loot\LootTable;
 use App\Models\Pet\Pet;
 use App\Models\Raffle\Raffle;
 use App\Services\Stat\LevelService;
-use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LevelController extends Controller {
     /**
@@ -133,8 +133,9 @@ class LevelController extends Controller {
      * Gets the level deletion modal.
      *
      * @param mixed $id
+     * @param mixed $type
      */
-    public function getDeleteLevel($id) {
+    public function getDeleteLevel($type, $id) {
         $level = Level::find($id);
 
         return view('admin.levels._delete_level', [
@@ -146,9 +147,12 @@ class LevelController extends Controller {
      * Creates or edits an level.
      *
      * @param mixed $id
+     * @param mixed $type
      */
-    public function postDeleteLevel(Request $request, LevelService $service, $id) {
-        if ($id && $service->deleteLevel(Level::find($id))) {
+    public function postDeleteLevel(Request $request, LevelService $service, $type, $id) {
+        $type = ucfirst($type);
+
+        if ($id && $service->deleteLevel($type, Level::find($id))) {
             flash('Level deleted successfully.')->success();
         } else {
             foreach ($service->errors()->getMessages()['error'] as $error) {
@@ -156,6 +160,6 @@ class LevelController extends Controller {
             }
         }
 
-        return redirect()->to('admin/levels');
+        return redirect()->to('admin/levels/'.strtolower($type));
     }
 }

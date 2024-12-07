@@ -5,6 +5,9 @@
     <div class="{{ $imageUrl ? 'col-md-9' : 'col-12' }}">
         <x-admin-edit title="Element" :object="$element" />
         <h3>
+            @if (!$element->is_visible)
+                <i class="fas fa-eye-slash mr-1"></i>
+            @endif
             {!! $name !!}
             @if (isset($idUrl) && $idUrl)
                 <a href="{{ $idUrl }}" class="world-entry-search text-muted">

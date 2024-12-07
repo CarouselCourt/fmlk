@@ -2,6 +2,7 @@
 
 namespace App\Services\Claymore;
 
+use App\Facades\Notifications;
 use App\Models\Character\Character;
 use App\Models\Claymore\Weapon;
 use App\Models\Currency\Currency;
@@ -10,11 +11,10 @@ use App\Models\User\UserWeapon;
 use App\Services\CurrencyManager;
 use App\Services\Service;
 use App\Services\Stat\StatManager;
-use Auth;
 use Carbon\Carbon;
-use DB;
 use Illuminate\Support\Arr;
-use Notifications;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class WeaponManager extends Service {
     /*

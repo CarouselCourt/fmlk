@@ -43,7 +43,12 @@
             </div>
             @foreach ($gears as $gear)
                 <div class="d-flex row flex-wrap col-12 mt-1 pt-2 px-0 ubt-top">
-                    <div class="col-5 col-md-6"> {{ $gear->name }} </div>
+                    <div class="col-5 col-md-6">
+                        @if (!$gear->is_visible)
+                            <i class="fa fa-eye-slash mr-1"></i>
+                        @endif
+                        {{ $gear->name }}
+                    </div>
                     <div class="col-4 col-md-5"> {{ $gear->category ? $gear->category->name : '' }} </div>
                     <div class="col-3 col-md-1 text-right">
                         <a href="{{ url('admin/gear/edit/' . $gear->id) }}" class="btn btn-primary py-0 px-2">Edit</a>

@@ -496,7 +496,7 @@ class WorldController extends Controller {
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function getSkillCategories(Request $request) {
-        $query = SkillCategory::query();
+        $query = SkillCategory::query()->visible(Auth::check() ? Auth::user() : null);
         $name = $request->get('name');
         if ($name) {
             $query->where('name', 'LIKE', '%'.$name.'%');
@@ -513,7 +513,14 @@ class WorldController extends Controller {
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function getSkills(Request $request) {
-        $query = Skill::with('category');
+        $query = Skill::with('category')->visible(Auth::check() ? Auth::user() : null);
+
+        $categoryVisibleCheck = SkillCategory::visible(Auth::check() ? Auth::user() : null)->pluck('id', 'name')->toArray();
+        // query where category is visible, or, no category and visible
+        $query->where(function ($query) use ($categoryVisibleCheck) {
+            $query->whereIn('skill_category_id', $categoryVisibleCheck)->orWhereNull('skill_category_id');
+        });
+
         $data = $request->only(['skill_category_id', 'name', 'sort']);
         if (isset($data['skill_category_id']) && $data['skill_category_id'] != 'none') {
             $query->where('skill_category_id', $data['skill_category_id']);
@@ -524,7 +531,7 @@ class WorldController extends Controller {
 
         return view('world.skills', [
             'skills'     => $query->paginate(20)->appends($request->query()),
-            'categories' => ['none' => 'Any Category'] + SkillCategory::pluck('name', 'id')->toArray(),
+            'categories' => ['none' => 'Any Category'] + SkillCategory::visible(Auth::check() ? Auth::user() : null)->pluck('name', 'id')->toArray(),
         ]);
     }
 
@@ -542,6 +549,12 @@ class WorldController extends Controller {
             abort(404);
         }
 
+        if (!$skill->is_visible) {
+            if (Auth::check() ? !Auth::user()->isStaff : true) {
+                abort(404);
+            }
+        }
+
         return view('world.skill_page', [
             'skill'       => $skill,
             'imageUrl'    => $skill->imageUrl,
@@ -557,7 +570,7 @@ class WorldController extends Controller {
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function getPetCategories(Request $request) {
-        $query = PetCategory::query();
+        $query = PetCategory::query()->visible(Auth::check() ? Auth::user() : null);
         $name = $request->get('name');
         if ($name) {
             $query->where('name', 'LIKE', '%'.$name.'%');
@@ -574,7 +587,14 @@ class WorldController extends Controller {
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function getPets(Request $request) {
-        $query = Pet::with('category');
+        $query = Pet::with('category')->visible(Auth::check() ? Auth::user() : null);
+
+        $categoryVisibleCheck = PetCategory::visible(Auth::check() ? Auth::user() : null)->pluck('id', 'name')->toArray();
+        // query where category is visible, or, no category and visible
+        $query->where(function ($query) use ($categoryVisibleCheck) {
+            $query->whereIn('pet_category_id', $categoryVisibleCheck)->orWhereNull('pet_category_id');
+        });
+
         $data = $request->only(['pet_category_id', 'name', 'sort']);
         if (isset($data['pet_category_id']) && $data['pet_category_id'] != 'none') {
             $query->where('pet_category_id', $data['pet_category_id']);
@@ -607,7 +627,7 @@ class WorldController extends Controller {
 
         return view('world.pets', [
             'pets'       => $query->paginate(20)->appends($request->query()),
-            'categories' => ['none' => 'Any Category'] + PetCategory::orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
+            'categories' => ['none' => 'Any Category'] + PetCategory::visible(Auth::check() ? Auth::user() : null)->orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
         ]);
     }
 
@@ -618,6 +638,12 @@ class WorldController extends Controller {
      */
     public function getPet($id) {
         $pet = Pet::with('category')->findOrFail($id);
+
+        if (!$pet->is_visible) {
+            if (Auth::check() ? !Auth::user()->isStaff : true) {
+                abort(404);
+            }
+        }
 
         return view('world.pet_page', [
             'pet' => $pet,
@@ -630,7 +656,7 @@ class WorldController extends Controller {
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function getWeaponCategories(Request $request) {
-        $query = WeaponCategory::query();
+        $query = WeaponCategory::query()->visible(Auth::check() ? Auth::user() : null);
         $name = $request->get('name');
         if ($name) {
             $query->where('name', 'LIKE', '%'.$name.'%');
@@ -647,7 +673,14 @@ class WorldController extends Controller {
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function getWeapons(Request $request) {
-        $query = Weapon::with('category');
+        $query = Weapon::with('category')->visible(Auth::check() ? Auth::user() : null);
+
+        $categoryVisibleCheck = WeaponCategory::visible(Auth::check() ? Auth::user() : null)->pluck('id', 'name')->toArray();
+        // query where category is visible, or, no category and visible
+        $query->where(function ($query) use ($categoryVisibleCheck) {
+            $query->whereIn('weapon_category_id', $categoryVisibleCheck)->orWhereNull('weapon_category_id');
+        });
+
         $data = $request->only(['weapon_category_id', 'name', 'sort']);
         if (isset($data['weapon_category_id']) && $data['weapon_category_id'] != 'none') {
             $query->where('weapon_category_id', $data['weapon_category_id']);
@@ -680,7 +713,7 @@ class WorldController extends Controller {
 
         return view('world.weapons', [
             'weapons'    => $query->paginate(20)->appends($request->query()),
-            'categories' => ['none' => 'Any Category'] + WeaponCategory::orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
+            'categories' => ['none' => 'Any Category'] + WeaponCategory::visible(Auth::check() ? Auth::user() : null)->orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
         ]);
     }
 
@@ -698,6 +731,12 @@ class WorldController extends Controller {
             abort(404);
         }
 
+        if (!$weapon->is_visible) {
+            if (Auth::check() ? !Auth::user()->isStaff : true) {
+                abort(404);
+            }
+        }
+
         return view('world.weapon_page', [
             'weapon'      => $weapon,
             'imageUrl'    => $weapon->imageUrl,
@@ -713,7 +752,7 @@ class WorldController extends Controller {
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function getGearCategories(Request $request) {
-        $query = GearCategory::query();
+        $query = GearCategory::query()->visible(Auth::check() ? Auth::user() : null);
         $name = $request->get('name');
         if ($name) {
             $query->where('name', 'LIKE', '%'.$name.'%');
@@ -730,7 +769,14 @@ class WorldController extends Controller {
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function getGears(Request $request) {
-        $query = Gear::with('category');
+        $query = Gear::with('category')->visible(Auth::check() ? Auth::user() : null);
+
+        $categoryVisibleCheck = GearCategory::visible(Auth::check() ? Auth::user() : null)->pluck('id', 'name')->toArray();
+        // query where category is visible, or, no category and visible
+        $query->where(function ($query) use ($categoryVisibleCheck) {
+            $query->whereIn('gear_category_id', $categoryVisibleCheck)->orWhereNull('gear_category_id');
+        });
+
         $data = $request->only(['gear_category_id', 'name', 'sort']);
         if (isset($data['gear_category_id']) && $data['gear_category_id'] != 'none') {
             $query->where('gear_category_id', $data['gear_category_id']);
@@ -763,7 +809,7 @@ class WorldController extends Controller {
 
         return view('world.gears', [
             'gears'      => $query->paginate(20)->appends($request->query()),
-            'categories' => ['none' => 'Any Category'] + GearCategory::orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
+            'categories' => ['none' => 'Any Category'] + GearCategory::visible(Auth::check() ? Auth::user() : null)->orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
         ]);
     }
 
@@ -781,6 +827,12 @@ class WorldController extends Controller {
             abort(404);
         }
 
+        if (!$gear->is_visible) {
+            if (Auth::check() ? !Auth::user()->isStaff : true) {
+                abort(404);
+            }
+        }
+
         return view('world.gear_page', [
             'gear'        => $gear,
             'imageUrl'    => $gear->imageUrl,
@@ -796,7 +848,7 @@ class WorldController extends Controller {
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function getCharacterClasses(Request $request) {
-        $query = CharacterClass::query();
+        $query = CharacterClass::query()->visible(Auth::check() ? Auth::user() : null);
         $name = $request->get('name');
         if ($name) {
             $query->where('name', 'LIKE', '%'.$name.'%');
@@ -813,7 +865,7 @@ class WorldController extends Controller {
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function getElements(Request $request) {
-        $query = Element::query();
+        $query = Element::query()->visible(Auth::check() ? Auth::user() : null);
         $name = $request->get('name');
         if ($name) {
             $query->where('name', 'LIKE', '%'.$name.'%');
@@ -852,6 +904,12 @@ class WorldController extends Controller {
         $element = Element::where('id', $id)->first();
         if (!$element) {
             abort(404);
+        }
+
+        if (!$element->is_visible) {
+            if (Auth::check() ? !Auth::user()->isStaff : true) {
+                abort(404);
+            }
         }
 
         return view('world.element_page', [

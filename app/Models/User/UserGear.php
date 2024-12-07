@@ -24,7 +24,9 @@ class UserGear extends Model {
      *
      * @var array
      */
-    protected $dates = ['attached_at'];
+    protected $casts = [
+        'attached_at' => 'datetime',
+    ];
 
     /**
      * The table associated with the model.

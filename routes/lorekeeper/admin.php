@@ -137,14 +137,6 @@ Route::group(['prefix' => 'data', 'namespace' => 'Data', 'middleware' => 'power:
     Route::post('subtypes/delete/{id}', 'SpeciesController@postDeleteSubtype');
     Route::post('subtypes/sort', 'SpeciesController@postSortSubtypes');
 
-    Route::get('pet-drops', 'PetController@getDropIndex');
-    Route::get('pet-drops/create', 'PetController@getCreateDrop');
-    Route::get('pet-drops/edit/{id}', 'PetController@getEditDrop');
-    Route::get('pet-drops/delete/{id}', 'PetController@getDeleteDrop');
-    Route::post('pet-drops/create', 'PetController@postCreateEditDrop');
-    Route::post('pet-drops/edit/{id?}', 'PetController@postCreateEditDrop');
-    Route::post('pet-drops/delete/{id}', 'PetController@postDeleteDrop');
-
     // ITEMS
     Route::get('item-categories', 'ItemController@getIndex');
     Route::get('item-categories/create', 'ItemController@getCreateItemCategory');
@@ -606,11 +598,11 @@ Route::group(['prefix' => 'levels', 'namespace' => 'Stats', 'middleware' => 'pow
     Route::get('{type}', 'LevelController@getLevels')->where('type', 'user|character');
     Route::get('{type}/create', 'LevelController@getCreateLevel')->where('type', 'user|character');
     Route::get('{type}/edit/{id}', 'LevelController@getEditLevel')->where('type', 'user|character');
-    Route::get('delete/{id}', 'LevelController@getDeleteLevel');
+    Route::get('{type}/delete/{id}', 'LevelController@getDeleteLevel')->where('type', 'user|character');
     // POST
     Route::post('{type}/create', 'LevelController@postCreateEditLevel')->where('type', 'user|character');
     Route::post('{type}/edit/{id}', 'LevelController@postCreateEditLevel')->where('type', 'user|character');
-    Route::post('delete/{id}', 'LevelController@postDeleteLevel');
+    Route::post('{type}/delete/{id}', 'LevelController@postDeleteLevel')->where('type', 'user|character');
 });
 // GEARS
 Route::group(['prefix' => 'gear', 'namespace' => 'Claymores', 'middleware' => 'power:edit_claymores'], function () {

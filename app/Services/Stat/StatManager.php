@@ -8,9 +8,9 @@ use App\Models\Stat\Stat;
 use App\Models\User\User;
 use App\Models\User\UserLevel;
 use App\Services\Service;
-use Auth;
 use Carbon\Carbon;
-use DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class StatManager extends Service {
     /**
@@ -219,7 +219,7 @@ class StatManager extends Service {
                 Notifications::create('STAT_GRANT', $user, [
                     'sender_url'  => $staff->url,
                     'sender_name' => $staff->name,
-                    'stat_url'    => '/stats',
+                    'stat_url'    => url('/userstats'),
                 ]);
             }
 
@@ -238,7 +238,7 @@ class StatManager extends Service {
                 Notifications::create('STAT_GRANT', $character->user, [
                     'sender_url'  => $staff->url,
                     'sender_name' => $staff->name,
-                    'stat_url'    => '/character/'.$character->slug.'/stats',
+                    'stat_url'    => url('/character/'.$character->slug.'/stats'),
                 ]);
             }
 

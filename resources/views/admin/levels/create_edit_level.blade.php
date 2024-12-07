@@ -72,7 +72,7 @@
 
             $('.delete-level-button').on('click', function(e) {
                 e.preventDefault();
-                loadModal("{{ url('admin/levels/delete') }}/{{ $level->id }}", 'Delete Level');
+                loadModal("{{ url('admin/levels/') }}/{{ $type }}/delete/{{ $level->id }}", 'Delete Level');
             });
         });
     </script>

@@ -23,6 +23,9 @@
                 @foreach ($categories as $category)
                     <tr class="sort-skill" data-id="{{ $category->id }}">
                         <td>
+                            @if (!$category->is_visible)
+                                <i class="fa fa-eye-slash mr-1"></i>
+                            @endif
                             {!! $category->displayName !!}
                         </td>
                         <td class="text-right">

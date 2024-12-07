@@ -24,10 +24,10 @@
         <div class="card mb-3">
             <div class="card-body">
                 @include('world._skill_category_entry', [
-                    'edit' => ['object' => $category, 'title' => 'Category'],
+                    'edit' => ['object' => $category, 'title' => 'Skill Category'],
                     'imageUrl' => $category->categoryImageUrl,
                     'name' => $category->displayName,
-                    'description' => $category->description,
+                    'description' => $category->parsed_description,
                     'searchUrl' => $category->searchUrl,
                     'category' => $category,
                 ])

@@ -3,6 +3,7 @@
 namespace App\Models\User;
 
 use App\Models\Character\Character;
+use App\Models\Loot\Loot;
 use App\Models\Model;
 use App\Models\Pet\Pet;
 use App\Models\Pet\PetDrop;
@@ -93,7 +94,7 @@ class UserPet extends Model {
      */
     public function drops() {
         if (!$this->pet->dropData) {
-            return $this->belongsTo('App\Models\Loot\Loot', 'rewardable_id', 'loot_table_id')->whereNull('loot_table_id');
+            return $this->belongsTo(Loot::class, 'rewardable_id', 'loot_table_id')->whereNull('loot_table_id');
         }
         if (!PetDrop::where('user_pet_id', $this->id)->first()) {
             PetDrop::create([

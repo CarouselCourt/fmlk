@@ -24,12 +24,14 @@
         <div class="card mb-3">
             <div class="card-body">
                 @include('world._claymore_entry', [
+                    'edit' => ['object' => $category, 'title' => 'Gear Category'],
                     'item' => null,
                     'imageUrl' => $category->categoryImageUrl,
                     'name' => $category->displayName,
-                    'description' => $category->description,
+                    'description' => $category->parsed_description,
                     'searchUrl' => $category->searchUrl,
                     'category' => $category,
+                    'visible' => $category->is_visible,
                 ])
             </div>
         </div>

@@ -39,6 +39,11 @@
         {!! Form::textarea('description', $class->description, ['class' => 'form-control wysiwyg']) !!}
     </div>
 
+    <div class="form-group">
+        {!! Form::checkbox('is_visible', 1, $class->id ? $class->is_visible : 1, ['class' => 'form-check-input', 'data-toggle' => 'toggle']) !!}
+        {!! Form::label('is_visible', 'Is Visible', ['class' => 'form-check-label ml-3']) !!} {!! add_help('If this is turned off, this class will not be visible on world pages.') !!}
+    </div>
+
     <div class="text-right">
         {!! Form::submit($class->id ? 'Edit' : 'Create', ['class' => 'btn btn-primary']) !!}
     </div>
@@ -49,7 +54,7 @@
         <h3>Preview</h3>
         <div class="card mb-3">
             <div class="card-body">
-                @include('world._entry', ['imageUrl' => $class->classImageUrl, 'name' => $class->displayName, 'description' => $class->parsed_description])
+                @include('world._entry', ['imageUrl' => $class->classImageUrl, 'name' => $class->displayName, 'description' => $class->parsed_description, 'visible' => $class->is_visible])
             </div>
         </div>
     @endif

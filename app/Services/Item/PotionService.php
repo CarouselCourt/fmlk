@@ -7,7 +7,7 @@ use App\Models\Stat\Stat;
 use App\Services\InventoryManager;
 use App\Services\Service;
 use App\Services\Stat\StatManager;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class PotionService extends Service {
     /*

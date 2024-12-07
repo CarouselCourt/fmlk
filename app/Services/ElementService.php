@@ -6,7 +6,7 @@ use App\Models\Element\Element;
 use App\Models\Element\ElementImmunity;
 use App\Models\Element\ElementWeakness;
 use App\Models\Element\Typing;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class ElementService extends Service {
     /*
@@ -194,6 +194,10 @@ class ElementService extends Service {
             $data['parsed_description'] = parse($data['description']);
         } else {
             $data['parsed_description'] = null;
+        }
+
+        if (!isset($data['is_visible'])) {
+            $data['is_visible'] = 0;
         }
 
         if (isset($data['remove_image'])) {

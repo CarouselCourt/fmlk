@@ -72,7 +72,7 @@
                                 </tbody>
                             </table>
                         @else
-                            <p>No requirements.</p>
+                            <p>No rewards.</p>
                         @endif
                     </div>
                 </div>
