@@ -805,17 +805,16 @@ class Character extends Model {
      * @param mixed $stat_id
      */
     public function currentStatCount($stat_id) {
-        $stat = $this->stats->where('stat_id', $stat_id)->first();
-        $total = $stat->current_count ? $stat->current_count : $stat->count;
-        if ($total < 1) {
+        $stat = $this->stats()->where('stat_id', $stat_id)->first();
+
+        if ($stat->current_count < 1) {
             return 0; // prevents, for example, hp bonuses from being applied to a character with 0 hp
         }
-        $bonusCount = $this->bonusStatCount($stat_id);
-        if ($total + $bonusCount > $stat->count + $bonusCount) {
-            return $stat->count + $bonusCount;
-        } else {
-            return $total + $bonusCount;
-        }
+
+        $total = $stat->current_count ? $stat->current_count : $stat->count;
+        $total += $this->bonusStatCount($stat_id);
+
+        return $total;
     }
 
     /**
