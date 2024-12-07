@@ -10,6 +10,7 @@ use App\Models\Shop\ShopLog;
 use App\Models\Shop\ShopStock;
 use App\Models\User\UserItem;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Config;
 
 class ShopManager extends Service {
     /*
