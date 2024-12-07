@@ -52,7 +52,7 @@
     @if ($element->id)
         <h4>Weaknesses</h4>
         <div class="text-right"><a href="#" class="btn btn-primary mb-2" id="add-weakness">Add Weakness</a></div>
-        <p>Set any weaknesses this element has.</p>
+        <p class="mb-0">Set any weaknesses this element has.</p>
         <p>Resistances are automatically calculated based on the weaknesses of other elements.</p>
         <div id="weaknesses">
             @foreach ($element->weaknesses as $weakness)
@@ -132,7 +132,7 @@
             function addWeaknessRow() {
                 var $clone = $('.weakness-row').clone();
                 $('#weaknesses').append($clone);
-                $clone.removeClass('hide feature-row');
+                $clone.removeClass('hide weakness-row');
                 $clone.addClass('d-flex');
                 $clone.find('.remove-weakness').on('click', function(e) {
                     e.preventDefault();
@@ -159,7 +159,7 @@
             function addImmunityRow() {
                 var $clone = $('.immunity-row').clone();
                 $('#immunities').append($clone);
-                $clone.removeClass('hide feature-row');
+                $clone.removeClass('hide immunity-row');
                 $clone.addClass('d-flex');
                 $clone.find('.remove-immunity').on('click', function(e) {
                     e.preventDefault();
