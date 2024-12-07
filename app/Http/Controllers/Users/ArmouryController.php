@@ -10,8 +10,8 @@ use App\Models\User\User;
 use App\Models\User\UserGear;
 use App\Models\User\UserWeapon;
 use App\Services\Claymore\WeaponManager;
-use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ArmouryController extends Controller {
     /*

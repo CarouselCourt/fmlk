@@ -8,8 +8,8 @@ use App\Models\User\User;
 use App\Models\User\UserLevel;
 use App\Services\Service;
 use Carbon\Carbon;
-use DB;
-use Notifications;
+use Illuminate\Support\Facades\DB;
+use App\Facades\Notifications;
 
 class ExperienceManager extends Service {
     /**

@@ -6,7 +6,7 @@ use App\Models\Element\Element;
 use App\Models\Element\ElementImmunity;
 use App\Models\Element\ElementWeakness;
 use App\Models\Element\Typing;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class ElementService extends Service {
     /*

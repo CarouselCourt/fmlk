@@ -9,7 +9,7 @@ use App\Models\Claymore\GearCategory;
 use App\Models\Currency\Currency;
 use App\Models\Stat\Stat;
 use App\Services\Claymore\GearService;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class GearController extends Controller {

@@ -10,11 +10,11 @@ use App\Models\User\UserWeapon;
 use App\Services\CurrencyManager;
 use App\Services\Service;
 use App\Services\Stat\StatManager;
-use Auth;
 use Carbon\Carbon;
-use DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Arr;
-use Notifications;
+use App\Facades\Notifications;
 
 class WeaponManager extends Service {
     /*

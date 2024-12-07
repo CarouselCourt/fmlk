@@ -7,11 +7,11 @@ use App\Models\Claymore\Gear;
 use App\Models\User\User;
 use App\Models\User\UserGear;
 use App\Services\Service;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Arr;
-use Notifications;
+use App\Facades\Notifications;
 
 class GearManager extends Service {
     /*

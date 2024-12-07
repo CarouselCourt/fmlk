@@ -6,7 +6,7 @@ use App\Models\Claymore\Gear;
 use App\Models\Claymore\GearCategory;
 use App\Models\Claymore\GearStat;
 use App\Services\Service;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class GearService extends Service {
     /*

@@ -9,7 +9,7 @@ use App\Models\Level\Level;
 use App\Models\User\User;
 use App\Services\Service;
 use Carbon\Carbon;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class LevelManager extends Service {
     /**

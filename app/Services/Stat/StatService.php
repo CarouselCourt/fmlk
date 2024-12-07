@@ -4,7 +4,7 @@ namespace App\Services\Stat;
 
 use App\Models\Stat\Stat;
 use App\Services\Service;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class StatService extends Service {
     /**

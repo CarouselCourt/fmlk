@@ -6,7 +6,7 @@ use App\Models\Claymore\Weapon;
 use App\Models\Claymore\WeaponCategory;
 use App\Models\Claymore\WeaponStat;
 use App\Services\Service;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class WeaponService extends Service {
     /*

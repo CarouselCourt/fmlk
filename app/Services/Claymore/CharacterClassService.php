@@ -7,7 +7,7 @@ use App\Models\Character\CharacterClass;
 use App\Models\Claymore\GearCategory;
 use App\Models\Claymore\WeaponCategory;
 use App\Services\Service;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class CharacterClassService extends Service {
     /*

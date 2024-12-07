@@ -2,7 +2,7 @@
 
 namespace App\Models\Level;
 
-use App;
+use Illuminate\Support\Facades\App;
 use App\Models\Model;
 
 class LevelRequirement extends Model {

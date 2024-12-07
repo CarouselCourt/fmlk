@@ -8,7 +8,7 @@ use App\Models\Element\Typing;
 use App\Services\InventoryManager;
 use App\Services\Service;
 use App\Services\TypingManager;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class ElementalPotionService extends Service {
     /*
