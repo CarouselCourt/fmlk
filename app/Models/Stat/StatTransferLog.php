@@ -2,9 +2,9 @@
 
 namespace App\Models\Stat;
 
+use App\Models\Character\Character;
 use App\Models\Model;
 use App\Models\User\User;
-use App\Models\Character\Character;
 
 class StatTransferLog extends Model {
     /**

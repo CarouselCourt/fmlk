@@ -133,6 +133,7 @@ class LevelController extends Controller {
      * Gets the level deletion modal.
      *
      * @param mixed $id
+     * @param mixed $type
      */
     public function getDeleteLevel($type, $id) {
         $level = Level::find($id);
@@ -146,6 +147,7 @@ class LevelController extends Controller {
      * Creates or edits an level.
      *
      * @param mixed $id
+     * @param mixed $type
      */
     public function postDeleteLevel(Request $request, LevelService $service, $type, $id) {
         $type = ucfirst($type);

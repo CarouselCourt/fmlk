@@ -70,6 +70,7 @@ class LevelService extends Service {
      * Deletes a level.
      *
      * @param mixed $level
+     * @param mixed $type
      */
     public function deleteLevel($type, $level) {
         DB::beginTransaction();

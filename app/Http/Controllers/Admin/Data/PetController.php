@@ -739,6 +739,7 @@ class PetController extends Controller {
      * Shows the edit pet on level page.
      *
      * @param mixed $id
+     * @param mixed $level_id
      */
     public function getEditPetLevel($level_id, $id) {
         $petLevel = PetLevelPet::find($id);
@@ -773,6 +774,7 @@ class PetController extends Controller {
      * Edits the rewards for a specific pet on a level.
      *
      * @param mixed $id
+     * @param mixed $level_id
      */
     public function postEditPetLevel(Request $request, PetService $service, $level_id, $id) {
         $data = $request->only([

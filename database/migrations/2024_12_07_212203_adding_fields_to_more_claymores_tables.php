@@ -4,13 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddingFieldsToMoreClaymoresTables extends Migration
-{
+class AddingFieldsToMoreClaymoresTables extends Migration {
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
+    public function up(): void {
         Schema::table('character_classes', function (Blueprint $table) {
             $table->boolean('is_visible')->default(1);
             $table->text('parsed_description')->after('description')->nullable()->default(null);
@@ -58,8 +56,7 @@ class AddingFieldsToMoreClaymoresTables extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
+    public function down(): void {
         Schema::table('character_classes', function (Blueprint $table) {
             $table->dropColumn('is_visible');
             $table->dropColumn('parsed_description');
@@ -103,4 +100,4 @@ class AddingFieldsToMoreClaymoresTables extends Migration
             $table->dropColumn('is_visible');
         });
     }
-};
+}
