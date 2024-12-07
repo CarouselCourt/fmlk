@@ -56,7 +56,9 @@
                                 @foreach ($chunk as $item)
                                     <div class="col-sm-3 col-6 text-center inventory-item" data-id="{{ $item->pivot->id }}">
                                         <div class="mb-1">
-                                            <a href="#" class="inventory-stack"><img src="{{ $item->imageUrl }}" alt="{{ $item->name }}" /></a>
+                                            @if ($item->has_image)
+                                                <a href="#" class="inventory-stack"><img src="{{ $item->imageUrl }}" alt="{{ $item->name }}" /></a>
+                                            @endif
                                         </div>
                                         <div>
                                             <a href="#" class="inventory-stack inventory-stack-name"><strong>{{ $item->name }}</strong></a>
