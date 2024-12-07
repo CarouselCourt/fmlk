@@ -115,7 +115,14 @@
         <h3>Preview</h3>
         <div class="card mb-3">
             <div class="card-body">
-                @include('world._claymore_entry', ['item' => $weapon, 'imageUrl' => $weapon->imageUrl, 'name' => $weapon->displayName, 'description' => $weapon->description, 'searchUrl' => $weapon->searchUrl, 'visible' => $weapon->is_visible])
+                @include('world._claymore_entry', [
+                    'item' => $weapon,
+                    'imageUrl' => $weapon->imageUrl,
+                    'name' => $weapon->displayName,
+                    'description' => $weapon->description,
+                    'searchUrl' => $weapon->searchUrl,
+                    'visible' => $weapon->is_visible,
+                ])
             </div>
         </div>
     @endif

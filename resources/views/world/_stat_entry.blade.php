@@ -18,7 +18,7 @@
         @php
             $increment = $stat->increment ?? 1;
             $multiplier = $stat->multiplier ?? 1;
-            if ($increment && $stat->base != 0 || $multiplier && $stat->base != 0) {
+            if (($increment && $stat->base != 0) || ($multiplier && $stat->base != 0)) {
                 // Calculate the new stat value
                 $newStat = ($stat->base + $increment) * $multiplier;
 
