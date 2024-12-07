@@ -39,7 +39,7 @@ class CharacterLevel extends Model {
      * Get the current level for the character.
      */
     public function level() {
-        return $this->belongsTo(Level::class, 'current_level', 'level')->where('level_type', 'User');
+        return $this->belongsTo(Level::class, 'current_level', 'level')->where('level_type', 'Character');
     }
 
     /**********************************************************************************************

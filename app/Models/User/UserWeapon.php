@@ -3,6 +3,7 @@
 namespace App\Models\User;
 
 use App\Models\Claymore\Weapon;
+use App\Models\Character\Character;
 use App\Models\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
