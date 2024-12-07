@@ -219,7 +219,7 @@ class StatManager extends Service {
                 Notifications::create('STAT_GRANT', $user, [
                     'sender_url'  => $staff->url,
                     'sender_name' => $staff->name,
-                    'stat_url'    => '/stats',
+                    'stat_url'    => url('/userstats'),
                 ]);
             }
 
@@ -238,7 +238,7 @@ class StatManager extends Service {
                 Notifications::create('STAT_GRANT', $character->user, [
                     'sender_url'  => $staff->url,
                     'sender_name' => $staff->name,
-                    'stat_url'    => '/character/'.$character->slug.'/stats',
+                    'stat_url'    => url('/character/'.$character->slug.'/stats'),
                 ]);
             }
 

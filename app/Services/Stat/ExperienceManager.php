@@ -42,7 +42,7 @@ class ExperienceManager extends Service {
                         'quantity'         => $data['quantity'],
                         'sender_url'       => $staff->url,
                         'sender_name'      => $staff->name,
-                        'stat_url'         => '/stats',
+                        'stat_url'         => url('/userstats'),
                     ]);
                 } else {
                     throw new \Exception('Failed to credit exp to '.$user->name.'.');
@@ -60,7 +60,7 @@ class ExperienceManager extends Service {
                         'quantity'         => $data['quantity'],
                         'sender_url'       => $staff->url,
                         'sender_name'      => $staff->name,
-                        'stat_url'         => '/character/'.$character->slug.'/stats',
+                        'stat_url'         => url('/character/'.$character->slug.'/stats'),
                     ]);
                 } else {
                     throw new \Exception('Failed to credit exp to '.$character->fullName.'.');
