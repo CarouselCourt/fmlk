@@ -196,6 +196,10 @@ class ElementService extends Service {
             $data['parsed_description'] = null;
         }
 
+        if (!isset($data['is_visible'])) {
+            $data['is_visible'] = 0;
+        }
+
         if (isset($data['remove_image'])) {
             if ($element && $element->has_image && $data['remove_image']) {
                 $data['has_image'] = 0;

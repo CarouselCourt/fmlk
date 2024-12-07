@@ -8,6 +8,9 @@
             <x-admin-edit title="{{ $edit['title'] }}" :object="$edit['object']" />
         @endif
         <h3>
+            @if (!$visible)
+                <i class="fa fa-eye-slash mr-1"></i>
+            @endif
             {!! $name !!}
             @if ($item?->category)
                 ({!! $item->category->displayName !!})

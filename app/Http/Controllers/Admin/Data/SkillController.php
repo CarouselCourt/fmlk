@@ -70,7 +70,7 @@ class SkillController extends Controller {
     public function postCreateEditSkill(Request $request, SkillService $service, $id = null) {
         $id ? $request->validate(Skill::$updateRules) : $request->validate(Skill::$createRules);
         $data = $request->only([
-            'name', 'skill_category_id', 'description', 'image', 'remove_image', 'parent_id', 'parent_level', 'prerequisite_id', 'types', 'type_ids',
+            'name', 'skill_category_id', 'description', 'image', 'remove_image', 'parent_id', 'parent_level', 'prerequisite_id', 'types', 'type_ids', 'is_visible',
         ]);
         if ($id && $service->updateSkill(Skill::find($id), $data, Auth::user())) {
             flash('Skill updated successfully.')->success();
@@ -179,7 +179,7 @@ class SkillController extends Controller {
     public function postCreateEditSkillCategory(Request $request, SkillService $service, $id = null) {
         $id ? $request->validate(SkillCategory::$updateRules) : $request->validate(SkillCategory::$createRules);
         $data = $request->only([
-            'name', 'description', 'image', 'remove_image',
+            'name', 'description', 'image', 'remove_image', 'is_visible',
         ]);
         if ($id && $service->updateSkillCategory(SkillCategory::find($id), $data, Auth::user())) {
             flash('Category updated successfully.')->success();

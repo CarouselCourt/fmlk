@@ -11,7 +11,7 @@ class Element extends Model {
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'parsed_description', 'has_image', 'colour',
+        'name', 'description', 'parsed_description', 'has_image', 'colour', 'is_visible',
     ];
 
     protected $appends = ['image_url'];
@@ -74,6 +74,22 @@ class Element extends Model {
         SCOPES
 
     **********************************************************************************************/
+
+    /**
+     * Scope a query to show only visible elements.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed|null                            $user
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeVisible($query, $user = null) {
+        if ($user && $user->hasPower('edit_data')) {
+            return $query;
+        }
+
+        return $query->where('is_visible', 1);
+    }
 
     /**
      * Scope a query to sort elements in alphabetical order.

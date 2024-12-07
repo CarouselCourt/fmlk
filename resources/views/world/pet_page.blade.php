@@ -15,7 +15,11 @@
 @section('content')
     {!! breadcrumbs(['World' => 'world', 'Pets' => 'world/pets', $pet->name => 'world/pets/' . $pet->id]) !!}
     <h1>
-        {{ $pet->name }} @if ($pet->category)
+        @if (!$pet->is_visible)
+            <i class="fas fa-eye-slash mr-1"></i>
+        @endif
+        {{ $pet->name }}
+        @if ($pet->category)
             <i class="h2"> ({!! $pet->category->displayName !!})</i>
         @endif
     </h1>
@@ -30,7 +34,7 @@
                 @endif
                 <div class="{{ $pet->imageUrl ? 'col-md-9' : 'col-12' }}">
                     <div class="world-entry-text">
-                        {!! $pet->description !!}
+                        {!! $pet->parsed_description !!}
                         @if ($pet->hasDrops)
                             <h5 class="card-header inventory-header">
                                 <a class="inventory-collapse-toggle collapse-toggle collapsed" href="#drop-collapse" data-toggle="collapse">Show Drops</a></h3>

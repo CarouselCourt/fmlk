@@ -94,6 +94,11 @@
         <div class="btn btn-danger remove-immunity ml-2">Remove</div>
     </div>
 
+    <div class="form-group">
+        {!! Form::checkbox('is_visible', 1, $element->id ? $element->is_visible : 1, ['class' => 'form-check-input', 'data-toggle' => 'toggle']) !!}
+        {!! Form::label('is_visible', 'Is Visible', ['class' => 'form-check-label ml-3']) !!} {!! add_help('If this is turned off, this element will not be visible on world pages.') !!}
+    </div>
+
     <hr />
 
     @if ($element->id)

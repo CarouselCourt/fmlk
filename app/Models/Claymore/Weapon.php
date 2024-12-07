@@ -15,7 +15,7 @@ class Weapon extends Model {
      */
     protected $fillable = [
         'weapon_category_id', 'name', 'has_image', 'description', 'parsed_description', 'allow_transfer',
-        'parent_id', 'currency_id', 'cost',
+        'parent_id', 'currency_id', 'cost', 'is_visible',
     ];
 
     protected $appends = ['image_url'];
@@ -91,6 +91,22 @@ class Weapon extends Model {
         SCOPES
 
     **********************************************************************************************/
+
+    /**
+     * Scope a query to show only visible weapons.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed|null                            $user
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeVisible($query, $user = null) {
+        if ($user && $user->hasPower('edit_claymores')) {
+            return $query;
+        }
+
+        return $query->where('is_visible', 1);
+    }
 
     /**
      * Scope a query to sort weapons in alphabetical order.

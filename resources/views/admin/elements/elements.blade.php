@@ -48,6 +48,9 @@
                         <div class="row flex-wrap">
                             <div class="col-2 col-md-2">
                                 <div class="logs-table-cell">
+                                    @if (!$element->is_visible)
+                                        <i class="fas fa-eye-slash mr-1"></i>
+                                    @endif
                                     {{ $element->name }}
                                 </div>
                             </div>

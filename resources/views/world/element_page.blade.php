@@ -25,9 +25,14 @@
                             </div>
                         @endif
                         <div class="{{ $element->imageUrl ? 'col-md-9' : 'col-12' }}">
-                            <h1>{!! $element->name !!}</h1>
+                            <h1>
+                                @if (!$element->is_visible)
+                                    <i class="fas fa-eye-slash mr-1"></i>
+                                @endif
+                                {!! $element->name !!}
+                            </h1>
                             <div class="world-entry-text">
-                                {!! $element->description !!}
+                                {!! $element->parsed_description !!}
                                 <h5>Weaknesses</h5>
                                 @if ($element->weaknesses->count())
                                     <table class="table table-sm">

@@ -6,7 +6,12 @@
         @if (isset($edit))
             <x-admin-edit title="{{ $edit['title'] }}" :object="$edit['object']" />
         @endif
-        <h3>{!! $name !!} @if (isset($idUrl) && $idUrl)
+        <h3>
+            @if (!$visible)
+                <i class="fa fa-eye-slash mr-1"></i>
+            @endif
+            {!! $name !!}
+            @if (isset($idUrl) && $idUrl)
                 <a href="{{ $idUrl }}" class="world-entry-search text-muted"><i class="fas fa-search"></i></a>
             @endif
         </h3>

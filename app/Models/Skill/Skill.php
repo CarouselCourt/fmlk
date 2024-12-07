@@ -12,7 +12,7 @@ class Skill extends Model {
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'skill_category_id', 'parent_id', 'parent_level', 'prerequisite_id', 'has_image', 'species_ids',
+        'name', 'description', 'parsed_description', 'skill_category_id', 'parent_id', 'parent_level', 'prerequisite_id', 'has_image', 'species_ids', 'is_visible',
     ];
 
     /**
@@ -81,6 +81,28 @@ class Skill extends Model {
      */
     public function species() {
         return $this->hasMany(SpeciesLimit::class, 'type_id')->where('type', 'skill');
+    }
+
+    /**********************************************************************************************
+
+        SCOPES
+
+    **********************************************************************************************/
+
+    /**
+     * Scope a query to show only visible skills.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed|null                            $user
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeVisible($query, $user = null) {
+        if ($user && $user->hasPower('edit_claymores')) {
+            return $query;
+        }
+
+        return $query->where('is_visible', 1);
     }
 
     /**********************************************************************************************
@@ -163,5 +185,23 @@ class Skill extends Model {
      */
     public function getAssetTypeAttribute() {
         return 'skills';
+    }
+
+    /**
+     * Gets the admin edit URL.
+     *
+     * @return string
+     */
+    public function getAdminUrlAttribute() {
+        return url('admin/data/skills/edit/'.$this->id);
+    }
+
+    /**
+     * Gets the power required to edit this model.
+     *
+     * @return string
+     */
+    public function getAdminPowerAttribute() {
+        return 'edit_claymores';
     }
 }

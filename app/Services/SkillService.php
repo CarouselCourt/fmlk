@@ -336,6 +336,14 @@ class SkillService extends Service {
             }
         }
 
+        if (isset($data['description']) && $data['description']) {
+            $data['parsed_description'] = parse($data['description']);
+        }
+
+        if (!isset($data['is_visible'])) {
+            $data['is_visible'] = 0;
+        }
+
         if (isset($data['remove_image'])) {
             if ($skill && $skill->has_image && $data['remove_image']) {
                 $data['has_image'] = 0;
@@ -358,6 +366,10 @@ class SkillService extends Service {
     private function populateCategoryData($data, $category = null) {
         if (isset($data['description']) && $data['description']) {
             $data['parsed_description'] = parse($data['description']);
+        }
+
+        if (!isset($data['is_visible'])) {
+            $data['is_visible'] = 0;
         }
 
         isset($data['is_character_owned']) && $data['is_character_owned'] ? $data['is_character_owned'] : $data['is_character_owned'] = 0;

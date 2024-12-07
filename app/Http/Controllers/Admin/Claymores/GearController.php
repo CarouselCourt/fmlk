@@ -81,7 +81,7 @@ class GearController extends Controller {
     public function postCreateEditGear(Request $request, GearService $service, $id = null) {
         $id ? $request->validate(Gear::$updateRules) : $request->validate(Gear::$createRules);
         $data = $request->only([
-            'name', 'allow_transfer', 'gear_category_id', 'description', 'image', 'remove_image', 'currency_id', 'cost', 'parent_id',
+            'name', 'allow_transfer', 'gear_category_id', 'description', 'image', 'remove_image', 'currency_id', 'cost', 'parent_id', 'is_visible',
         ]);
         if ($id && $service->updateGear(Gear::find($id), $data, Auth::user())) {
             flash('Gear updated successfully.')->success();
@@ -206,7 +206,7 @@ class GearController extends Controller {
     public function postCreateEditGearCategory(Request $request, GearService $service, $id = null) {
         $id ? $request->validate(GearCategory::$updateRules) : $request->validate(GearCategory::$createRules);
         $data = $request->only([
-            'name', 'description', 'image', 'remove_image', 'class_restriction',
+            'name', 'description', 'image', 'remove_image', 'class_restriction', 'is_visible',
         ]);
         if ($id && $service->updateGearCategory(GearCategory::find($id), $data, Auth::user())) {
             flash('Category updated successfully.')->success();

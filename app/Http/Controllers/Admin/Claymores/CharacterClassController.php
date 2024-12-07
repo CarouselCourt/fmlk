@@ -68,7 +68,7 @@ class CharacterClassController extends Controller {
     public function postCreateEditCharacterClass(Request $request, CharacterClassService $service, $id = null) {
         $id ? $request->validate(CharacterClass::$updateRules) : $request->validate(CharacterClass::$createRules);
         $data = $request->only([
-            'code', 'name', 'description', 'image', 'remove_image', 'masterlist_sub_id',
+            'code', 'name', 'description', 'image', 'remove_image', 'masterlist_sub_id', 'is_visible',
         ]);
         if ($id && $service->updateCharacterClass(CharacterClass::find($id), $data)) {
             flash('Class updated successfully.')->success();

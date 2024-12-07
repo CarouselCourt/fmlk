@@ -347,6 +347,14 @@ class GearService extends Service {
             $data['class_restriction'] = null;
         }
 
+        if (isset($data['description']) && $data['description']) {
+            $data['parsed_description'] = parse($data['description']);
+        }
+
+        if (!isset($data['is_visible'])) {
+            $data['is_visible'] = 0;
+        }
+
         if (isset($data['remove_image'])) {
             if ($category && $category->has_image && $data['remove_image']) {
                 $data['has_image'] = 0;
@@ -369,6 +377,14 @@ class GearService extends Service {
     private function populateData($data, $gear = null) {
         if (!isset($data['allow_transfer'])) {
             $data['allow_transfer'] = 0;
+        }
+
+        if (isset($data['description']) && $data['description']) {
+            $data['parsed_description'] = parse($data['description']);
+        }
+
+        if (!isset($data['is_visible'])) {
+            $data['is_visible'] = 0;
         }
 
         if (isset($data['remove_image'])) {

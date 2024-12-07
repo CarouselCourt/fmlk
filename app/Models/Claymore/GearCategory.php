@@ -11,7 +11,7 @@ class GearCategory extends Model {
      * @var array
      */
     protected $fillable = [
-        'name', 'sort', 'has_image', 'description', 'class_restriction',
+        'name', 'sort', 'has_image', 'description', 'parsed_description', 'class_restriction', 'is_visible',
     ];
 
     /**
@@ -54,6 +54,28 @@ class GearCategory extends Model {
      */
     public function gears() {
         return $this->hasMany(Gear::class, 'gear_category_id');
+    }
+
+    /**********************************************************************************************
+
+        SCOPES
+
+    **********************************************************************************************/
+
+    /**
+     * Scope a query to show only visible gear categories.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed|null                            $user
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeVisible($query, $user = null) {
+        if ($user && $user->hasPower('edit_claymores')) {
+            return $query;
+        }
+
+        return $query->where('is_visible', 1);
     }
 
     /**********************************************************************************************
@@ -127,5 +149,23 @@ class GearCategory extends Model {
      */
     public function getSearchUrlAttribute() {
         return url('world/gears?gear_category_id='.$this->id);
+    }
+
+    /**
+     * Gets the admin edit URL.
+     *
+     * @return string
+     */
+    public function getAdminUrlAttribute() {
+        return url('admin/gear/gear-categories/edit/'.$this->id);
+    }
+
+    /**
+     * Gets the power required to edit this model.
+     *
+     * @return string
+     */
+    public function getAdminPowerAttribute() {
+        return 'edit_claymores';
     }
 }

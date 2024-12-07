@@ -11,7 +11,7 @@ class WeaponCategory extends Model {
      * @var array
      */
     protected $fillable = [
-        'name', 'sort', 'has_image', 'description', 'class_restriction',
+        'name', 'sort', 'has_image', 'description', 'parsed_description', 'class_restriction', 'is_visible',
     ];
 
     /**
@@ -54,6 +54,28 @@ class WeaponCategory extends Model {
      */
     public function weapons() {
         return $this->hasMany(Weapon::class, 'weapon_category_id');
+    }
+
+    /**********************************************************************************************
+
+        SCOPES
+
+    **********************************************************************************************/
+
+    /**
+     * Scope a query to show only visible weapon categories.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param mixed|null                            $user
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeVisible($query, $user = null) {
+        if ($user && $user->hasPower('edit_claymores')) {
+            return $query;
+        }
+
+        return $query->where('is_visible', 1);
     }
 
     /**********************************************************************************************
@@ -127,5 +149,23 @@ class WeaponCategory extends Model {
      */
     public function getSearchUrlAttribute() {
         return url('world/weapons?weapon_category_id='.$this->id);
+    }
+
+    /**
+     * Gets the admin edit URL.
+     *
+     * @return string
+     */
+    public function getAdminUrlAttribute() {
+        return url('admin/weapons/weapon-categories/edit/'.$this->id);
+    }
+
+    /**
+     * Gets the power required to edit this model.
+     *
+     * @return string
+     */
+    public function getAdminPowerAttribute() {
+        return 'edit_claymores';
     }
 }

@@ -729,6 +729,10 @@ class PetService extends Service {
             $data['parsed_description'] = parse($data['description']);
         }
 
+        if (!isset($data['is_visible'])) {
+            $data['is_visible'] = 0;
+        }
+
         if (!isset($data['allow_attach'])) {
             $data['allow_attach'] = 0;
             $data['limit'] = null;

@@ -81,7 +81,7 @@ class WeaponController extends Controller {
     public function postCreateEditWeapon(Request $request, WeaponService $service, $id = null) {
         $id ? $request->validate(Weapon::$updateRules) : $request->validate(Weapon::$createRules);
         $data = $request->only([
-            'name', 'allow_transfer', 'weapon_category_id', 'description', 'image', 'remove_image', 'currency_id', 'cost', 'parent_id',
+            'name', 'allow_transfer', 'weapon_category_id', 'description', 'image', 'remove_image', 'currency_id', 'cost', 'parent_id', 'is_visible',
         ]);
         if ($id && $service->updateWeapon(Weapon::find($id), $data, Auth::user())) {
             flash('Weapon updated successfully.')->success();
@@ -206,7 +206,7 @@ class WeaponController extends Controller {
     public function postCreateEditWeaponCategory(Request $request, WeaponService $service, $id = null) {
         $id ? $request->validate(WeaponCategory::$updateRules) : $request->validate(WeaponCategory::$createRules);
         $data = $request->only([
-            'name', 'description', 'image', 'remove_image', 'class_restriction',
+            'name', 'description', 'image', 'remove_image', 'class_restriction', 'is_visible',
         ]);
         if ($id && $service->updateWeaponCategory(WeaponCategory::find($id), $data, Auth::user())) {
             flash('Category updated successfully.')->success();

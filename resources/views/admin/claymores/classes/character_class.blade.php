@@ -12,14 +12,14 @@
     <p>This is a list of character class that will be used to classify characters. Creating character class is entirely optional, but recommended for organisational purposes.</p>
     <p>The sorting order reflects the order in which the character class will be displayed on the world pages.</p>
 
-    <div class="text-right mb-3"><a class="btn btn-primary" href="{{ url('admin/character-classes/create') }}"><i class="fas fa-plus"></i> Create New Character Category</a></div>
+    <div class="text-right mb-3"><a class="btn btn-primary" href="{{ url('admin/character-classes/create') }}"><i class="fas fa-plus"></i> Create New Character Class</a></div>
     @if (!count($class))
-        <p>No character class found.</p>
+        <p>No character classes found.</p>
     @else
         <table class="table table-sm category-table">
             <thead>
                 <tr>
-                    <th>Category</th>
+                    <th>Class</th>
                     <th></th>
                 </tr>
             </thead>
@@ -27,6 +27,9 @@
                 @foreach ($class as $category)
                     <tr>
                         <td>
+                            @if (!$category->is_visible)
+                                <i class="fas fa-eye-slash mr-1"></i>
+                            @endif
                             {!! $category->displayName !!}
                         </td>
                         <td class="text-right">

@@ -15,7 +15,7 @@
             @endif
         </h3>
         <div class="world-entry-text">
-            {!! $pet->description !!}
+            {!! $pet->parsed_description !!}
             <div class="container mt-2">
                 @if ($pet->variants->count())
                     <hr />

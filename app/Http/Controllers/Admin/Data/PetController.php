@@ -85,7 +85,7 @@ class PetController extends Controller {
     public function postCreateEditPetCategory(Request $request, PetService $service, $id = null) {
         $id ? $request->validate(PetCategory::$updateRules) : $request->validate(PetCategory::$createRules);
         $data = $request->only([
-            'name', 'description', 'image', 'remove_image', 'allow_attach', 'limit',
+            'name', 'description', 'image', 'remove_image', 'allow_attach', 'limit', 'is_visible',
         ]);
         if ($id && $service->updatePetCategory(PetCategory::find($id), $data, Auth::user())) {
             flash('Category updated successfully.')->success();

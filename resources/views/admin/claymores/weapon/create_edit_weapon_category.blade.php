@@ -48,6 +48,11 @@
         {!! Form::select('class_restriction', $classes, $category->class_restriction, ['class' => 'form-control']) !!}
     </div>
 
+    <div class="form-group">
+        {!! Form::checkbox('is_visible', 1, $category->id ? $category->is_visible : 1, ['class' => 'form-check-input', 'data-toggle' => 'toggle']) !!}
+        {!! Form::label('is_visible', 'Is Visible', ['class' => 'form-check-label ml-3']) !!} {!! add_help('If this is turned off, this gear category will not be visible on world pages.') !!}
+    </div>
+
     <div class="text-right">
         {!! Form::submit($category->id ? 'Edit' : 'Create', ['class' => 'btn btn-primary']) !!}
     </div>
@@ -58,7 +63,7 @@
         <h3>Preview</h3>
         <div class="card mb-3">
             <div class="card-body">
-                @include('world._claymore_entry', ['item' => null, 'imageUrl' => $category->categoryImageUrl, 'name' => $category->displayName, 'description' => $category->description, 'category' => $category])
+                @include('world._claymore_entry', ['item' => null, 'imageUrl' => $category->categoryImageUrl, 'name' => $category->displayName, 'description' => $category->description, 'category' => $category, 'visible' => $category->is_visible])
             </div>
         </div>
     @endif

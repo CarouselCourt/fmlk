@@ -34,8 +34,9 @@
                     'edit' => ['object' => $skill, 'title' => 'Skill'],
                     'imageUrl' => $skill->imageUrl,
                     'name' => $skill->displayName,
-                    'description' => $skill->description,
+                    'description' => $skill->parsed_description,
                     'idUrl' => $skill->idUrl,
+                    'visible' => $skill->is_visible,
                 ])
             </div>
         </div>
