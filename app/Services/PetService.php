@@ -771,6 +771,10 @@ class PetService extends Service {
             $data['allow_transfer'] = 0;
         }
 
+        if (!isset($data['is_visible'])) {
+            $data['is_visible'] = 0;
+        }
+
         if (isset($data['remove_image'])) {
             if ($pet && $pet->has_image && $data['remove_image']) {
                 $data['has_image'] = 0;

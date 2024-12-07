@@ -574,7 +574,7 @@ class WorldController extends Controller {
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function getPets(Request $request) {
-        $query = Pet::with('category');
+        $query = Pet::with('category')->visible();
         $data = $request->only(['pet_category_id', 'name', 'sort']);
         if (isset($data['pet_category_id']) && $data['pet_category_id'] != 'none') {
             $query->where('pet_category_id', $data['pet_category_id']);
@@ -618,6 +618,10 @@ class WorldController extends Controller {
      */
     public function getPet($id) {
         $pet = Pet::with('category')->findOrFail($id);
+
+        if (!$pet->is_visible) {
+            abort(404);
+        }
 
         return view('world.pet_page', [
             'pet' => $pet,

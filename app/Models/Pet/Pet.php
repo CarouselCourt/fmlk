@@ -13,7 +13,7 @@ class Pet extends Model {
      * @var array
      */
     protected $fillable = [
-        'pet_category_id', 'name', 'has_image', 'description', 'parsed_description', 'allow_transfer', 'limit', 'evolution_stage',
+        'pet_category_id', 'name', 'has_image', 'description', 'parsed_description', 'allow_transfer', 'limit', 'evolution_stage', 'is_visible',
     ];
 
     /**
@@ -86,6 +86,17 @@ class Pet extends Model {
         SCOPES
 
     **********************************************************************************************/
+
+    /**
+     * Scope a query to only include visible pets.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeVisible($query) {
+        return $query->where('is_visible', 1);
+    }
 
     /**
      * Scope a query to sort pets in alphabetical order.

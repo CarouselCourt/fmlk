@@ -5,10 +5,15 @@
             </a></div>
     @endif
     <div class="{{ $pet->imageUrl ? 'col-md-9' : 'col-12' }}">
-        <h2 class="h3">{!! $pet->displayName !!} @if ($pet->category)
+        <h3>
+            @if (!$pet->is_visible)
+                <i class="fas fa-eye-slash mr-1"></i>
+            @endif
+            {!! $pet->displayName !!}
+            @if ($pet->category)
                 <i class="h4"> ({!! $pet->category->displayName !!})</i>
             @endif
-        </h2>
+        </h3>
         <div class="world-entry-text">
             {!! $pet->description !!}
             <div class="container mt-2">
