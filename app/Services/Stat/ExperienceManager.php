@@ -2,6 +2,7 @@
 
 namespace App\Services\Stat;
 
+use App\Facades\Notifications;
 use App\Models\Character\Character;
 use App\Models\Character\CharacterLevel;
 use App\Models\User\User;
@@ -9,7 +10,6 @@ use App\Models\User\UserLevel;
 use App\Services\Service;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-use App\Facades\Notifications;
 
 class ExperienceManager extends Service {
     /**

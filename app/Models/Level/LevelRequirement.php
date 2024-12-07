@@ -2,11 +2,11 @@
 
 namespace App\Models\Level;
 
-use Illuminate\Support\Facades\App;
-use App\Models\Model;
-use App\Models\User\LevelRequirement as UserLevelRequirement;
 use App\Models\Currency\Currency;
 use App\Models\Item\Item;
+use App\Models\Model;
+use App\Models\User\LevelRequirement as UserLevelRequirement;
+use Illuminate\Support\Facades\App;
 
 class LevelRequirement extends Model {
     /**

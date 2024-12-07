@@ -2,12 +2,12 @@
 
 namespace App\Services;
 
+use App\Facades\Notifications;
 use App\Models\Character\Character;
 use App\Models\Character\CharacterSkill;
 use App\Models\Skill\Skill;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-use App\Facades\Notifications;
 
 class SkillManager extends Service {
     /*

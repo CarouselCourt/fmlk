@@ -9,8 +9,8 @@ use App\Models\Skill\SkillCategory;
 use App\Models\Species\Species;
 use App\Models\Species\Subtype;
 use App\Services\SkillService;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SkillController extends Controller {
     /**

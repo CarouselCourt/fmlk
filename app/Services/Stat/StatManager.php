@@ -8,8 +8,8 @@ use App\Models\Stat\Stat;
 use App\Models\User\User;
 use App\Models\User\UserLevel;
 use App\Services\Service;
-use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class StatManager extends Service {

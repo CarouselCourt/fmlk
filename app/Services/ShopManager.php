@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Facades\Settings;
 use App\Models\Character\Character;
 use App\Models\Item\Item;
 use App\Models\Shop\Shop;
@@ -9,7 +10,6 @@ use App\Models\Shop\ShopLog;
 use App\Models\Shop\ShopStock;
 use App\Models\User\UserItem;
 use Illuminate\Support\Facades\DB;
-use App\Facades\Settings;
 
 class ShopManager extends Service {
     /*

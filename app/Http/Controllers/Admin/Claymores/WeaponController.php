@@ -9,8 +9,8 @@ use App\Models\Claymore\WeaponCategory;
 use App\Models\Currency\Currency;
 use App\Models\Stat\Stat;
 use App\Services\Claymore\WeaponService;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class WeaponController extends Controller {
     /**

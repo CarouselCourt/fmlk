@@ -2,16 +2,16 @@
 
 namespace App\Services\Claymore;
 
+use App\Facades\Notifications;
 use App\Models\Character\Character;
 use App\Models\Claymore\Gear;
 use App\Models\User\User;
 use App\Models\User\UserGear;
 use App\Services\Service;
-use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Arr;
-use App\Facades\Notifications;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class GearManager extends Service {
     /*

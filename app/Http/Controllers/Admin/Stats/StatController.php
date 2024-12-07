@@ -7,8 +7,8 @@ use App\Models\Species\Species;
 use App\Models\Species\Subtype;
 use App\Models\Stat\Stat;
 use App\Services\Stat\StatService;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StatController extends Controller {
     /**

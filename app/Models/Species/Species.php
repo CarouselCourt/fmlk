@@ -3,9 +3,9 @@
 namespace App\Models\Species;
 
 use App\Models\Character\Sublist;
+use App\Models\Element\Typing;
 use App\Models\Feature\Feature;
 use App\Models\Model;
-use App\Models\Element\Typing;
 
 class Species extends Model {
     /**

@@ -6,8 +6,8 @@ use App\Models\Level\Level;
 use App\Models\Level\LevelRequirement;
 use App\Models\Level\LevelReward;
 use App\Services\Service;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class LevelService extends Service {
     /**

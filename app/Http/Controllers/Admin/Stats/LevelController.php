@@ -13,8 +13,8 @@ use App\Models\Loot\LootTable;
 use App\Models\Pet\Pet;
 use App\Models\Raffle\Raffle;
 use App\Services\Stat\LevelService;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LevelController extends Controller {
     /**

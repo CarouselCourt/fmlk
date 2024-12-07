@@ -21,11 +21,11 @@ use App\Models\Submission\SubmissionCharacter;
 use App\Models\Trade;
 use App\Models\User\User;
 use App\Models\User\UserCharacterLog;
+use App\Models\User\UserGear;
+use App\Models\User\UserPet;
+use App\Models\User\UserWeapon;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\User\UserPet;
-use App\Models\User\UserGear;
-use App\Models\User\UserWeapon;
 
 class Character extends Model {
     use SoftDeletes;
@@ -204,7 +204,7 @@ class Character extends Model {
      * Get the character's associated pets.
      */
     public function pets() {
-        return $this->hasMany(Userpet::class, 'character_id');
+        return $this->hasMany(UserPet::class, 'character_id');
     }
 
     /**

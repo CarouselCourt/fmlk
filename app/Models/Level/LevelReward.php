@@ -2,12 +2,12 @@
 
 namespace App\Models\Level;
 
-use App\Models\Model;
-use App\Models\Item\Item;
 use App\Models\Currency\Currency;
-use App\Models\Loot\LootTable;
-use App\Models\Raffle\Raffle;
+use App\Models\Item\Item;
 use App\Models\Loot\Loot;
+use App\Models\Loot\LootTable;
+use App\Models\Model;
+use App\Models\Raffle\Raffle;
 
 class LevelReward extends Model {
     /**

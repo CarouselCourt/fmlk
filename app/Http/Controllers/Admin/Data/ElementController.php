@@ -7,8 +7,8 @@ use App\Models\Element\Element;
 use App\Models\Element\Typing;
 use App\Services\ElementService;
 use App\Services\TypingManager;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ElementController extends Controller {
     /*

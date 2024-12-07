@@ -9,8 +9,8 @@ use App\Models\Level\Level;
 use App\Models\Stat\Stat;
 use App\Services\Stat\LevelManager;
 use App\Services\Stat\StatManager;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 class CharacterStatController extends Controller {

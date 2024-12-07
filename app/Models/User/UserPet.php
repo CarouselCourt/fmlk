@@ -3,6 +3,7 @@
 namespace App\Models\User;
 
 use App\Models\Character\Character;
+use App\Models\Loot\Loot;
 use App\Models\Model;
 use App\Models\Pet\Pet;
 use App\Models\Pet\PetDrop;
@@ -10,7 +11,6 @@ use App\Models\Pet\PetEvolution;
 use App\Models\Pet\PetVariant;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Loot\Loot;
 
 class UserPet extends Model {
     use SoftDeletes;
