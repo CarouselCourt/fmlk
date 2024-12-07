@@ -137,14 +137,6 @@ Route::group(['prefix' => 'data', 'namespace' => 'Data', 'middleware' => 'power:
     Route::post('subtypes/delete/{id}', 'SpeciesController@postDeleteSubtype');
     Route::post('subtypes/sort', 'SpeciesController@postSortSubtypes');
 
-    Route::get('pet-drops', 'PetController@getDropIndex');
-    Route::get('pet-drops/create', 'PetController@getCreateDrop');
-    Route::get('pet-drops/edit/{id}', 'PetController@getEditDrop');
-    Route::get('pet-drops/delete/{id}', 'PetController@getDeleteDrop');
-    Route::post('pet-drops/create', 'PetController@postCreateEditDrop');
-    Route::post('pet-drops/edit/{id?}', 'PetController@postCreateEditDrop');
-    Route::post('pet-drops/delete/{id}', 'PetController@postDeleteDrop');
-
     // ITEMS
     Route::get('item-categories', 'ItemController@getIndex');
     Route::get('item-categories/create', 'ItemController@getCreateItemCategory');

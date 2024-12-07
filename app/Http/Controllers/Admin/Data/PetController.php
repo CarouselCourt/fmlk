@@ -496,13 +496,13 @@ class PetController extends Controller {
     /**
      * Deletes a drop.
      *
-     * @param App\Services\SpeciesService $service
+     * @param App\Services\PetDropService $service
      * @param int                         $id
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function postDeleteDrop(Request $request, SpeciesService $service, $id) {
-        if ($id && $service->deleteDropData(PetDropData::find($id))) {
+    public function postDeleteDrop(Request $request, PetDropService $service, $id) {
+        if ($id && $service->deletePetDrop(PetDropData::find($id))) {
             flash('Drop data deleted successfully.')->success();
         } else {
             foreach ($service->errors()->getMessages()['error'] as $error) {
