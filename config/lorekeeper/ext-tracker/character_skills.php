@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'wiki_key' => 'Elemental_Typing',
+    'wiki_key'     => 'Character_Skills',
     'creators' => json_encode([
         'Newt' => 'https://github.com/ScuffedNewt/',
     ]),
