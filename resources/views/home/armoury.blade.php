@@ -33,13 +33,13 @@
                                                     <img class="rounded" src="{{ $stack->getStackImageUrl($stack->pivot->id) }}" data-toggle="tooltip" title="{{ $stack->name }}" />
                                                 @elseif($stack->imageUrl)
                                                     <img class="rounded" src="{{ $stack->imageUrl }}" data-toggle="tooltip" title="{{ $stack->name }}" />
-                                                @else
-                                                    {!! $stack->stack->displayName !!}
                                                 @endif
                                             </a>
                                         </div>
                                         <div>
-                                            <a href="#" class="inventory-gear inventory-gear-name">{{ $stack->name }}</a>
+                                            <a href="#" class="inventory-gear inventory-gear-name">
+                                                {!! $stack->displayName !!}
+                                            </a>
                                             @if ($stack->pivot->has_image)
                                                 <i class="fas fa-image" data-toggle="tooltip" title="This gear has a unique image."></i>
                                             @endif
@@ -81,13 +81,13 @@
                                                     <img class="rounded" src="{{ $stack->getStackImageUrl($stack->pivot->id) }}" data-toggle="tooltip" title="{{ $stack->name }}" />
                                                 @elseif($stack->imageUrl)
                                                     <img class="rounded" src="{{ $stack->imageUrl }}" data-toggle="tooltip" title="{{ $stack->name }}" />
-                                                @else
-                                                    {!! $stack->stack->displayName !!}
                                                 @endif
                                             </a>
                                         </div>
                                         <div>
-                                            <a href="#" class="inventory-weapon inventory-weapon-name">{{ $stack->name }}</a>
+                                            <a href="#" class="inventory-weapon inventory-weapon-name">
+                                                {!! $stack->displayName !!}
+                                            </a>
                                             @if ($stack->pivot->has_image)
                                                 <i class="fas fa-image" data-toggle="tooltip" title="This weapon has a unique image."></i>
                                             @endif
