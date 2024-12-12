@@ -127,7 +127,7 @@
             $('.gear-stack').on('click', function(e) {
                 e.preventDefault();
                 var $parent = $(this).parent().parent();
-                loadModal("{{ url('gears') }}/" + $parent.data('id'), $parent.data('name'));
+                loadModal("{{ url('gear') }}/" + $parent.data('id'), $parent.data('name'));
             });
         });
     </script>
