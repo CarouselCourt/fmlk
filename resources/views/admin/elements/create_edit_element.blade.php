@@ -49,6 +49,11 @@
         {!! Form::textarea('description', $element->description, ['class' => 'form-control wysiwyg']) !!}
     </div>
 
+    <div class="form-group">
+        {!! Form::checkbox('is_visible', 1, $element->id ? $element->is_visible : 1, ['class' => 'form-check-input', 'data-toggle' => 'toggle']) !!}
+        {!! Form::label('is_visible', 'Is Visible', ['class' => 'form-check-label ml-3']) !!} {!! add_help('If this is turned off, this element will not be visible on world pages.') !!}
+    </div>
+
     @if ($element->id)
         <h4>Weaknesses</h4>
         <div class="text-right"><a href="#" class="btn btn-primary mb-2" id="add-weakness">Add Weakness</a></div>
@@ -92,11 +97,6 @@
     <div class="immunity-row hide mb-2">
         {!! Form::select('immunity_id[]', $elements, null, ['class' => 'form-control immunity-select mx-1', 'placeholder' => 'Select Element']) !!}
         <div class="btn btn-danger remove-immunity ml-2">Remove</div>
-    </div>
-
-    <div class="form-group">
-        {!! Form::checkbox('is_visible', 1, $element->id ? $element->is_visible : 1, ['class' => 'form-check-input', 'data-toggle' => 'toggle']) !!}
-        {!! Form::label('is_visible', 'Is Visible', ['class' => 'form-check-label ml-3']) !!} {!! add_help('If this is turned off, this element will not be visible on world pages.') !!}
     </div>
 
     <hr />
