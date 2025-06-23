@@ -1,5 +1,5 @@
 <ul>
-    <li class="sidebar-header"><a href="{{ url('encounter-areas') }}" class="card-link">Encounter Stats</a></li>
+    <li class="sidebar-header"><a href="{{ url('encounter-areas') }}" class="card-link">Encounters</a></li>
     <li class="sidebar-section">
         <div class="sidebar-item">
             @if ($use_characters)

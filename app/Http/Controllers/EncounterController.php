@@ -15,6 +15,8 @@ use App\Services\EncounterService;
 use Auth;
 use Config;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Settings;
 
 /**use App\Models\User\UserPet;
 use App\Models\User\UserCollection;
@@ -83,9 +85,31 @@ class EncounterController extends Controller
      */
     public function exploreArea($id, EncounterService $service)
     {
+
+        $use_energy = Config::get('lorekeeper.encounters.use_energy');
+        $use_characters = Config::get('lorekeeper.encounters.use_characters');
         $user = Auth::user();
 
-        $use_characters = Config::get('lorekeeper.encounters.use_characters');
+        
+        //get energy val
+        if ($use_characters) {
+            $character = $user->settings->encounterCharacter ?? null;
+            if ($use_energy && isset($character)) {
+                $energy = $character->encounter_energy;
+            } elseif (isset($character)) {
+                $energy = CharacterCurrency::where('character_id', $character->id)
+                    ->where('currency_id', Config::get('lorekeeper.encounters.energy_replacement_id'))
+                    ->first()->quantity;
+            }
+        } else {
+            if ($use_energy) {
+                $energy = $user->settings->encounter_energy;
+            } else {
+                $energy = UserCurrency::where('user_id', $user->id)
+                    ->where('currency_id', Config::get('lorekeeper.encounters.energy_replacement_id'))
+                    ->first()->quantity;
+            }
+        }
 
         $area = EncounterArea::find($id);
         if (!$area) {
@@ -98,87 +122,95 @@ class EncounterController extends Controller
             abort(404);
         }
 
-        //if ajax passed admin variable and user is staff
-        if (isset($_GET['admin']) && $user->isStaff) {
-            //do nothing lol
-            //skip all the checks to get right to testing
-            //oh, we should get the prompts though too
-            $selectable = $encounter->prompts;
-        } else {
-            $selectable = [];
-            //if character selection
-            if ($use_characters) {
-                $character = $user->settings->encounterCharacter;
-                if (!$character) {
-                    header('HTTP/1.1 500  You need to select a character to enter an area.');
-                    header('Content-Type: application/json; charset=UTF-8');
-                    die(json_encode(array('message' => 'ERROR', 'code' => 500)));
-                }
-
-                //if limits, check CHARACTER has them
-                if ($area->limits->count()) {
-                    if (!$this->checkLimits($user, true, $area, $character)) {
-                        header('HTTP/1.1 500  ' . $character->fullName . ' does not have the limits to enter this area.');
-                        header('Content-Type: application/json; charset=UTF-8');
-                        die(json_encode(array('message' => 'ERROR', 'code' => 500)));
-                    }
-                }
-
-                //if prompt limits, check CHARACTER has them
-                foreach ($encounter->prompts as $prompt) {
-                    if ($prompt->limits->count()) {
-                        $selectable[] = $this->checkLimits($user, true, $prompt, $character, true);
-                    } elseif (!$prompt->limits->count()) {
-                        // prompts that DON'T have a limit
-                        $selectable[] = $prompt;
-                    }
-                }
-
-                if (!$this->checkEnergy($user, true, $area, $character)) {
-                    header('HTTP/1.1 500 ' . $character->fullName . ' has no energy or an error has occurred.');
-                    header('Content-Type: application/json; charset=UTF-8');
-                    die(json_encode(array('message' => 'ERROR', 'code' => 500)));
-                }
+        try {
+            //if ajax passed admin variable and user is staff
+            if (isset($_GET['admin']) && $user->isStaff) {
+                //do nothing lol
+                //skip all the checks to get right to testing
+                //oh, we should get the prompts though too
+                $selectable = $encounter->prompts;
 
             } else {
-                //users are set instead
 
-                //if limits, check USER has them
-                if ($area->limits->count()) {
-                    if (!$this->checkLimits($user, false, $area)) {
-                        header('HTTP/1.1 500 you do not have the limits to enter this area.');
-                        header('Content-Type: application/json; charset=UTF-8');
-                        die(json_encode(array('message' => 'ERROR', 'code' => 500)));
+                $selectable = [];
+                //if character selection
+                if ($use_characters) {
+                    $character = $user->settings->encounterCharacter;
+                    if (!$character) {
+                        throw new \Exception("You need to select a character to enter an area.");
                     }
 
-                }
+                    //if limits, check CHARACTER has them
+                    if ($area->limits->count()) {
+                        if (!$this->checkLimits($user, true, $area, $character)) {
+                            throw new \Exception($character->fullName . ' does not have the limits to enter this area.');
 
-                //if prompt limits, check USER has them
-                foreach ($encounter->prompts as $prompt) {
-                    if ($prompt->limits->count()) {
-                        $selectable[] = $this->checkLimits($user, false, $prompt, null, true);
-                    } elseif (!$prompt->limits->count()) {
-                        // prompts that DON'T have a limit
-                        $selectable[] = $prompt;
+                        }
                     }
-                }
 
-                if (!$this->checkEnergy($user, false, $area)) {
-                    header('HTTP/1.1 500 You have no energy or an error has occurred.');
-                    header('Content-Type: application/json; charset=UTF-8');
-                    die(json_encode(array('message' => 'ERROR', 'code' => 500)));
-                }
+                    //if prompt limits, check CHARACTER has them
+                    foreach ($encounter->prompts as $prompt) {
+                        if ($prompt->limits->count()) {
+                            $selectable[] = $this->checkLimits($user, true, $prompt, $character, true);
+                        } elseif (!$prompt->limits->count()) {
+                            // prompts that DON'T have a limit
+                            $selectable[] = $prompt;
+                        }
+                    }
 
+                    if (!$this->checkEnergy($user, true, $area, $character)) {
+                        throw new \Exception($character->fullName . ' has no energy or an error has occurred.');
+                    }
+
+                } else {
+                    //users are set instead
+
+                    //if limits, check USER has them
+                    if ($area->limits->count()) {
+                        if (!$this->checkLimits($user, false, $area)) {
+                            throw new \Exception("You do not have the limits to enter this area.");
+                        }
+                    }
+
+                    //if prompt limits, check USER has them
+                    foreach ($encounter->prompts as $prompt) {
+                        if ($prompt->limits->count()) {
+                            $selectable[] = $this->checkLimits($user, false, $prompt, null, true);
+                        } elseif (!$prompt->limits->count()) {
+                            // prompts that DON'T have a limit
+                            $selectable[] = $prompt;
+                        }
+                    }
+
+                    if (!$this->checkEnergy($user, false, $area)) {
+                        throw new \Exception("You have no energy or an error has occurred.");
+                    }
+
+
+                }
+                $selectable = array_filter($selectable);
             }
-            $selectable = array_filter($selectable);
-        }
 
-        return view('encounters.encounter', [
-            'area' => $area,
-            'areas' => EncounterArea::orderBy('name', 'DESC')->active()->get(),
-            'encounter' => $encounter,
-            'action_options' => $selectable,
-        ]);
+            //try figure out if reset is really not working or if user fucks it.
+            Log::channel('adventure')->info('Went on an adventure: ', ['user' => $user->name, 'area' => $area->name, 'encounter' => $encounter->name, 'energy' => $energy ?? null ]);
+
+            return view('encounters.encounter', [
+                'area' => $area,
+                'areas' => EncounterArea::orderBy('name', 'DESC')->active()->get(),
+                'encounter' => $encounter,
+                'action_options' => $selectable,
+                'user' => $user,
+                'characters' => $user->characters()->pluck('slug', 'id'),
+                'use_energy' => $use_energy,
+                'use_characters' => $use_characters,
+                'energy' => $energy ?? null,
+                'character' => $character ?? null,
+            ]);
+        } catch (\Exception $e) {
+            flash($e->getMessage())->error();
+            return redirect()->back();
+        }
+        
     }
 
     /**
@@ -192,12 +224,51 @@ class EncounterController extends Controller
     public function postAct(Request $request, EncounterService $service, $id)
     {
         $data = $request->only(['action', 'area_id', 'encounter_id']);
-        if ($id && $service->takeAction(EncounterArea::find($id), $data, Auth::user())) {
-            return redirect()->to('encounter-areas');
+        $area = EncounterArea::find($id);
+        $use_energy = Config::get('lorekeeper.encounters.use_energy');
+        $use_characters = Config::get('lorekeeper.encounters.use_characters');
+        $user = Auth::user();
+
+        
+        //get energy val
+        if ($use_characters) {
+            $character = $user->settings->encounterCharacter ?? null;
+            if ($use_energy && isset($character)) {
+                $energy = $character->encounter_energy;
+            } elseif (isset($character)) {
+                $energy = CharacterCurrency::where('character_id', $character->id)
+                    ->where('currency_id', Config::get('lorekeeper.encounters.energy_replacement_id'))
+                    ->first()->quantity;
+            }
+        } else {
+            if ($use_energy) {
+                $energy = $user->settings->encounter_energy;
+            } else {
+                $energy = UserCurrency::where('user_id', $user->id)
+                    ->where('currency_id', Config::get('lorekeeper.encounters.energy_replacement_id'))
+                    ->first()->quantity;
+            }
+        }
+
+        if ($id && $action = $service->takeAction($area, $data, Auth::user())) {
+            return view('encounters.encounter', [
+                'area' => $area,
+                'areas' => EncounterArea::orderBy('name', 'DESC')->active()->get(),
+                'encounter' => $action->encounter,
+                'user' => $user,
+                'characters' => $user->characters()->pluck('slug', 'id'),
+                'use_energy' => $use_energy,
+                'use_characters' => $use_characters,
+                'energy' => $energy ?? null,
+                'character' => $character ?? null,
+                'response' => $action->result,
+                'action' => $action->name
+            ]);
         } else {
             foreach ($service->errors()->getMessages()['error'] as $error) {
                 flash($error)->error();
             }
+            return redirect('encounter-areas');
         }
         return redirect()->back();
     }
@@ -358,9 +429,10 @@ class EncounterController extends Controller
                 if ($user->settings->encounter_energy < 1) {
                     return false;
                 }
-
                 //debit energy
                 $user->settings->encounter_energy -= 1;
+                //reset actions
+                $user->settings->encounter_actions = (int) Settings::get('encounter_energy') - $user->settings->encounter_energy -1;
                 $user->settings->save();
             }
         } else {

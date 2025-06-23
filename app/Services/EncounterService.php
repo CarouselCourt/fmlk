@@ -14,6 +14,8 @@ use App\Services\Service;
 use Config;
 use DB;
 use Illuminate\Support\Arr;
+use Settings;
+use Illuminate\Support\Facades\Log;
 
 class EncounterService extends Service
 {
@@ -434,7 +436,7 @@ class EncounterService extends Service
                     if (!$data['rewardable_id'][$key]) {
                         throw new \Exception('Please select a reward');
                     }
-                    if (!$data['quantity'][$key] || $data['quantity'][$key] < 1) {
+                    if (!$data['quantity'][$key]) {
                         throw new \Exception('Quantity is required and must be an integer greater than 0.');
                     }
                 }
@@ -490,7 +492,7 @@ class EncounterService extends Service
                     if (!$data['rewardable_id'][$key]) {
                         throw new \Exception('Please select a reward');
                     }
-                    if (!$data['quantity'][$key] || $data['quantity'][$key] < 1) {
+                    if (!$data['quantity'][$key]) {
                         throw new \Exception('Quantity is required and must be an integer greater than 0.');
                     }
                 }
@@ -547,6 +549,12 @@ class EncounterService extends Service
                         break;
                     case 'Raffle':
                         $type = 'App\Models\Raffle\Raffle';
+                        break;
+                    case 'Pet':
+                        $type = 'App\Models\Pet\Pet';
+                        break;
+                    case 'Award':
+                        $type = 'App\Models\Award\Award';
                         break;
                 }
                 $asset = $type::find($data['rewardable_id'][$key]);
@@ -615,6 +623,18 @@ class EncounterService extends Service
      */
     public function takeAction($id, $data, $user)
     {
+
+        //add action - anti cheat xD
+        $user->settings->encounter_actions += 1;
+        $user->settings->save();
+
+        //max energy - actions taken should equal a users leftover energy. if not they did something weird.
+        if(((int) Settings::get('encounter_energy') - $user->settings->encounter_actions) != $user->settings->encounter_energy){
+            Log::channel('adventure')->info('POSSIBLE EXPLOIT: ', ['user' => $user->name, 'actions' => $user->settings->encounter_actions, 'energy' => $user->settings->encounter_energy ]);
+            $this->setError('error', 'Too many actions attempted. This will be logged as a potential exploitation attempt.');
+            return $this->rollbackReturn(false);
+        }
+
         DB::beginTransaction();
 
         try {
@@ -631,14 +651,6 @@ class EncounterService extends Service
             }
 
             $encounter = $action->encounter;
-
-            if ($action->extras['result_type'] == 'success') {
-                flash('<div class="text-center"><p>' . $action->result . '</p></div>')->success();
-            } elseif ($action->extras['result_type'] == 'neutral') {
-                flash('<div class="text-center"><p>' . $action->result . '</p></div>');
-            } else {
-                flash('<div class="text-center"><p>' . $action->result . '</p></div>')->error();
-            }
 
             //if there is a reward, credit it
             if ($action->output != null) {
@@ -666,8 +678,8 @@ class EncounterService extends Service
                 }
 
             }
-
-            return $this->commitReturn(true);
+            $this->commitReturn(true);
+            return $action;
         } catch (\Exception $e) {
             $this->setError('error', $e->getMessage());
         }
