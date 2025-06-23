@@ -80,7 +80,11 @@ class RefreshEncounterEnergy extends Command
             } else {
                 //if energy is set for users
                 if (Config::get('lorekeeper.encounters.use_energy')) {
-                    UserSettings::where('encounter_energy', '<', Settings::get('encounter_energy'))->update(['encounter_energy' => Settings::get('encounter_energy')]);
+                    UserSettings::where('encounter_energy', '<', (int) Settings::get('encounter_energy'))->update(['encounter_energy' => Settings::get('encounter_energy')]);
+
+                    //reset encounter actions to 0
+                    UserSettings::where('encounter_actions', '>', 0)->update(['encounter_actions' => 0]);
+
                 } elseif (Config::get('lorekeeper.encounters.energy_replacement_id', '!=', 0)) {
                     //currency is set instead
                     //find user currencies
