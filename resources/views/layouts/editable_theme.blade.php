@@ -19,7 +19,6 @@
 @endphp
 
 <style>
-
     /** Style the site header and nav */
     @if ($headerImageDisplay)
         .site-header-image {
