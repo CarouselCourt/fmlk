@@ -1,5 +1,6 @@
 <?php namespace App\Services;
 
+use App\Facades\Settings;
 use Carbon\Carbon;
 use App\Services\Service;
 
@@ -44,9 +45,13 @@ class InventoryManager extends Service
                 if($q <= 0) throw new \Exception("All quantities must be at least 1.");
             }
 
-            // Process names
-            $users = User::find($data['names']);
-            if(count($users) != count($data['names'])) throw new \Exception("An invalid user was selected.");
+            if (!isset($data['direct_donate']) || !$data['direct_donate']) {
+                // Process names
+                $users = User::find($data['names']);
+                if (count($users) != count($data['names'])) {
+                    throw new \Exception('An invalid user was selected.');
+                }
+            }
 
             $keyed_quantities = [];
             array_walk($data['item_ids'], function($id, $key) use(&$keyed_quantities, $data) {
@@ -59,23 +64,43 @@ class InventoryManager extends Service
             $items = Item::find($data['item_ids']);
             if(!count($items)) throw new \Exception("No valid items found.");
 
-            foreach($users as $user) {
-                foreach($items as $item) {
-                    if($this->creditItem($staff, $user, 'Staff Grant', Arr::only($data, ['data', 'disallow_transfer', 'notes']), $item, $keyed_quantities[$item->id]))
-                    {
-                        Notifications::create('ITEM_GRANT', $user, [
-                            'item_name' => $item->name,
-                            'item_quantity' => $keyed_quantities[$item->id],
-                            'sender_url' => $staff->url,
-                            'sender_name' => $staff->name
-                        ]);
+            if (isset($data['direct_donate']) && $data['direct_donate']) {
+                $user = User::find(Settings::get('admin_user'));
+
+                // Grant items to the admin account and donate them directly
+                foreach ($items as $item) {
+                    if ($this->creditItem($staff, $user, 'Staff Donation', Arr::only($data, ['data', 'disallow_transfer', 'notes']), $item, $keyed_quantities[$item->id])) {
+                        // Locate the relevant stack
+                        $stack = UserItem::where('user_id', $user->id)
+                            ->where('count', '>=', $keyed_quantities[$item->id])->where('item_id', $item->id)
+                            ->where('data->data', $data['data'])->where('data->notes', $data['notes'])
+                            ->first();
+
+                        $this->donateStack($user, [$stack], [$keyed_quantities[$item->id]]);
+                    } else {
+                        throw new \Exception('Failed to directly donate items.');
                     }
-                    else
-                    {
-                        throw new \Exception("Failed to credit items to ".$user->name.".");
+                }
+            } else {
+                foreach($users as $user) {
+                    foreach($items as $item) {
+                        if($this->creditItem($staff, $user, 'Staff Grant', Arr::only($data, ['data', 'disallow_transfer', 'notes']), $item, $keyed_quantities[$item->id]))
+                        {
+                            Notifications::create('ITEM_GRANT', $user, [
+                                'item_name' => $item->name,
+                                'item_quantity' => $keyed_quantities[$item->id],
+                                'sender_url' => $staff->url,
+                                'sender_name' => $staff->name
+                            ]);
+                        }
+                        else
+                        {
+                            throw new \Exception("Failed to credit items to ".$user->name.".");
+                        }
                     }
                 }
             }
+
             return $this->commitReturn(true);
         } catch(\Exception $e) {
             $this->setError('error', $e->getMessage());
