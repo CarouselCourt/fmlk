@@ -70,7 +70,7 @@ class InventoryManager extends Service
 
             if (isset($data['direct_donate']) && $data['direct_donate']) {
                 if ($items->where('allow_transfer', 1)->count() < $items->count()) {
-                    throw new \Exception('One or more selected items are account-bound and cannot be donated.');
+                    throw new \Exception('One or more selected items are non-transferable and cannot be donated.');
                 }
 
                 $user = User::find(Settings::get('admin_user'));
