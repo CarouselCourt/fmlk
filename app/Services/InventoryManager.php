@@ -45,7 +45,11 @@ class InventoryManager extends Service
                 if($q <= 0) throw new \Exception("All quantities must be at least 1.");
             }
 
-            if (!isset($data['direct_donate']) || !$data['direct_donate']) {
+            if (isset($data['direct_donate']) && $data['direct_donate']) {
+                if (isset($data['disallow_transfer']) && $data['disallow_transfer']) {
+                    throw new \Exception('Account-bound items cannot be donated.');
+                }
+            } else {
                 // Process names
                 $users = User::find($data['names']);
                 if (count($users) != count($data['names'])) {
@@ -65,6 +69,10 @@ class InventoryManager extends Service
             if(!count($items)) throw new \Exception("No valid items found.");
 
             if (isset($data['direct_donate']) && $data['direct_donate']) {
+                if ($items->where('allow_transfer', 1)->count() < $items->count()) {
+                    throw new \Exception('One or more selected items are account-bound and cannot be donated.');
+                }
+
                 $user = User::find(Settings::get('admin_user'));
 
                 // Grant items to the admin account and donate them directly
