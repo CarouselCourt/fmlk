@@ -83,9 +83,9 @@
 
     /** Style main background */
 
-    @if ($backgroundImage)
+    @if ($backgroundImage || $backgroundColor || $backgroundSize)
         #main {
-            @if ($backgroundImage || $backgroundColor || $backgroundSize)
+            @if ($backgroundImage)
                 background-image: url('{{ $backgroundImage }}');
             @endif
             @if ($backgroundColor)
