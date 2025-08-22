@@ -8,7 +8,7 @@ return new class extends Migration {
      * Run the migrations.
      */
     public function up(): void {
-        Scheme::table('awards_log', function (Blueprint $table) {
+        Schema::table('awards_log', function (Blueprint $table) {
             $table->text('log')->change();
             $table->text('data')->nullable()->change();
         });
@@ -18,7 +18,7 @@ return new class extends Migration {
      * Reverse the migrations.
      */
     public function down(): void {
-        Scheme::table('awards_log', function (Blueprint $table) {
+        Schema::table('awards_log', function (Blueprint $table) {
             $table->string('log', 191)->change();
             $table->string('data', 1024)->nullable()->change();
         });
