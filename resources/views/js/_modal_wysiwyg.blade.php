@@ -12,10 +12,10 @@ content_css: [
 '//www.tiny.cloud/css/codepen.min.css',
 '{{ asset('css/app.css') }}',
 '{{ asset('css/lorekeeper.css?v=' . filemtime(public_path('css/lorekeeper.css'))) }}',
-{!! (file_exists(public_path() . '/css/custom.css') ? "'".asset('css/custom.css?v=') . filemtime(public_path('css/custom.css'))."'," : '') !!}
-{!! $theme?->cssUrl ? "'".asset($theme?->cssUrl)."'," : '' !!}
-{!! $conditionalTheme?->cssUrl ? "'".asset($conditionalTheme?->cssUrl)."'," : '' !!}
-{!! $decoratorTheme?->cssUrl ? "'".asset($decoratorTheme?->cssUrl)."'," : '' !!}
+{!! file_exists(public_path() . '/css/custom.css') ? "'" . asset('css/custom.css?v=') . filemtime(public_path('css/custom.css')) . "'," : '' !!}
+{!! $theme?->cssUrl ? "'" . asset($theme?->cssUrl) . "'," : '' !!}
+{!! $conditionalTheme?->cssUrl ? "'" . asset($conditionalTheme?->cssUrl) . "'," : '' !!}
+{!! $decoratorTheme?->cssUrl ? "'" . asset($decoratorTheme?->cssUrl) . "'," : '' !!}
 '{{ asset('css/all.min.css') }}' //fontawesome
 ],
 content_style: `
