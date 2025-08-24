@@ -166,6 +166,7 @@ class Shop extends Model {
         }
 
         $quote = str_replace('"', '\"', (array_rand(array_flip($this->quotes))));
+
         return $quote;
     }
 }
