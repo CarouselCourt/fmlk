@@ -85,9 +85,9 @@
                 var $quoteDisplay = $(".quote-display .quote");
                 var speed = 25;
 
-                function typeWriterEffect (text, i) {
+                function typeWriterEffect(text, i) {
                     if (i < (text.length)) {
-                        $quoteDisplay.html(text.substring(0, i+1));
+                        $quoteDisplay.html(text.substring(0, i + 1));
 
                         setTimeout(function() {
                             typeWriterEffect(text, i + 1)
