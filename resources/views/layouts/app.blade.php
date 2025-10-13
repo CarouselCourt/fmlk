@@ -16,25 +16,25 @@
         {!! RecaptchaV3::initJs() !!}
     @endif
 
-    <title>{{ config('lorekeeper.settings.site_name', 'Lorekeeper') }} -@yield('title')</title>
+    <title>{{ config('lorekeeper.settings.site_name', 'Lorekeeper') }}{!! View::hasSection('title') ? ' - ' . trim(View::getSection('title')) : '' !!}</title>
 
     <!-- Primary Meta Tags -->
-    <meta name="title" content="{{ config('lorekeeper.settings.site_name', 'Lorekeeper') }} -@yield('title')">
-    <meta name="description" content="@if (View::hasSection('meta-desc')) @yield('meta-desc') @else {{ config('lorekeeper.settings.site_desc', 'A Lorekeeper ARPG') }} @endif">
+    <meta name="title" content="{{ config('lorekeeper.settings.site_name', 'Lorekeeper') }}{!! View::hasSection('title') ? ' - ' . trim(View::getSection('title')) : '' !!}">
+    <meta name="description" content="{!! View::hasSection('meta-desc') ? trim(strip_tags(View::getSection('meta-desc'))) : config('lorekeeper.settings.site_desc', 'A Lorekeeper ARPG') !!}">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ config('app.url', 'http://localhost') }}">
-    <meta property="og:image" content="@if (View::hasSection('meta-img')) @yield('meta-img') @else {{ asset('images/meta-image.png') }} @endif">
-    <meta property="og:title" content="{{ config('lorekeeper.settings.site_name', 'Lorekeeper') }} -@yield('title')">
-    <meta property="og:description" content="@if (View::hasSection('meta-desc')) @yield('meta-desc') @else {{ config('lorekeeper.settings.site_desc', 'A Lorekeeper ARPG') }} @endif">
+    <meta property="og:image" content="{{ View::hasSection('meta-img') ? View::getSection('meta-img') : asset('images/meta-image.png') }}">
+    <meta property="og:title" content="{{ config('lorekeeper.settings.site_name', 'Lorekeeper') }}{!! View::hasSection('title') ? ' - ' . trim(View::getSection('title')) : '' !!}">
+    <meta property="og:description" content="{!! View::hasSection('meta-desc') ? trim(strip_tags(View::getSection('meta-desc'))) : config('lorekeeper.settings.site_desc', 'A Lorekeeper ARPG') !!}">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="{{ config('app.url', 'http://localhost') }}">
-    <meta property="twitter:image" content="@if (View::hasSection('meta-img')) @yield('meta-img') @else {{ asset('images/meta-image.png') }} @endif">
-    <meta property="twitter:title" content="{{ config('lorekeeper.settings.site_name', 'Lorekeeper') }} -@yield('title')">
-    <meta property="twitter:description" content="@if (View::hasSection('meta-desc')) @yield('meta-desc') @else {{ config('lorekeeper.settings.site_desc', 'A Lorekeeper ARPG') }} @endif">
+    <meta property="twitter:image" content="{{ View::hasSection('meta-img') ? View::getSection('meta-img') : asset('images/meta-image.png') }}">
+    <meta property="twitter:title" content="{{ config('lorekeeper.settings.site_name', 'Lorekeeper') }}{!! View::hasSection('title') ? ' - ' . trim(View::getSection('title')) : '' !!}">
+    <meta property="twitter:description" content="{!! View::hasSection('meta-desc') ? trim(strip_tags(View::getSection('meta-desc'))) : config('lorekeeper.settings.site_desc', 'A Lorekeeper ARPG') !!}">
 
     <!-- No AI scraping directives -->
     <meta name="robots" content="noai">
@@ -71,7 +71,6 @@
     {{-- Bootstrap Toggle --}}
     <link href="{{ asset('css/bootstrap4-toggle.min.css') }}" rel="stylesheet">
 
-
     <link href="{{ asset('css/lightbox.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap-colorpicker.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/jquery-ui-timepicker-addon.css') }}" rel="stylesheet">
@@ -89,7 +88,7 @@
         <style type="text/css" media="screen">
             @php include_once($theme?->cssUrl)
             @endphp
-            {{-- css in style tag to so that order matters --}}
+            {{-- css in style tag so that order matters --}}
         </style>
     @endif
     @if (isset($theme) && !$theme?->prioritize_css)
@@ -104,7 +103,7 @@
         <style type="text/css" media="screen">
             @php include_once($conditionalTheme?->cssUrl)
             @endphp
-            {{-- css in style tag to so that order matters --}}
+            {{-- css in style tag so that order matters --}}
         </style>
     @endif
     @if (isset($conditionalTheme) && !$conditionalTheme?->prioritize_css)
@@ -118,7 +117,7 @@
         <style type="text/css" media="screen">
             @php include_once($decoratorTheme?->cssUrl)
             @endphp
-            {{-- css in style tag to so that order matters --}}
+            {{-- css in style tag so that order matters --}}
         </style>
     @endif
     @if (isset($decoratorTheme) && !$decoratorTheme?->prioritize_css)
@@ -247,17 +246,16 @@
                     toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | spoiler-add spoiler-remove | removeformat | code',
                     content_css: [
                         '{{ asset('css/app.css') }}',
-                        '{{ asset('css/lorekeeper.css') }}',
-                        '{{ asset('css/custom.css') }}',
-                        '{{ asset($theme?->cssUrl) }}',
-                        '{{ asset($conditionalTheme?->cssUrl) }}',
-                        '{{ asset($decoratorTheme?->cssUrl) }}',
-                        '{{ asset('css/all.min.css') }}' //fontawesome
+                        '{{ asset('css/lorekeeper.css?v=' . filemtime(public_path('css/lorekeeper.css'))) }}',
+                        {!! file_exists(public_path() . '/css/custom.css') ? "'" . asset('css/custom.css?v=') . filemtime(public_path('css/custom.css')) . "'," : '' !!}
+                        {!! $theme?->cssUrl ? "'" . asset($theme?->cssUrl) . "'," : '' !!}
+                        {!! $conditionalTheme?->cssUrl ? "'" . asset($conditionalTheme?->cssUrl) . "'," : '' !!}
+                        {!! $decoratorTheme?->cssUrl ? "'" . asset($decoratorTheme?->cssUrl) . "'," : '' !!} '{{ asset('css/all.min.css') }}' //fontawesome
                     ],
                     content_style: `
-                    {!! isset($theme) && $theme ? str_replace(['<style>', '</style>'], '', view('layouts.editable_theme', ['theme' => $theme])) : '' !!}
-                    {!! isset($conditionalTheme) && $conditionalTheme ? str_replace(['<style>', '</style>'], '', view('layouts.editable_theme', ['theme' => $conditionalTheme])) : '' !!}
-                    {!! isset($decoratorTheme) && $decoratorTheme ? str_replace(['<style>', '</style>'], '', view('layouts.editable_theme', ['theme' => $decoratorTheme])) : '' !!}
+                        {!! str_replace(['<style>', '</style>'], '', view('layouts.editable_theme', ['theme' => $theme])) !!}
+                        {!! isset($conditionalTheme) && $conditionalTheme ? str_replace(['<style>', '</style>'], '', view('layouts.editable_theme', ['theme' => $conditionalTheme])) : '' !!}
+                        {!! isset($decoratorTheme) && $decoratorTheme ? str_replace(['<style>', '</style>'], '', view('layouts.editable_theme', ['theme' => $decoratorTheme])) : '' !!}
                     `,
                     spoiler_caption: 'Toggle Spoiler',
                     target_list: false
