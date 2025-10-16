@@ -82,6 +82,7 @@
         <link href="{{ asset('css/custom.css') . '?v=' . filemtime(public_path('css/custom.css')) }}" rel="stylesheet">
     @endif
 
+    @stack('styles')
     @include('feed::links')
 </head>
 
