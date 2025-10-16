@@ -76,6 +76,11 @@ class AddSiteSettings extends Command {
         $this->addSiteSetting('claymore_cooldown', 0, 'Number of days to add to the cooldown timer when a pet/weapon/gear is attached.');
 
         $this->addSiteSetting('encounter_energy', 5, 'Amount of energy for encounters a user should get each day. Resets daily.');
+        $this->addSiteSetting('site_season', 0, 'ID of the season the site is currently experiencing.');
+
+        $this->addSiteSetting('site_weather', 0, 'ID of the weather the site is currently experiencing.');
+
+        $this->addSiteSetting('site_weather_cycle', 0, '0 = Do not cycle, 1 = Daily, 2 = Weekly, 3 = Monthly');
 
         $this->line("\nSite settings up to date!");
 

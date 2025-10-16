@@ -246,6 +246,10 @@ return [
                 'name' => 'Encounter Areas',
                 'url' => 'admin/data/encounters/areas'
             ],
+            [
+                'name' => 'Weather',
+                'url' => 'admin/weather/weathers'
+            ],
         ],
     ],
     'Claymores' => [
