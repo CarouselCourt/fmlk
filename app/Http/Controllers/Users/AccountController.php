@@ -8,20 +8,32 @@ use App\Models\User\User;
 use App\Models\User\UserAlias;
 use App\Models\WorldExpansion\Faction;
 use App\Models\WorldExpansion\Location;
-use App\Services\LinkService;
+use Auth;
+use File;
+use Image;
+
+use App\Models\Theme;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use App\Models\ThemeEditor;
+use App\Services\ThemeManager;
 use App\Services\UserService;
+use App\Services\LinkService;
+
 use BaconQrCode\Renderer\Color\Rgb;
 use BaconQrCode\Renderer\Image\SvgImageBackEnd;
 use BaconQrCode\Renderer\ImageRenderer;
 use BaconQrCode\Renderer\RendererStyle\Fill;
 use BaconQrCode\Renderer\RendererStyle\RendererStyle;
 use BaconQrCode\Writer;
-use Illuminate\Http\Request;
+
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
+
 use Laravel\Fortify\Contracts\TwoFactorAuthenticationProvider;
 use Laravel\Fortify\RecoveryCode;
 use Settings;
+
 
 class AccountController extends Controller {
     /*
@@ -74,7 +86,21 @@ class AccountController extends Controller {
             5 => 'daily',
         ];
 
+        $user = Auth::user();
+
+        if ($user->isStaff || $user->isAdmin) {
+            // staff can see all active themes
+            $themeOptions = ['0' => 'Select Theme'] + Theme::where('is_active', 1)->where('theme_type', 'base')->get()->pluck('displayName', 'id')->toArray();
+        } else {
+            // members can only see active themes that are user selectable
+            $themeOptions = ['0' => 'Select Theme'] + Theme::where('is_active', 1)->where('theme_type', 'base')->where('is_user_selectable', 1)->get()->pluck('displayName', 'id')->toArray();
+        }
+
+        $decoratorOptions = ['0' => 'Select Decorator Theme'] + Theme::where('is_active', 1)->where('theme_type', 'decorator')->where('is_user_selectable', 1)->get()->pluck('displayName', 'id')->toArray();
+
         return view('account.settings', [
+            'themeOptions' => $themeOptions + Auth::user()->themes()->where('theme_type', 'base')->get()->pluck('displayName', 'id')->toArray(),
+            'decoratorThemes' => $decoratorOptions + Auth::user()->themes()->where('theme_type', 'decorator')->get()->pluck('displayName', 'id')->toArray(),
             'locations'            => Location::all()->where('is_user_home')->pluck('style', 'id')->toArray(),
             'factions'             => Faction::all()->where('is_user_faction')->pluck('style', 'id')->toArray(),
             'user_enabled'         => Settings::get('WE_user_locations'),
@@ -109,11 +135,63 @@ class AccountController extends Controller {
         if ($service->updateAvatar($request->file('avatar'), Auth::user())) {
             flash('Avatar updated successfully.')->success();
         } else {
-            foreach ($service->errors()->getMessages()['error'] as $error) {
-                flash($error)->error();
-            }
+            foreach ($service->errors()->getMessages()['error'] as $error) flash($error)->error();
         }
+        return redirect()->back();
+    }
 
+    /**
+     * Edits the user's theme.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postTheme(Request $request, UserService $service) {
+        if ($service->updateTheme($request->only(['theme', 'decorator_theme']), Auth::user())) {
+            flash('Theme updated successfully.')->success();
+        } else {
+            foreach ($service->errors()->getMessages()['error'] as $error) flash($error)->error();
+        }
+        return redirect()->back();
+    }
+
+
+    /**
+     * Changes the user's password.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Services\UserService  $service
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postPassword(Request $request, UserService $service) {
+        $request->validate([
+            'old_password' => 'required|string',
+            'new_password' => 'required|string|min:8|confirmed'
+        ]);
+        if ($service->updatePassword($request->only(['old_password', 'new_password', 'new_password_confirmation']), Auth::user())) {
+            flash('Password updated successfully.')->success();
+        } else {
+            foreach ($service->errors()->getMessages()['error'] as $error) flash($error)->error();
+        }
+        return redirect()->back();
+    }
+
+    /**
+     * Changes the user's email address and sends a verification email.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Services\UserService  $service
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postEmail(Request $request, UserService $service) {
+        $request->validate([
+            'email' => 'required|string|email|max:255|unique:users'
+        ]);
+        if ($service->updateEmail($request->only(['email']), Auth::user())) {
+            flash('Email updated successfully. A verification email has been sent to your new email address.')->success();
+        } else {
+            foreach ($service->errors()->getMessages()['error'] as $error) flash($error)->error();
+        }
         return redirect()->back();
     }
 
@@ -168,56 +246,6 @@ class AccountController extends Controller {
         return redirect()->back();
     }
 
-    /**
-     * Changes the user's password.
-     *
-     * @param App\Services\UserService $service
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function postPassword(Request $request, UserService $service) {
-        $user = Auth::user();
-        if (!isset($user->password) && (!isset($user->email) || !isset($user->email_verified_at))) {
-            flash('Please set and verify an email before setting a password for email login.')->error();
-
-            return redirect()->back();
-        }
-
-        $request->validate([
-            'new_password' => 'required|string|min:8|confirmed',
-        ] + (isset($user->password) ? ['old_password' => 'required|string'] : []));
-        if ($service->updatePassword($request->only(['old_password', 'new_password', 'new_password_confirmation']), Auth::user())) {
-            flash('Password updated successfully.')->success();
-        } else {
-            foreach ($service->errors()->getMessages()['error'] as $error) {
-                flash($error)->error();
-            }
-        }
-
-        return redirect()->back();
-    }
-
-    /**
-     * Changes the user's email address and sends a verification email.
-     *
-     * @param App\Services\UserService $service
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function postEmail(Request $request, UserService $service) {
-        $request->validate([
-            'email' => 'required|string|email|max:255|unique:users',
-        ]);
-        if ($service->updateEmail($request->only(['email']), Auth::user())) {
-            flash('Email updated successfully. A verification email has been sent to your new email address.')->success();
-        } else {
-            foreach ($service->errors()->getMessages()['error'] as $error) {
-                flash($error)->error();
-            }
-        }
-
-        return redirect()->back();
-    }
 
     /**
      * Changes user birthday setting.
@@ -369,11 +397,8 @@ class AccountController extends Controller {
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postClearNotifications($type = null) {
-        if (isset($type)) {
-            Auth::user()->notifications()->where('notification_type_id', $type)->delete();
-        } else {
-            Auth::user()->notifications()->delete();
-        }
+        if (isset($type) && $type) Auth::user()->notifications()->where('notification_type_id', $type)->delete();
+        else Auth::user()->notifications()->delete();
         flash('Notifications cleared successfully.')->success();
 
         return redirect()->back();
@@ -410,11 +435,8 @@ class AccountController extends Controller {
         if ($service->makePrimary($id, Auth::user())) {
             flash('Your primary alias has been changed successfully.')->success();
         } else {
-            foreach ($service->errors()->getMessages()['error'] as $error) {
-                flash($error)->error();
-            }
+            foreach ($service->errors()->getMessages()['error'] as $error) flash($error)->error();
         }
-
         return redirect()->back();
     }
 
@@ -440,11 +462,8 @@ class AccountController extends Controller {
         if ($service->hideAlias($id, Auth::user())) {
             flash('Your alias\'s visibility setting has been changed successfully.')->success();
         } else {
-            foreach ($service->errors()->getMessages()['error'] as $error) {
-                flash($error)->error();
-            }
+            foreach ($service->errors()->getMessages()['error'] as $error) flash($error)->error();
         }
-
         return redirect()->back();
     }
 

@@ -48,6 +48,7 @@
                     <td>{!! Form::select(
                         'rewardable_type[]',
                         ['Item' => 'Item', 'Currency' => 'Currency', 'Pet' => 'Pet', 'Gear' => 'Gear', 'Weapon' => 'Weapon', 'Exp' => 'Exp', 'Points' => 'Stat Points'] +
+                            (isset($showThemes) && $showThemes ? ['Theme' => 'Theme'] : []) +  
                             ($showLootTables ? ['LootTable' => 'Loot Table'] : []) +
                             ($showRaffles ? ['Raffle' => 'Raffle Ticket'] : []),
                         $loot->rewardable_type,
@@ -72,7 +73,9 @@
                             {!! Form::select('rewardable_id[]', $stats, $loot->rewardable_id, ['class' => 'form-control points-select selectize', 'placeholder' => 'Select Stat']) !!}
                         @elseif($loot->rewardable_type == 'Exp')
                             {!! Form::text('rewardable_id[]', null, ['class' => 'form-control hide claymore-select', 'placeholder' => 'Enter Reward']) !!}
-                        @endif
+                            @elseif(isset($showThemes) && $showThemes && $loot->rewardable_type == 'Theme')
+                            {!! Form::select('rewardable_id[]', $themes, $loot->rewardable_id, ['class' => 'form-control theme-select selectize', 'placeholder' => 'Select Theme']) !!}
+                            @endif
                     </td>
                     <td>{!! Form::text('quantity[]', $loot->quantity, ['class' => 'form-control']) !!}</td>
                     <td class="text-right"><a href="#" class="btn btn-danger remove-loot-button">Remove</a></td>

@@ -36,6 +36,7 @@
                 <td>{!! Form::select(
                     'rewardable_type[]',
                     ['Item' => 'Item', 'Currency' => 'Currency', 'Pet' => 'Pet', 'Gear' => 'Gear', 'Weapon' => 'Weapon', 'Exp' => 'Exp', 'Points' => 'Stat Points'] +
+                        (isset($showThemes) && $showThemes ? ['Theme' => 'Theme'] : []) + 
                         ($showLootTables ? ['LootTable' => 'Loot Table'] : []) +
                         ($showRaffles ? ['Raffle' => 'Raffle Ticket'] : []),
                     null,
@@ -59,5 +60,8 @@
     @endif
     @if ($showRaffles)
         {!! Form::select('rewardable_id[]', $raffles, null, ['class' => 'form-control raffle-select', 'placeholder' => 'Select Raffle']) !!}
+    @endif
+    @if(isset($showThemes) && $showThemes)
+        {!! Form::select('rewardable_id[]', $themes, null, ['class' => 'form-control theme-select', 'placeholder' => 'Select Theme']) !!}
     @endif
 </div>
