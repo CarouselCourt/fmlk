@@ -127,8 +127,13 @@ class CharacterController extends Controller {
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function getCharacter($slug) {
+
+        $background = new \App\Services\Item\BackgroundService;
+        $bg = $background->checkBackground($this->character);
+
         return view('character.character', [
             'character'             => $this->character,
+            'background'            => $bg,
             'skills'                => Skill::where('parent_id', null)->orderBy('name', 'ASC')->get(),
             'showMention'           => true,
             'extPrevAndNextBtnsUrl' => '',
@@ -143,8 +148,14 @@ class CharacterController extends Controller {
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function getCharacterProfile($slug) {
+
+        $background = new \App\Services\Item\BackgroundService;
+        $bg = $background->checkBackground($this->character);
+
+
         return view('character.profile', [
             'character'             => $this->character,
+            'background'            => $bg,
             'extPrevAndNextBtnsUrl' => '/profile',
         ]);
     }

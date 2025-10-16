@@ -97,6 +97,12 @@ return [
         'section_on_front' => 0, // By default, does not display on the front page. Enable to add a block above the footer.
     ],
 
+        // Character Backgrounds - Uri
+        'character_backgrounds' => [
+            'enabled' => 1, // 0 for disabled
+            'profiles_enabled' => 1 // 0 to disable this effect on Character Profiles (versus their masterlist page)
+        ],
+
     // collapsible admin sidebar - Newt
     'collapsible_admin_sidebar' => 0,
 
