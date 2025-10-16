@@ -247,6 +247,10 @@ return [
                 'url' => 'admin/data/encounters/areas'
             ],
             [
+                'name' => 'Carousel',
+                'url'  => 'admin/data/carousel',
+            ],
+            [
                 'name' => 'Weather',
                 'url' => 'admin/weather/weathers'
             ],
