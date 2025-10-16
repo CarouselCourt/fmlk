@@ -129,6 +129,9 @@
                         <a class="dropdown-item" href="{{ url('shops') }}">
                             Shops
                         </a>
+                        <a class="dropdown-item" href="{{ url(__('dailies.dailies')) }}">
+                        {{__('dailies.dailies')}}
+                        </a>
                         <a class="dropdown-item" href="{{ url('activities') }}">
                             Activities
                         </a>
