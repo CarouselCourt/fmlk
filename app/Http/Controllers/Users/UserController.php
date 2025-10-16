@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Users;
 
+use App\Facades\Settings;
 use App\Http\Controllers\Controller;
 use App\Models\Character\Character;
 use App\Models\Character\CharacterImage;
@@ -94,6 +95,8 @@ class UserController extends Controller {
             'aliases'    => $aliases->orderBy('is_primary_alias', 'DESC')->orderBy('site')->get(),
             'armours'    => $armours,
             'pets'       => $this->user->pets()->orderBy('user_pets.updated_at', 'DESC')->take(5)->get(),
+            'user_enabled'          => Settings::get('WE_user_locations'),
+            'user_factions_enabled' => Settings::get('WE_user_factions'),
         ]);
     }
 
