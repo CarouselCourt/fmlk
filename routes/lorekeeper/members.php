@@ -265,6 +265,18 @@ Route::group(['prefix' => 'designs', 'namespace' => 'Characters'], function () {
 });
 
 /**************************************************************************************************
+    Encounters
+**************************************************************************************************/
+
+Route::group(['prefix' => 'encounter-areas'], function() {
+    Route::get('/', 'EncounterController@getEncounterAreas');
+
+    Route::get('{id}', 'EncounterController@exploreArea')->where('id', '[0-9]+');
+    Route::post('{id}/act', 'EncounterController@postAct')->where('id', '[0-9]+');
+    Route::post('select-character', 'EncounterController@postSelectCharacter');
+});
+
+/**************************************************************************************************
     Shops
 **************************************************************************************************/
 
@@ -295,3 +307,4 @@ Route::group(['prefix' => 'comments', 'namespace' => 'Comments'], function () {
     Route::post('/{id}/like/{action}', 'CommentController@like')->name('comments.like');
     Route::get('/liked', 'CommentController@getLikedComments');
 });
+

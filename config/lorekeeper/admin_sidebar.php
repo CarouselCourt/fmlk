@@ -117,6 +117,10 @@ return [
                 'url'  => 'admin/grants/exp',
             ],
             [
+                'name' => 'Encounter Energy Grants',
+                'url' => 'admin/grants/encounter-energy'
+            ],
+            [
                 'name' => 'Stat Point Grants',
                 'url'  => 'admin/grants/points',
             ],
@@ -225,6 +229,14 @@ return [
             [
                 'name' => 'Pets',
                 'url'  => 'admin/data/pets',
+            ],
+            [
+                'name' => 'Encounters',
+                'url' => 'admin/data/encounters'
+            ],
+            [
+                'name' => 'Encounter Areas',
+                'url' => 'admin/data/encounters/areas'
             ],
         ],
     ],

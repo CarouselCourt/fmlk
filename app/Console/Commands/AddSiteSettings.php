@@ -75,6 +75,10 @@ class AddSiteSettings extends Command {
 
         $this->addSiteSetting('claymore_cooldown', 0, 'Number of days to add to the cooldown timer when a pet/weapon/gear is attached.');
 
+        $this->addSiteSetting('encounter_energy', 5, 'Amount of energy for encounters a user should get each day. Resets daily.');
+
+        $this->line("\nSite settings up to date!");
+
         $this->addSiteSetting('stamina_per_object', 15, 'Max stamina per user / character. May take a bit for every user / character to reflect this change.');
 
         $this->addSiteSetting('is_maintenance_mode', 0, '0: Site is normal, 1: Users without the Has Maintenance Access power will be redirected to the home page.');
