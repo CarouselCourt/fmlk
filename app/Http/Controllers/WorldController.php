@@ -8,6 +8,7 @@ use App\Models\Claymore\Gear;
 use App\Models\Claymore\GearCategory;
 use App\Models\Claymore\Weapon;
 use App\Models\Claymore\WeaponCategory;
+use App\Models\Character\CharacterTransformation as Transformation;
 use App\Models\Currency\Currency;
 use App\Models\Element\Element;
 use App\Models\Feature\Feature;
@@ -121,6 +122,23 @@ class WorldController extends Controller {
 
         return view('world.subtypes', [
             'subtypes' => $query->visible(Auth::check() ? Auth::user() : null)->orderBy('sort', 'DESC')->orderBy('id')->paginate(20)->appends($request->query()),
+        ]);
+    }
+
+    /**
+     * Shows the Transformations page.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function getTransformations(Request $request) {
+        $query = Transformation::query();
+        $name = $request->get('name');
+        if ($name) {
+            $query->where('name', 'LIKE', '%'.$name.'%');
+        }
+
+        return view('world.transformations', [
+            'transformations' => $query->orderBy('sort', 'DESC')->paginate(20)->appends($request->query()),
         ]);
     }
 

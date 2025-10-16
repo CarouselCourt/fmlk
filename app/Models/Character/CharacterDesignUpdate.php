@@ -22,7 +22,7 @@ class CharacterDesignUpdate extends Model {
         'character_id', 'status', 'user_id', 'staff_id',
         'comments', 'staff_comments', 'data', 'extension',
         'use_cropper', 'x0', 'x1', 'y0', 'y1',
-        'hash', 'species_id', 'subtype_id', 'rarity_id',
+        'hash', 'species_id', 'subtype_id', 'rarity_id', 'transformation_id',
         'has_comments', 'has_image', 'has_addons', 'has_features',
         'submitted_at', 'update_type', 'fullsize_hash',
         'approval_votes', 'rejection_votes',
@@ -102,6 +102,13 @@ class CharacterDesignUpdate extends Model {
      */
     public function subtype() {
         return $this->belongsTo(Subtype::class, 'subtype_id');
+    }
+
+    /**
+     * Get the transformation of the design update.
+     */
+    public function transformation() {
+        return $this->belongsTo('App\Models\Character\CharacterTransformation', 'transformation_id');
     }
 
     /**

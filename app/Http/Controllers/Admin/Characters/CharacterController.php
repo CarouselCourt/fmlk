@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Character\Character;
 use App\Models\Character\CharacterCategory;
 use App\Models\Character\CharacterTransfer;
+use App\Models\Character\CharacterTransformation as Transformation;
 use App\Models\Feature\Feature;
 use App\Models\Rarity;
 use App\Models\Species\Species;
@@ -56,6 +57,7 @@ class CharacterController extends Controller {
             'features'    => Feature::getDropdownItems(1),
             'isMyo'       => false,
             'stats'       => Stat::orderBy('name')->get(),
+            'transformations' => ['0' => 'Select Transformation'] + Transformation::orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
         ]);
     }
 
@@ -70,6 +72,7 @@ class CharacterController extends Controller {
             'rarities'    => ['0' => 'Select Rarity'] + Rarity::orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
             'specieses'   => ['0' => 'Select Species'] + Species::orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
             'subtypes'    => ['0' => 'Pick a Species First'],
+            'transformations' => ['0' => 'Select Transformation'] + Transformation::orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
             'features'    => Feature::getDropdownItems(1),
             'isMyo'       => true,
             'stats'       => Stat::orderBy('name')->get(),
@@ -87,6 +90,18 @@ class CharacterController extends Controller {
         return view('admin.masterlist._create_character_subtype', [
             'subtypes' => ['0' => 'Select Subtype'] + Subtype::where('species_id', '=', $species)->orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
             'isMyo'    => $request->input('myo'),
+        ]);
+    }
+
+    /**
+     * Shows the edit image transformation portion of the modal.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function getCreateCharacterMyoTransformation(Request $request) {
+        return view('admin.masterlist._create_character_Transformation', [
+            'transformations' => ['0' => 'Select Transformation'] + Transformation::orderBy('sort', 'DESC')->pluck('name', 'id')->toArray(),
+            'isMyo'           => $request->input('myo'),
         ]);
     }
 
@@ -128,7 +143,7 @@ class CharacterController extends Controller {
             'x0', 'x1', 'y0', 'y1',
             'designer_id', 'designer_url',
             'artist_id', 'artist_url',
-            'species_id', 'subtype_id', 'rarity_id', 'feature_id', 'feature_data',
+            'species_id', 'subtype_id', 'rarity_id', 'feature_id', 'feature_data','transformation_id',
             'image', 'thumbnail', 'image_description', 'stats',
         ]);
         if ($character = $service->createCharacter($data, Auth::user())) {
@@ -160,7 +175,7 @@ class CharacterController extends Controller {
             'x0', 'x1', 'y0', 'y1',
             'designer_id', 'designer_url',
             'artist_id', 'artist_url',
-            'species_id', 'subtype_id', 'rarity_id', 'feature_id', 'feature_data',
+            'species_id', 'subtype_id', 'rarity_id', 'feature_id', 'feature_data','transformation_id',
             'image', 'thumbnail', 'stats',
         ]);
         if ($character = $service->createCharacter($data, Auth::user(), true)) {

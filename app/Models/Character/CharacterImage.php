@@ -18,7 +18,7 @@ class CharacterImage extends Model {
      * @var array
      */
     protected $fillable = [
-        'character_id', 'user_id', 'species_id', 'subtype_id', 'rarity_id', 'url',
+        'character_id', 'user_id', 'species_id', 'subtype_id', 'rarity_id', 'url','transformation_id',
         'extension', 'use_cropper', 'hash', 'fullsize_hash', 'fullsize_extension', 'sort',
         'x0', 'x1', 'y0', 'y1',
         'description', 'parsed_description',
@@ -98,6 +98,13 @@ class CharacterImage extends Model {
      */
     public function subtype() {
         return $this->belongsTo(Subtype::class, 'subtype_id');
+    }
+
+    /**
+     * Get the transformation of the character image.
+     */
+    public function transformation() {
+        return $this->belongsTo('App\Models\Character\CharacterTransformation', 'transformation_id');
     }
 
     /**
