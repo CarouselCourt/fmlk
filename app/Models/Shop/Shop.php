@@ -12,7 +12,7 @@ class Shop extends Model {
      * @var array
      */
     protected $fillable = [
-        'name', 'sort', 'has_image', 'description', 'parsed_description', 'is_active', 'hash',
+        'name', 'sort', 'has_image', 'description', 'parsed_description', 'is_active', 'hash', 'quotes',
         'is_staff', 'use_coupons', 'is_restricted', 'is_fto', 'allowed_coupons', 'is_timed_shop', 'start_at', 'end_at',
     ];
 
@@ -22,6 +22,15 @@ class Shop extends Model {
      * @var string
      */
     protected $table = 'shops';
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'quotes' => 'array',
+    ];
 
     /**
      * Validation rules for creation.
@@ -164,6 +173,21 @@ class Shop extends Model {
         OTHER FUNCTIONS
 
     **********************************************************************************************/
+
+    /**
+     * Gets a random quote from the shop's quotes data.
+     *
+     * @return string
+     */
+    public function getRandomQuoteAttribute() {
+        if (!isset($this->quotes) || !$this->quotes) {
+            return null;
+        }
+
+        $quote = str_replace('"', '\"', (array_rand(array_flip($this->quotes))));
+
+        return $quote;
+    }
 
     /**
      * Gets all the coupons useable in the shop.

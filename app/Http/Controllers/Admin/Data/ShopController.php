@@ -90,7 +90,7 @@ class ShopController extends Controller {
     public function postCreateEditShop(Request $request, ShopService $service, $id = null) {
         $id ? $request->validate(Shop::$updateRules) : $request->validate(Shop::$createRules);
         $data = $request->only([
-            'name', 'description', 'image', 'remove_image', 'is_active', 'is_staff', 'use_coupons', 'is_fto', 'allowed_coupons', 'is_timed_shop', 'start_at', 'end_at',
+            'name', 'description', 'image', 'remove_image', 'is_active', 'is_staff', 'use_coupons', 'is_fto', 'allowed_coupons', 'is_timed_shop', 'start_at', 'end_at', 'quotes',
         ]);
         if ($id && $service->updateShop(Shop::find($id), $data, Auth::user())) {
             flash('Shop updated successfully.')->success();
