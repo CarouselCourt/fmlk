@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models\User;
-
+use Config;
 use App\Models\Character\Character;
 use App\Models\Character\CharacterBookmark;
 use App\Models\Character\CharacterImageCreator;
@@ -33,7 +33,6 @@ use App\Models\WorldExpansion\Location;
 use App\Models\Theme;
 use App\Traits\Commenter;
 use Carbon\Carbon;
-use config;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -723,6 +722,27 @@ class User extends Authenticatable implements MustVerifyEmail {
 
             return $this->faction->ranks()->where('is_open', 1)->where('breakpoint', '<=', $standing->quantity)->orderBy('breakpoint', 'DESC')->first();
         }
+    }
+
+    /**
+     * Check if user can collect from the donation shop.
+     *
+     * @return int
+     */
+    public function getDonationShopCooldownAttribute()
+    {
+        // Fetch log for most recent collection
+        $log = ItemLog::where('recipient_id', $this->id)->where('log_type', 'Collected from Donation Shop')->orderBy('id', 'DESC')->first();
+        // If there is no log, by default, the cooldown is null
+        if(!$log) return null;
+
+        $expiryTime = $log->created_at->addMinutes(Config::get('lorekeeper.settings.donation_shop.cooldown'));
+        // If the cooldown would already be up, it is null
+        if($expiryTime <= Carbon::now()) return null;
+        // Otherwise, calculate the remaining time
+        return $expiryTime;
+
+        return null;
     }
 
     /**********************************************************************************************

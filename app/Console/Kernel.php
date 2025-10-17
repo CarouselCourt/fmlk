@@ -23,6 +23,8 @@ class Kernel extends ConsoleKernel {
             ->everyMinute();
         $schedule->command('check-sales')
             ->everyMinute();
+        $schedule->command('clean-donations')
+            ->everyMinute();
         $schedule->command('check-pet-drops')
             ->everyMinute();
         $schedule->command('reset-stamina')
