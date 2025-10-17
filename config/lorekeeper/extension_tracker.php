@@ -98,6 +98,7 @@ return [
         ]),
         'version' => '2.0.0',
     ],
+    
     'theme_manager' => [
         'key' => 'theme_manager',
         'wiki_key' => 'Theme Manager',
