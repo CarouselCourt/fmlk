@@ -121,6 +121,10 @@ return [
                 'url'  => 'admin/grants/exp',
             ],
             [
+                'name' => 'Event Settings',
+                'url' => 'admin/event-settings'
+            ],
+            [
                 'name' => 'Encounter Energy Grants',
                 'url' => 'admin/grants/encounter-energy'
             ],

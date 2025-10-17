@@ -184,6 +184,9 @@ Route::group(['prefix' => __('dailies.dailies')], function() {
     Route::get('{id}', 'DailyController@getDaily')->where(['id' => '[0-9]+']);
 });
 
+Route::group(['prefix' => 'event-tracking'], function() {
+    Route::get('/', 'EventController@getEventTracking');
+});
 
 /**************************************************************************************************
     Pet Drops

@@ -12,7 +12,17 @@ return [
     //     ]),
     //     'version' => '1.0.0',
     // ],
-    
+
+    'event_tools' => [
+        'key' => 'Event_Tools',
+        'wiki_key' => 'Event_Tools',
+        'creators' => json_encode([
+            'Mercury' => 'https://github.com/itinerare/',
+        ]),
+        'version' => '1.1.0',
+    ],
+
+
     'donation_shop' => [
         'key' => 'donation_shop',
         'wiki_key' => 'Donation_Shop',
