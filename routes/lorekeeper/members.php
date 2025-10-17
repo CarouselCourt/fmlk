@@ -29,6 +29,9 @@ Route::group(['prefix' => 'account', 'namespace' => 'Users'], function () {
     Route::post('location', 'AccountController@postLocation');
     Route::post('faction', 'AccountController@postFaction');
     Route::post('avatar', 'AccountController@postAvatar');
+    Route::post('banner', 'AccountController@postBanner');
+    Route::post('banner-styling', 'AccountController@postBannerStyling');
+    Route::post('banner-delete', 'AccountController@postDeleteBanner');
     Route::post('username', 'AccountController@postUsername');
     Route::post('theme', 'AccountController@postTheme');
     Route::get('aliases', 'AccountController@getAliases');
