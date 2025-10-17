@@ -355,6 +355,16 @@ Route::group(['prefix' => 'data', 'namespace' => 'Data', 'middleware' => 'power:
     Route::post('prompts/edit/{id?}', 'PromptController@postCreateEditPrompt');
     Route::post('prompts/delete/{id}', 'PromptController@postDeletePrompt');
 
+    # CHALLENGES
+    Route::get('challenges', 'ChallengeController@getChallengeIndex');
+    Route::get('challenges/create', 'ChallengeController@getCreateChallenge');
+    Route::get('challenges/edit/{id}', 'ChallengeController@getEditChallenge');
+    Route::get('challenges/delete/{id}', 'ChallengeController@getDeleteChallenge');
+    Route::post('challenges/create', 'ChallengeController@postCreateEditChallenge');
+    Route::post('challenges/edit/{id?}', 'ChallengeController@postCreateEditChallenge');
+    Route::post('challenges/delete/{id}', 'ChallengeController@postDeleteChallenge');
+
+
     Route::get('carousel', 'CarouselController@getIndex');
     Route::post('carousel/create', 'CarouselController@postUploadCarousel');
     Route::get('carousel/delete/{id}', 'CarouselController@getDeleteCarousel');
@@ -930,4 +940,10 @@ Route::group(['prefix' => 'typing', 'middleware' => 'power:edit_data', 'namespac
     Route::post('/', 'ElementController@postTyping');
     Route::get('delete/{id}', 'ElementController@getDeleteTyping');
     Route::post('delete/{id}', 'ElementController@postDeleteTyping');
+});
+# CHALLENGES
+Route::group(['prefix' => 'challenges', 'middleware' => 'power:manage_submissions'], function() {
+    Route::get('/', 'ChallengeController@getIndex');
+    Route::get('/{status}', 'ChallengeController@getIndex')->where('status', 'active|old');
+    Route::post('edit/{id}/{action}', 'ChallengeController@postChallenge');
 });

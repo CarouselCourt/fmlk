@@ -99,7 +99,11 @@ return [
                 'name' => 'Claim Submissions',
                 'url'  => 'admin/claims',
             ],
-        ],
+            [
+                'name' => 'Challenge Logs',
+                'url' => 'admin/challenges'
+            ],
+        ]
     ],
     'Grants'     => [
         'power' => 'edit_inventories',
@@ -233,6 +237,10 @@ return [
             [
                 'name' => 'Items',
                 'url'  => 'admin/data/items',
+            ],
+            [
+                'name' => 'Challenges',
+                'url' => 'admin/data/challenges'
             ],
             [
                 'name' => 'Pets',

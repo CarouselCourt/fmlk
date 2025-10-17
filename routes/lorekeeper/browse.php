@@ -166,7 +166,12 @@ Route::group(['prefix' => 'prompts'], function () {
     Route::get('{id}', 'PromptsController@getPrompt');
 });
 
-Route::group(['prefix' => 'shops'], function () {
+Route::group(['prefix' => 'challenges'], function() {
+    Route::get('/', 'ChallengeController@getIndex');
+    Route::get('{id}', 'ChallengeController@getChallenge')->where(['id' => '[0-9]+']);
+});
+
+Route::group(['prefix' => 'shops'], function() {
     Route::get('/', 'ShopController@getIndex');
     Route::get('{id}', 'ShopController@getShop')->where(['id' => '[0-9]+']);
     Route::get('{id}/{stockId}', 'ShopController@getShopStock')->where(['id' => '[0-9]+', 'stockId' => '[0-9]+']);

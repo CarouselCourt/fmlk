@@ -33,6 +33,7 @@ use App\Models\WorldExpansion\Location;
 use App\Models\Theme;
 use App\Traits\Commenter;
 use Carbon\Carbon;
+use config;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -288,6 +289,14 @@ class User extends Authenticatable implements MustVerifyEmail {
      */
     public function commentLikes() {
         return $this->hasMany(CommentLike::class);
+    }
+
+    /**
+     * Get all of the user's challenge logs.
+     */
+    public function challengeLogs()
+    {
+        return $this->hasMany('App\Models\Challenge\UserChallenge');
     }
 
     /**********************************************************************************************
