@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Facades\Notifications;
 use App\Facades\Settings;
+use App\Models\Award\Award;
 use App\Models\Character\Character;
 use App\Models\Currency\Currency;
 use App\Models\Element\Element;
@@ -427,6 +428,7 @@ class SubmissionManager extends Service {
             $itemIds = [];
             $tableIds = [];
             $elementIds = [];
+            $awardIds = [];
             if (isset($data['character_currency_id'])) {
                 foreach ($data['character_currency_id'] as $c) {
                     foreach ($c as $currencyId) {
@@ -446,6 +448,8 @@ class SubmissionManager extends Service {
                                 break;
                             case 'Element': $elementIds[] = $id;
                                 break;
+                            case 'Award': $awardIds[] = $id;
+                                break;
                         }
                     }
                 } // Expanded character rewards
@@ -454,10 +458,12 @@ class SubmissionManager extends Service {
             array_unique($itemIds);
             array_unique($tableIds);
             array_unique($elementIds);
+            array_unique($awardIds);
             $currencies = Currency::whereIn('id', $currencyIds)->where('is_character_owned', 1)->get()->keyBy('id');
             $items = Item::whereIn('id', $itemIds)->get()->keyBy('id');
             $tables = LootTable::whereIn('id', $tableIds)->get()->keyBy('id');
             $elements = Element::whereIn('id', $elementIds)->get()->keyBy('id');
+            $awards = Award::whereIn('id', $awardIds)->get()->keyBy('id');
 
             // We're going to remove all characters from the submission and reattach them with the updated data
             $submission->characters()->delete();
@@ -471,6 +477,7 @@ class SubmissionManager extends Service {
                     'items'        => $items,
                     'tables'       => $tables,
                     'elements'     => $elements,
+                    'awards'       => $awards,
                 ], true);
 
                 if (!$assets = fillCharacterAssets($assets, $user, $c, $promptLogType, $promptData, $submission->user)) {
@@ -658,6 +665,9 @@ class SubmissionManager extends Service {
                         case 'Element': // we don't check for quantity here
                             addAsset($assets, $data['elements'][$reward], 1);
                             break;
+                        case 'Award': if ($data['character_rewardable_quantity'][$data['character_id']][$key]) {
+                            addAsset($assets, $data['awards'][$reward], $data['character_rewardable_quantity'][$data['character_id']][$key]);
+                        } break;
                     }
                 }
             }
@@ -706,6 +716,11 @@ class SubmissionManager extends Service {
                             }
                             $reward = Raffle::find($data['rewardable_id'][$key]);
                             break;
+                        case 'Award':
+                            {
+                                $reward = Award::find($data['rewardable_id'][$key]);
+                                break;
+                        }
                         case 'Exp': case 'Points':
                             if (!$isStaff) {
                                 break;
