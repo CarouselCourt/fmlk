@@ -335,7 +335,7 @@ main > .row {
 }
 
 .display-user, .display-character {
-    font-weight: italic;
+    font-weight: bold;
 }
 
 .help-icon {
