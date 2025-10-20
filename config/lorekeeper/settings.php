@@ -36,7 +36,7 @@ return [
     | site wherever the name needs to be displayed.
     |
     */
-    'site_name'                                         => 'Lorekeeper',
+    'site_name'                                         => 'levia.quest',
 
     /*
     |--------------------------------------------------------------------------
@@ -48,7 +48,7 @@ return [
     | It is not, however, displayed on the site itself. This should be kept short and snappy!
     |
     */
-    'site_desc'                                         => 'A Lorekeeper ARPG',
+    'site_desc'                                         => 'A Levian ARPG',
 
     /*
     |--------------------------------------------------------------------------
@@ -154,9 +154,9 @@ return [
     | 'masterlist_image_background' => '#ffffff',
     |
     */
-    'watermark_masterlist_images'                       => 0,
+    'watermark_masterlist_images'                       => 1,
 
-    'masterlist_image_dimension'                        => 0,
+    'masterlist_image_dimension'                        => 700,
     'masterlist_image_dimension_target'                 => 'shorter',
 
     'masterlist_image_format'                           => null,
@@ -179,7 +179,7 @@ return [
     | 'masterlist_fullsizes_format' => null,
     |
     */
-    'store_masterlist_fullsizes'                        => 0,
+    'store_masterlist_fullsizes'                        => 1,
     'masterlist_fullsizes_cap'                          => 0,
     'masterlist_fullsizes_format'                       => null,
 
@@ -224,8 +224,8 @@ return [
     |
     */
 
-    'watermark_resizing'                                => 0,
-    'watermark_percent'                                 => 0.9,
+    'watermark_resizing'                                => 1,
+    'watermark_percent'                                 => 0.35,
     'watermark_resizing_thumb'                          => 0,
 
     /*
@@ -339,7 +339,7 @@ return [
     |
     */
 
-    'allow_username_changes'                            => 0,
+    'allow_username_changes'                            => 1,
     'username_change_cooldown'                          => 30,
 
     /*
