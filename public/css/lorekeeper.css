@@ -543,6 +543,7 @@ tr.outflow {
 .user-banner {
     min-height: 250px;
     border-radius: 50px 50px 0px 0px;
+    mask-image: linear-gradient(to bottom, black 0, transparent 100%);
 }
 
 /* INVENTORY *************************************************************************************/
