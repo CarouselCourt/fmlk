@@ -35,7 +35,7 @@ return [
         'auth'          => 1,
         // Login is for whether the site should be used as a login / registration provider instead of email verification with password
         // Login can only be used when auth has already been turned on as well.
-        'login'         => 1,
+        'login'         => 0,
         // while primary alias is whether or not an alias on this site can be a user's primary alias.
         'primary_alias' => 1,
     ],
@@ -79,9 +79,9 @@ return [
         'regex'         => '/([A-Za-z0-9_-]+)\.tumblr\.com/',
         'link'          => 'tumblr.com',
         'icon'          => 'fab fa-tumblr',
-        'auth'          => 1,
-        'login'         => 1,
-        'primary_alias' => 1,
+        'auth'          => 0,
+        'login'         => 0,
+        'primary_alias' => 0,
     ],
 
     'imgur'      => [
