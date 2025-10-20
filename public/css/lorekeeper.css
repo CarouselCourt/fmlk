@@ -541,7 +541,8 @@ tr.outflow {
 }
 
 .user-banner {
-    min-height: 150px;
+    min-height: 250px;
+    border-radius: 50px 50px 0px 0px;
 }
 
 /* INVENTORY *************************************************************************************/
