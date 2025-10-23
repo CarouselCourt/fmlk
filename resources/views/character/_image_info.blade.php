@@ -80,7 +80,7 @@
                     <div class="col-lg-4 col-md-6 col-4">
                             <h5>Species</h5>
                     </div>
-                    <div class="col-lg-8 col-7 pl-1">{!! $image->species_id ? $image->species->displayName : 'None' !!}</div>
+                    <div class="col-lg-8 col-md-6 col-8">{!! $image->species_id ? $image->species->displayName : 'None' !!}</div>
                 </div>
                 @if ($image->subtype_id)
                     <div class="row no-gutters">
