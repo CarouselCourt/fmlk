@@ -607,7 +607,7 @@ function fillCharacterAssets($assets, $sender, $recipient, $logType, $data, $sub
             }
         } elseif ($key == 'exp' && count($contents)) {
             $service = new App\Services\Stat\ExperienceManager;
-            if (!$service->creditExp($sender, $recipient, $logType, $data['data'], $contents['quantity'])) {
+            if (!$service->creditExp($sender, $recipient, $type, $data['data'], $stat, $quantity)) {
                 return false;
             }
         } elseif ($key == 'points' && count($contents)) {
