@@ -83,18 +83,18 @@
                     <div class="col-lg-8 col-md-6 col-8">{!! $image->species_id ? $image->species->displayName : 'None' !!}</div>
                 </div>
                 @if ($image->subtype_id)
-                    <div class="row no-gutters">
-                        <div class="col-lg-4 col-5">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 col-4">
                             <h5>Subtype</h5>
                         </div>
-                        <div class="col-lg-8 col-7 pl-1">{!! $image->subtype_id ? $image->subtype->displayName : 'None' !!}</div>
+                        <div class="col-lg-8 col-md-6 col-8">{!! $image->subtype_id ? $image->subtype->displayName : 'None' !!}</div>
                     </div>
                 @endif
-                <div class="row no-gutters">
-                    <div class="col-lg-4 col-5">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-4">
                         <h5>Rarity</h5>
                     </div>
-                    <div class="col-lg-8 col-7 pl-1">{!! $image->rarity_id ? $image->rarity->displayName : 'None' !!}</div>
+                    <div class="col-lg-8 col-md-6 col-8">{!! $image->rarity_id ? $image->rarity->displayName : 'None' !!}</div>
                 </div>
                 @php
                     // check if there is a type for this object if not passed
