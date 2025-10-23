@@ -48,14 +48,6 @@
                         @endif
                     </div>
                 </div>
-                @if ($image->subtype_id)
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6 col-4">
-                            <h5>Subtype</h5>
-                        </div>
-                        <div class="col-lg-8 col-md-6 col-8">{!! $image->subtype_id ? $image->subtype->displayName : 'None' !!}</div>
-                    </div>
-                @endif
                 @if ($image->transformation_id)
                     <div class="row">
                         <div class="col-lg-4 col-md-6 col-4">
@@ -86,7 +78,7 @@
                 @endif
                 <div class="row">
                     <div class="col-lg-4 col-md-6 col-4">
-                        <h5>Species</h5>
+                            <h5>Species</h5>
                     </div>
                     <div class="col-lg-8 col-7 pl-1">{!! $image->species_id ? $image->species->displayName : 'None' !!}</div>
                 </div>
