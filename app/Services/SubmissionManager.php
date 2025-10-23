@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Services;
-
+use App\Services\Skill;
 use App\Facades\Notifications;
 use App\Facades\Settings;
 use App\Models\Award\Award;
