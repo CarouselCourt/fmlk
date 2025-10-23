@@ -410,31 +410,39 @@ function parseDropAssetData($array) {
 // --------------------------------------------
 
 /**
- * Retrieves the data associated with an asset array,
- * basically reversing the above function.
- * Use the data attribute after json_decode()ing it.
+ * Returns if two asset arrays are identical.
  *
- * @param array $array
+ * @param array $first
+ * @param array $second
+ * @param mixed $isCharacter
+ * @param mixed $absQuantities
  *
- * @return array
+ * @return bool
  */
-function parseAssetData($array) {
-    $assets = createAssetsArray();
-    foreach ($array as $key => $contents) {
-        $model = getAssetModelString($key);
-        if ($key == 'exp' || $key == 'points') {
-            $assets[$key] = $contents;
-        } elseif ($model) {
-            foreach ($contents as $id => $quantity) {
-                $assets[$key][$id] = [
-                    'asset'    => $model::find($id),
-                    'quantity' => $quantity,
-                ];
+function compareAssetArrays($first, $second, $isCharacter = false, $absQuantities = false) {
+    $keys = getAssetKeys($isCharacter);
+    foreach ($keys as $key) {
+        if (count($first[$key]) != count($second[$key])) {
+            return false;
+        }
+        foreach ($first[$key] as $id => $asset) {
+            if (!isset($second[$key][$id])) {
+                return false;
+            }
+
+            if ($absQuantities) {
+                if (abs($asset['quantity']) != abs($second[$key][$id]['quantity'])) {
+                    return false;
+                }
+            } else {
+                if ($asset['quantity'] != $second[$key][$id]['quantity']) {
+                    return false;
+                }
             }
         }
     }
 
-    return $assets;
+    return true;
 }
 
 /**
@@ -641,14 +649,20 @@ function fillCharacterAssets($assets, $sender, $recipient, $logType, $data, $sub
  * Creates a rewards string from an asset array.
  *
  * @param array $array
+ * @param mixed $useDisplayName
+ * @param mixed $absQuantities
  *
  * @return string
  */
-function createRewardsString($array) {
+function createRewardsString($array, $useDisplayName = true, $absQuantities = false) {
     $string = [];
     foreach ($array as $key => $contents) {
         foreach ($contents as $asset) {
-            $string[] = $asset['asset']->displayName.' x'.$asset['quantity'];
+            if ($useDisplayName) {
+                $string[] = $asset['asset']->displayName.' x'.($absQuantities ? abs($asset['quantity']) : $asset['quantity']);
+            } else {
+                $string[] = $asset['asset']->name.' x'.($absQuantities ? abs($asset['quantity']) : $asset['quantity']);
+            }
         }
     }
     if (!count($string)) {
