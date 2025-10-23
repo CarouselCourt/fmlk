@@ -531,23 +531,20 @@ function fillUserAssets($assets, $sender, $recipient, $logType, $data) {
                 return false;
             }
         }
-      }  elseif($key == 'characters' && count($contents))
-            {
-                $service = new \App\Services\CharacterManager;
-                foreach($contents as $asset)
-                    if(!$service->moveCharacter($asset['asset'], $recipient, $data, $asset['quantity'], $logType)) return false;
-            } else if ($key == 'themes' && count($contents)) {
-                $service = new \App\Services\ThemeManager;
-                foreach ($contents as $asset)
-                    if (!$service->creditTheme($recipient, $asset['asset'])) return false;
-
-        } elseif ($key == 'exp' && count($contents)) {
-            $service = new App\Services\Stat\ExperienceManager;
-            if (!$service->creditExp($sender, $recipient, $logType, $data['data'], $contents['quantity'], false)) {
+    } elseif ($key == 'characters' && count($contents)) {
+        $service = new App\Services\CharacterManager;
+        foreach ($contents as $asset) {
+            if (!$service->moveCharacter($asset['asset'], $recipient, $data, $asset['quantity'], $logType)) {
                 return false;
             }
-        } elseif ($key == 'points' && count($contents)) {
-            $service = new App\Services\Stat\StatManager;
+        }
+    } elseif ($key == 'exp' && count($contents)) {
+        $service = new App\Services\Stat\ExperienceManager;
+        if (!$service->creditExp($sender, $recipient, $logType, $data['data'], $contents['quantity'], false)) {
+            return false;
+        }
+    } elseif ($key == 'points' && count($contents)) {
+        $service = new App\Services\Stat\StatManager;
             dd($data, $contents);
             if (!$service->creditStat($sender, $recipient, $logType, $data['data'], 'none', $contents['quantity'])) {
                 return false;
