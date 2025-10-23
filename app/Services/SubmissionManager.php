@@ -3,6 +3,7 @@
 namespace App\Services;
 use App\Services\SkillService;
 use App\Services\SkillManager;
+use App\Services\Skill;
 use App\Facades\Notifications;
 use App\Facades\Settings;
 use App\Models\Award\Award;
