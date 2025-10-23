@@ -610,6 +610,20 @@ function fillCharacterAssets($assets, $sender, $recipient, $logType, $data, $sub
             if (!$service->creditStat($sender, $recipient, $logType, $data['data'], $contents['quantity'])) {
                 return false;
             }
+        } elseif ($key == 'statuses' && count($contents)) {
+            $service = new App\Services\StatusEffectManager;
+            foreach ($contents as $asset) {
+                if (!$service->creditStatusEffect($sender, $recipient, $logType, $data['data'], $asset['asset'], $asset['quantity'])) {
+                    return false;
+                }
+            }
+        } elseif ($key == 'skills' && count($contents)) {
+            $service = new App\Services\SkillManager;
+            foreach ($contents as $asset) {
+                if (!$service->creditSkill($sender, $recipient, $logType, $data, $asset['asset'], $asset['quantity'])) {
+                    return false;
+                }
+            }
         } elseif ($key == 'awards' && count($contents)) {
             $service = new \App\Services\AwardCaseManager;
             foreach ($contents as $asset) {
