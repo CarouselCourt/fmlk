@@ -27,6 +27,11 @@
             ->orderBy('name')
             ->pluck('name', 'id');
     }
+    if (isset($showThemes) && $showThemes) {
+        $themes = \App\Models\Theme::orderBy('name')
+            ->where('is_user_selectable', 0)
+            ->pluck('name', 'id');
+    }
     $awards = \App\Models\Award\Award::orderBy('name')->pluck('name', 'id');
 @endphp
 

@@ -34,7 +34,6 @@ use Laravel\Fortify\Contracts\TwoFactorAuthenticationProvider;
 use Laravel\Fortify\RecoveryCode;
 use Settings;
 
-
 class AccountController extends Controller {
     /*
     |--------------------------------------------------------------------------
@@ -99,7 +98,7 @@ class AccountController extends Controller {
         $decoratorOptions = ['0' => 'Select Decorator Theme'] + Theme::where('is_active', 1)->where('theme_type', 'decorator')->where('is_user_selectable', 1)->get()->pluck('displayName', 'id')->toArray();
 
         return view('account.settings', [
-            'themeOptions' => $themeOptions + Auth::user()->themes()->where('theme_type', 'base')->get()->pluck('displayName', 'id')->toArray(),
+            'themeOptions'    => $themeOptions + Auth::user()->themes()->where('theme_type', 'base')->get()->pluck('displayName', 'id')->toArray(),
             'decoratorThemes' => $decoratorOptions + Auth::user()->themes()->where('theme_type', 'decorator')->get()->pluck('displayName', 'id')->toArray(),
             'locations'            => Location::all()->where('is_user_home')->pluck('style', 'id')->toArray(),
             'factions'             => Faction::all()->where('is_user_faction')->pluck('style', 'id')->toArray(),
@@ -135,15 +134,17 @@ class AccountController extends Controller {
         if ($service->updateAvatar($request->file('avatar'), Auth::user())) {
             flash('Avatar updated successfully.')->success();
         } else {
-            foreach ($service->errors()->getMessages()['error'] as $error) flash($error)->error();
+            foreach ($service->errors()->getMessages()['error'] as $error) {
+                flash($error)->error();
+            }
         }
+
         return redirect()->back();
     }
 
     /**
      * Edits the user's theme.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postTheme(Request $request, UserService $service) {
@@ -457,8 +458,11 @@ class AccountController extends Controller {
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postClearNotifications($type = null) {
-        if (isset($type) && $type) Auth::user()->notifications()->where('notification_type_id', $type)->delete();
-        else Auth::user()->notifications()->delete();
+        if (isset($type)) {
+            Auth::user()->notifications()->where('notification_type_id', $type)->delete();
+        } else {
+            Auth::user()->notifications()->delete();
+        }
         flash('Notifications cleared successfully.')->success();
 
         return redirect()->back();
@@ -495,8 +499,11 @@ class AccountController extends Controller {
         if ($service->makePrimary($id, Auth::user())) {
             flash('Your primary alias has been changed successfully.')->success();
         } else {
-            foreach ($service->errors()->getMessages()['error'] as $error) flash($error)->error();
+            foreach ($service->errors()->getMessages()['error'] as $error) {
+                flash($error)->error();
+            }
         }
+
         return redirect()->back();
     }
 
@@ -522,8 +529,11 @@ class AccountController extends Controller {
         if ($service->hideAlias($id, Auth::user())) {
             flash('Your alias\'s visibility setting has been changed successfully.')->success();
         } else {
-            foreach ($service->errors()->getMessages()['error'] as $error) flash($error)->error();
+            foreach ($service->errors()->getMessages()['error'] as $error) {
+                flash($error)->error();
+            }
         }
+
         return redirect()->back();
     }
 

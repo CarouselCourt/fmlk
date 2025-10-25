@@ -50,7 +50,7 @@
             @if ($showRaffles)
                 else if (val == 'Raffle') $clone = $raffleSelect.clone();
             @endif
-            @if(isset($showThemes) && $showThemes)
+            @if (isset($showThemes) && $showThemes)
                 else if (val == 'Theme') $clone = $themeSelect.clone();
             @endif
 
@@ -78,6 +78,9 @@
                 @endif
                 @if ($showRaffles)
                     else if (val == 'Raffle') $clone = $raffleSelect.clone();
+                @endif
+                @if (isset($showThemes) && $showThemes)
+                    else if (val == 'Theme') $clone = $themeSelect.clone();
                 @endif
 
                 $cell.html('');
