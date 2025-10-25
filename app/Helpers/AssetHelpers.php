@@ -386,6 +386,32 @@ function getDataReadyDropAssets($array) {
  *
  * @return array
  */
+function parseAssetData($array) {
+    $assets = createAssetsArray();
+    foreach ($array as $key => $contents) {
+        $model = getAssetModelString($key);
+        if ($model) {
+            foreach ($contents as $id => $quantity) {
+                $assets[$key][$id] = [
+                    'asset'    => $model::find($id),
+                    'quantity' => $quantity,
+                ];
+            }
+        }
+    }
+
+    return $assets;
+}
+
+/**
+ * Retrieves the data associated with an asset array,
+ * basically reversing the above function.
+ * Use the data attribute after json_decode()ing it.
+ *
+ * @param array $array
+ *
+ * @return array
+ */
 function parseDropAssetData($array) {
     $result = [];
     foreach ($array as $group => $types) {
