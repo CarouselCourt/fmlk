@@ -74,6 +74,13 @@ class SubmissionManager extends Service {
                     throw new \Exception('This prompt may only be submitted to by staff members.');
                 }
 
+                if ($prompt->parent_id) {
+                    $submission = Submission::where('user_id', $user->id)->where('prompt_id', $prompt->parent_id)->where('status', 'Approved')->count();
+                    if ($submission < $prompt->parent_quantity) {
+                        throw new \Exception('Please complete the prerequisite.');
+                }
+            }
+
                 //level req
                 if ($prompt->level_req) {
                     if (!$user->level || $user->level->current_level < $prompt->level_req) {

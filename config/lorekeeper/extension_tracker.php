@@ -13,6 +13,15 @@ return [
     //     'version' => '1.0.0',
     // ],
 
+    'prompt_prerequisites' => [
+        'key'      => 'prompt_prerequisites',
+        'wiki_key' => 'Prompt_Prerequisites',
+        'creators' => json_encode([
+            'Newt' => 'https://github.com/ne-wt/',
+        ]),
+        'version' => '1.0.0',
+    ],
+
     'event_tools' => [
         'key' => 'Event_Tools',
         'wiki_key' => 'Event_Tools',
