@@ -64,7 +64,7 @@
         @endforeach
     </div>
     <a href="#" class="add-custom-value-row btn btn-primary mb-3">Add Custom Value</a>
-@endif
+
 <div class="form-group">
     {!! Form::label('text', 'Profile Content') !!}
     {!! Form::textarea('text', $character->profile->text, ['class' => 'wysiwyg form-control']) !!}
