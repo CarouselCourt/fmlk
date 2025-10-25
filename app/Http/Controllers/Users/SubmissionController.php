@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Users;
 
+use App\Http\Controllers\Admin;
+use App\Helpers\Helpers;
 use App\Helpers\AssetHelpers;
 use App\Models\Skill\Skill;
 use App\Facades\Settings;
