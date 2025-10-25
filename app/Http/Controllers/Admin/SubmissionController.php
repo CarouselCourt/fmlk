@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User\UserAward;
 use App\Http\Controllers\Controller;
 use App\Models\Award\Award;
 use App\Models\Character\Character;

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Users;
 
+use App\Models\Skill\Skill;
 use App\Facades\Settings;
 use App\Http\Controllers\Controller;
 use App\Models\Award\Award;
