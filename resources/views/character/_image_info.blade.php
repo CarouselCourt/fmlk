@@ -199,56 +199,6 @@
                         <a href="#" class="btn btn-outline-info btn-sm edit-features mb-3" data-id="{{ $image->id }}"><i class="fas fa-cog"></i> Edit</a>
                     </div>
                 @endif
-
-                @if (count($image->character->pets))
-                    <div class="row justify-content-center text-center">
-                        {{-- get one random pet --}}
-                        @php
-                            $pets = $image->character
-                                ->pets()
-                                ->orderBy('sort', 'DESC')
-                                ->limit(config('lorekeeper.pets.display_pet_count'))
-                                ->get();
-                        @endphp
-                        @foreach ($pets as $pet)
-                            @if (config('lorekeeper.pets.pet_bonding_enabled'))
-                                @include('character._pet_bonding_info', ['pet' => $pet])
-                            @else
-                                <div class="ml-2 mr-3">
-                                    <img src="{{ $pet->pet->variantImage($pet->id) }}" style="max-width: 75px;" />
-                                    <br>
-                                    <span class="text-light badge badge-dark" style="font-size:95%;">{!! $pet->pet_name !!}</span>
-                                    </div>
-                                @endif
-                        @endforeach
-                        <div class="ml-auto float-right mr-3">
-                            <a href="{{ $character->url . '/pets' }}" class="btn btn-outline-info btn-sm">View All</a>
-                        </div>
-                    </div>
-                @endif
-                @if (count($image->character->equipment()))
-                    <div class="mb-1 mt-4">
-                        <div class="mb-0">
-                            <h5>Equipment</h5>
-                        </div>
-                        <div class="text-center row">
-                            @foreach ($image->character->equipment()->take(5) as $equipment)
-                                <div class="col-md-2">
-                                    @if ($equipment->has_image)
-                                        <img class="rounded" src="{{ $equipment->imageUrl }}" data-toggle="tooltip" title="{{ $equipment->equipment->name }}" style="max-width: 75px;" />
-                                    @elseif($equipment->equipment->imageurl)
-                                        <img class="rounded" src="{{ $equipment->equipment->imageUrl }}" data-toggle="tooltip" title="{{ $equipment->equipment->name }}" style="max-width: 75px;" />
-                                    @else
-                                        {!! $equipment->equipment->displayName !!}
-                                    @endif
-                                </div>
-                            @endforeach
-                        </div>
-                        <div class="float-right">
-                            <a href="{{ $character->url . '/stats' }}">View All...</a>
-                        </div>
-                    </div>
-                @endif
             </div>
 
             {{-- Image notes --}}
