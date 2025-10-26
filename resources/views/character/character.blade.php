@@ -83,7 +83,7 @@
                 @endif
 		</div>
 
-		<div class="col-md-6 card">
+		<div class="col-md-5 card">
         @if (count($image->character->equipment()))
                     <div class="mb-1 mt-4">
                         <div class="mb-0">
@@ -91,7 +91,7 @@
                         </div>
                         <div class="text-center row">
                             @foreach ($image->character->equipment()->take(5) as $equipment)
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     @if ($equipment->has_image)
                                         <img class="rounded" src="{{ $equipment->imageUrl }}" data-toggle="tooltip" title="{{ $equipment->equipment->name }}" style="max-width: 75px;" />
                                     @elseif($equipment->equipment->imageurl)
@@ -110,7 +110,7 @@
 
     
     <div class="row no-gutters p-3">
-		<div class="col-md-6 card m-1 p-1">
+		<div class="col-md-5 card m-1 p-1">
         @include('character._tab_skills', ['character' => $character, 'skills' => $skills])
 		</div>
         <div class="col-md-6 card m-1 p-1">
