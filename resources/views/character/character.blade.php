@@ -72,7 +72,7 @@
                             @if (config('lorekeeper.pets.pet_bonding_enabled'))
                                 @include('character._pet_bonding_info', ['pet' => $pet])
                             @else
-                                <div class="ml-2 mr-3">
+                                <div class="ml-2 mr-3 mb-2">
                                     <img src="{{ $pet->pet->variantImage($pet->id) }}" style="max-width: 75px;" />
                                     <br>
                                     <span class="text-light badge badge-dark" style="font-size:95%;">{!! $pet->pet_name !!}</span>
@@ -109,12 +109,14 @@
 
 
     
-    <div class="row justify-content-center p-3">
+    <div class="row justify-content-between p-3">
 		<div class="col-6 p-1 card">
         @include('character._tab_skills', ['character' => $character, 'skills' => $skills])
 		</div>
         <div class="col-6 p-1 card">
-        @include('widgets._level_info', ['level' => $character->level])
+        <span class="badge badge-{{ $level->nextLevel ? 'dark' : 'success' }} text-white mx-1 justify-content-center">
+            {{ $level->nextLevel ? 'Current Lvl: ' . $level->current_level : 'Max Level' }}
+        </span>
         @foreach ($character->stats->chunk(4) as $chunk)
                 <div class="row align-items-center justify-content-between no-gutters">
                     @foreach ($chunk as $stat)
