@@ -6,7 +6,7 @@
                     <div class="text-center">
                     <a class="btn" data-bs-toggle="collapse" href="#skilltree" role="button" aria-expanded="false" aria-controls="collapseExample"><h5>
                             {{ $skill->name }}
-                        </h5></a>
+                        </h5>
                         @if ($character->skills()->where('skill_id', $skill->id)->exists())
                             @php
                                 $characterSkill = $character
@@ -14,6 +14,8 @@
                                     ->where('skill_id', $skill->id)
                                     ->first();
                             @endphp
+                            </a>
+                            <br>
                             Level: {{ $characterSkill->level }}
                     </div>
                     <div class="collapse" id="skilltree">
