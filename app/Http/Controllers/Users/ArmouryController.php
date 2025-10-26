@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Users;
 
-use App\Http\Controllers\Users\GearManager;
+
+use App\Services\Claymore\GearManager;
 use App\Http\Controllers\Controller;
 use App\Models\Character\Character;
 use App\Models\Claymore\GearCategory;

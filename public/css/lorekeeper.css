@@ -434,7 +434,7 @@ main > .row {
 /* NOTIFICATIONS *********************************************************************************/
 
 .notifications-table .unread, .notifications-table .unread td {
-    background-color: #fffdf0;
+    background-color: #1d1d1d;
 }
 
 /* BROWSE ****************************************************************************************/
