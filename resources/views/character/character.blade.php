@@ -15,6 +15,7 @@
         {!! breadcrumbs([
             $character->category->masterlist_sub_id ? $character->category->sublist->name . ' Masterlist' : 'Character masterlist' => $character->category->masterlist_sub_id ? 'sublist/' . $character->category->sublist->key : 'masterlist',
             $character->fullName => $character->url,
+            'Stats' => $character->url . '/stats',
         ]) !!}
     @endif
 
@@ -156,6 +157,7 @@
         @foreach ($character->stats->chunk(4) as $chunk)
                 <div class="row justify-content-center no-gutters">
                     @foreach ($chunk as $stat)
+                    @include('widgets._level_info', ['level' => $character->level])
                         <div class="col-md-2 p-1 m-2 rounded p-2 stat-entry" style="background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
                             <h5 class="text-center">
                                 {{ $stat->stat->name }}
