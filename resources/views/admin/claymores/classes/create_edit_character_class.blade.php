@@ -1,11 +1,11 @@
 @extends('admin.layout')
 
 @section('admin-title')
-    Character Classes
+    Character Backgrounds
 @endsection
 
 @section('admin-content')
-    {!! breadcrumbs(['Admin Panel' => 'admin', 'Character Backgrounds' => 'admin/character-classes', ($class->id ? 'Edit' : 'Create') . ' Class' => $class->id ? 'admin/character-classes/edit/' . $class->id : 'admin/character-classes/create']) !!}
+    {!! breadcrumbs(['Admin Panel' => 'admin', 'Character Backgrounds' => 'admin/character-classes', ($class->id ? 'Edit' : 'Create') . ' Background' => $class->id ? 'admin/character-classes/edit/' . $class->id : 'admin/character-classes/create']) !!}
 
     <h1>{{ $class->id ? 'Edit' : 'Create' }} Background
         @if ($class->id)
@@ -41,7 +41,7 @@
 
     <div class="form-group">
         {!! Form::checkbox('is_visible', 1, $class->id ? $class->is_visible : 1, ['class' => 'form-check-input', 'data-toggle' => 'toggle']) !!}
-        {!! Form::label('is_visible', 'Is Visible', ['class' => 'form-check-label ml-3']) !!} {!! add_help('If this is turned off, this class will not be visible on world pages.') !!}
+        {!! Form::label('is_visible', 'Is Visible', ['class' => 'form-check-label ml-3']) !!} {!! add_help('If this is turned off, this background will not be visible on world pages.') !!}
     </div>
 
     <div class="text-right">

@@ -218,10 +218,10 @@
                                     <img src="{{ $pet->pet->variantImage($pet->id) }}" style="max-width: 75px;" />
                                     <br>
                                     <span class="text-light badge badge-dark" style="font-size:95%;">{!! $pet->pet_name !!}</span>
-                                </div>
+                                
                                 @endif
                             @if (Auth::check() && Auth::user()->id == $pet->character->user_id && $pet->canBond())
-                            <div class=" col-md-4 mb-2 float-center">    
+                                
                             <div class="form-group">
                                     {!! Form::open(['url' => 'pets/bond/' . $pet->id]) !!}
                                     {!! Form::submit('Bond', ['class' => 'btn btn-primary']) !!}
@@ -229,7 +229,7 @@
                                 </div>
                             @else
                                 <div class="alert alert-warning mb-0">{{ $pet->canBond(true) }}</div>
-                            </div>
+                                </div>
                         @endif
                             
                         @endforeach
