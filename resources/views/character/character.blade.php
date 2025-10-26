@@ -114,6 +114,7 @@
         @include('character._tab_skills', ['character' => $character, 'skills' => $skills])
 		</div>
         <div class="col-6 p-1 card">
+        @include('widgets._level_info', ['level' => $character->level])
         @foreach ($character->stats->chunk(4) as $chunk)
                 <div class="row align-items-center justify-content-between no-gutters">
                     @foreach ($chunk as $stat)
