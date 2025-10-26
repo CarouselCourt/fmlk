@@ -34,7 +34,7 @@
         @endif
     </div>
 
-    <div class="container-fluid" id="info-{{ $image->id }}">
+    <div class="container-fluid character-bio" id="info-{{ $image->id }}">
 	<div class="row">
 		<div class="col-md-4">
 
