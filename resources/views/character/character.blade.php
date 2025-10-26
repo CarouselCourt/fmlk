@@ -56,7 +56,7 @@
     </div>
 
     <div class="container character-bio">
-	<div class="row align-items-start d-flex">
+	<div class="row align-items-start">
 		<div class="col-md-6">
         @if (count($image->character->pets))
                     <div class="row justify-content-center text-center">
@@ -112,7 +112,7 @@
         </div>
         </div>
     
-    <div class="row align-items-start d-flex">
+    <div class="row align-items-start">
 		<div class="col-4 card m-3">
         <div class="row">
                     <div class="col-lg-5 col-md-6 col-3">
