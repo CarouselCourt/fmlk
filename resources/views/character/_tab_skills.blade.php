@@ -3,7 +3,6 @@
         <div class="row">
             @foreach ($chunk as $skill)
                 <div class="col-md">
-                <a class="btn" data-toggle="collapse" href="#skilltree">
                     <div class="text-center">
                         <h5>
                             {{ $skill->name }}
@@ -17,9 +16,7 @@
                             @endphp
                             Level: {{ $characterSkill->level }}
                     </div>
-                    </a>
                     <div class="row">
-                    <div class="collapse" id="skilltree" data-parent="#accordion">
                         @foreach ($skill->children as $children)
                             <div class="col-md  mx-auto body children-body children-scroll">
                                 <div class="children-skill ">
@@ -37,7 +34,7 @@
                     @if ($skill->prerequisite)
                         Requires {!! $skill->prerequisite->displayname !!}
                     @endif
-                </p></div>
+                </p>
             @endif
         </div>
     @endforeach
