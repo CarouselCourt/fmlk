@@ -54,7 +54,7 @@
         @include('character._image_info', ['image' => $character->image])
     </div>
 
-    <div class="container-fluid character-bio" id="info-{{ $image->id }}">
+
 	<div class="row">
 		<div class="col-md-4">
 
@@ -163,7 +163,6 @@
 			</p>
 		</div>
 	</div>
-</div>
 
 
     {{-- Info --}}
