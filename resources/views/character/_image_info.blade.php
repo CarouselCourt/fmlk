@@ -218,17 +218,22 @@
                                     <img src="{{ $pet->pet->variantImage($pet->id) }}" style="max-width: 75px;" />
                                     <br>
                                     <span class="text-light badge badge-dark" style="font-size:95%;">{!! $pet->pet_name !!}</span>
-                                    @if (Auth::check() && Auth::user()->id == $pet->character->user_id && $pet->canBond())
-                                
-                            
-                                {!! Form::open(['url' => 'pets/bond/' . $pet->id]) !!}
-                                {!! Form::submit('Bond', ['class' => 'btn btn-primary']) !!}
-                                {!! Form::close() !!}
-                            
-                                @else
-                            <div class="alert alert-warning mb-0">{{ $pet->canBond(true) }}</div>
-                            
-                                @endif
+                                    <div class="progress mb-2">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                                    style="width: {{ ($pet->level?->nextLevel?->bonding_required ? $pet->level?->bonding *100/ $pet->level?->nextLevel?->bonding_required : 1 * 100) . '%' }}" aria-valuenow="{{ $pet->level?->bonding }}" aria-valuemin="0"
+                                    aria-valuemax="{{ $pet->level?->nextLevel?->bonding_required ?? 100 }}">
+                                    {{ $pet->level?->nextLevel?->bonding_required ? $pet->level?->bonding . '/' . $pet->level?->nextLevel?->bonding_required : $pet->level?->levelName }}
+                                </div>
+                            </div>
+                            @if (Auth::check() && Auth::user()->id == $character->user_id && $pet->canBond())
+                                <div class="form-group mb-0">
+                                    {!! Form::open(['url' => 'pets/bond/' . $pet->id]) !!}
+                                    {!! Form::submit('Bond', ['class' => 'btn btn-primary']) !!}
+                                    {!! Form::close() !!}
+                                </div>
+                            @else
+                                <div class="alert alert-warning mb-0">{{ $pet->canBond(true) }}</div>
+                            @endif
                                 @endif
                             
                                 
