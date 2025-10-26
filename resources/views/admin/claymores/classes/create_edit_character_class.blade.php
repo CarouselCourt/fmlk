@@ -5,11 +5,11 @@
 @endsection
 
 @section('admin-content')
-    {!! breadcrumbs(['Admin Panel' => 'admin', 'Character Classes' => 'admin/character-classes', ($class->id ? 'Edit' : 'Create') . ' Class' => $class->id ? 'admin/character-classes/edit/' . $class->id : 'admin/character-classes/create']) !!}
+    {!! breadcrumbs(['Admin Panel' => 'admin', 'Character Backgrounds' => 'admin/character-classes', ($class->id ? 'Edit' : 'Create') . ' Class' => $class->id ? 'admin/character-classes/edit/' . $class->id : 'admin/character-classes/create']) !!}
 
-    <h1>{{ $class->id ? 'Edit' : 'Create' }} Class
+    <h1>{{ $class->id ? 'Edit' : 'Create' }} Background
         @if ($class->id)
-            <a href="#" class="btn btn-danger float-right delete-class-button">Delete Class</a>
+            <a href="#" class="btn btn-danger float-right delete-class-button">Delete Background</a>
         @endif
     </h1>
 
@@ -66,7 +66,7 @@
         $(document).ready(function() {
             $('.delete-class-button').on('click', function(e) {
                 e.preventDefault();
-                loadModal("{{ url('admin/character-classes/delete') }}/{{ $class->id }}", 'Delete Class');
+                loadModal("{{ url('admin/character-classes/delete') }}/{{ $class->id }}", 'Delete Background');
             });
         });
     </script>

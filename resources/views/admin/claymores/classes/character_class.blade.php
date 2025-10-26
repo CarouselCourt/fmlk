@@ -1,25 +1,25 @@
 @extends('admin.layout')
 
 @section('admin-title')
-    Character Class
+    Character Background
 @endsection
 
 @section('admin-content')
-    {!! breadcrumbs(['Admin Panel' => 'admin', 'Character Class' => 'admin/character-classes']) !!}
+    {!! breadcrumbs(['Admin Panel' => 'admin', 'Character Background' => 'admin/character-classes']) !!}
 
     <h1>Character Class</h1>
 
-    <p>This is a list of character class that will be used to classify characters. Creating character class is entirely optional, but recommended for organisational purposes.</p>
-    <p>The sorting order reflects the order in which the character class will be displayed on the world pages.</p>
+    <p>This is a list of character backgrounds that will be used to classify characters. Creating character backgrounds is entirely optional, but recommended for organisational purposes.</p>
+    <p>The sorting order reflects the order in which the character background will be displayed on the world pages.</p>
 
-    <div class="text-right mb-3"><a class="btn btn-primary" href="{{ url('admin/character-classes/create') }}"><i class="fas fa-plus"></i> Create New Character Class</a></div>
+    <div class="text-right mb-3"><a class="btn btn-primary" href="{{ url('admin/character-classes/create') }}"><i class="fas fa-plus"></i> Create New Character Background</a></div>
     @if (!count($class))
-        <p>No character classes found.</p>
+        <p>No character backgrounds found.</p>
     @else
         <table class="table table-sm category-table">
             <thead>
                 <tr>
-                    <th>Class</th>
+                    <th>Background</th>
                     <th></th>
                 </tr>
             </thead>
