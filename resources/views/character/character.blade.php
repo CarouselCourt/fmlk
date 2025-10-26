@@ -177,9 +177,6 @@
             <div class="tab-pane fade" id="notes">
                 @include('character._tab_notes', ['character' => $character])
             </div>
-            <div class="tab-pane fade" id="skills">
-                
-            </div>
             @if (Auth::check() && Auth::user()->hasPower('manage_characters'))
                 <div class="tab-pane fade" id="settings-{{ $character->slug }}">
                     {!! Form::open(['url' => $character->is_myo_slot ? 'admin/myo/' . $character->id . '/settings' : 'admin/character/' . $character->slug . '/settings']) !!}
