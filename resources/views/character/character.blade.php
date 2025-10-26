@@ -59,7 +59,7 @@
 	<div class="row justify-content-between p-3">
 		<div class="col-6 p-1">
         @if (count($image->character->pets))
-                    <div class="row justify-content-center text-center">
+                    <div class="row justify-content-center text-center p-2">
                         {{-- get one random pet --}}
                         @php
                             $pets = $image->character
@@ -116,10 +116,10 @@
         <div class="col-6 p-1 card">
         <div class="row justify-content-between no-gutters">
         @foreach ($character->stats->chunk(4) as $chunk)
-                <div class="row justify-content-between no-gutters">
+                <div class="row justify-content-center no-gutters">
                     @foreach ($chunk as $stat)
                     
-                        <div class="p-1 m-2 rounded p-2 stat-entry" style="background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
+                        <div class="p-2 m-3 rounded p-3 stat-entry" style="background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
                             <h6 class="text-center" style=" text-transform:uppercase;">
                                 {{ $stat->stat->name }}
                                 <br>
