@@ -4,8 +4,7 @@
             @foreach ($chunk as $skill)
                 <div class="col-md">
                     <div class="text-center">
-                    <button class="btn" data-bs-toggle="collapse" data-bs-target="#skilltree" role="button" aria-expanded="false" aria-controls="collapseExample">
-                        <h5>
+                    <a class="btn" data-bs-toggle="collapse" href="#skilltree" role="button" aria-expanded="false" aria-controls="skilltree"><h5>
                             {{ $skill->name }}
                         </h5>
                         @if ($character->skills()->where('skill_id', $skill->id)->exists())
@@ -15,7 +14,7 @@
                                     ->where('skill_id', $skill->id)
                                     ->first();
                             @endphp
-                            </button>
+                            </a>
                             <br>
                             Level: {{ $characterSkill->level }}
                     </div>
