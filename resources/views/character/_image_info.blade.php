@@ -230,7 +230,7 @@
                                 
                             @else
                                 <div class="alert alert-warning mb-0">{{ $pet->canBond(true) }}</div>
-                                </div>
+                                
                         @endif
                             
                         @endforeach
