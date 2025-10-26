@@ -218,21 +218,21 @@
                                     <img src="{{ $pet->pet->variantImage($pet->id) }}" style="max-width: 75px;" />
                                     <br>
                                     <span class="text-light badge badge-dark" style="font-size:95%;">{!! $pet->pet_name !!}</span>
-                                    <br>
-                                    @if (Auth::check() && Auth::user()->id == $pet->character->user_id && $pet->canBond())
+                                
+                                @endif
+                                <div class="row justify-content-center text-center">
+                                @if (Auth::check() && Auth::user()->id == $pet->character->user_id && $pet->canBond())
                                 
                             
-                                {!! Form::open(['url' => 'pets/bond/' . $pet->id]) !!}
-                                {!! Form::submit('Bond', ['class' => 'btn btn-primary']) !!}
-                                {!! Form::close() !!}
-                            
-                                @else
-                            <div class="alert alert-warning mb-0">{{ $pet->canBond(true) }}</div>
-                            
-                                @endif
-                                @endif
-                            
+                                    {!! Form::open(['url' => 'pets/bond/' . $pet->id]) !!}
+                                    {!! Form::submit('Bond', ['class' => 'btn btn-primary']) !!}
+                                    {!! Form::close() !!}
                                 
+                            @else
+                                <div class="alert alert-warning mb-0">{{ $pet->canBond(true) }}</div>
+                                </div></div>
+                        @endif
+                            
                         @endforeach
                         <div class="ml-auto float-right mr-3">
                             <a href="{{ $character->url . '/pets' }}" class="btn btn-outline-info btn-sm">View All</a>
