@@ -3,7 +3,7 @@
         <div class="row">
             @foreach ($chunk as $skill)
                 <div class="col-md">
-                <a class="card-link" data-bs-toggle="collapse" data-bs-parent="#card-389853" href="#card-element-522475">
+                <a class="btn" data-toggle="collapse" href="#skilltree">
                     <div class="text-center">
                         <h5>
                             {{ $skill->name }}
@@ -19,7 +19,7 @@
                     </div>
                     </a>
                     <div class="row">
-                    <div id="card-element-522475" class="collapse">
+                    <div class="collapse" id="skilltree" data-parent="#accordion">
                         @foreach ($skill->children as $children)
                             <div class="col-md  mx-auto body children-body children-scroll">
                                 <div class="children-skill ">
