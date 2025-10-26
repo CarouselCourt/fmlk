@@ -57,7 +57,7 @@
 
     <div class="container character-bio col-12 d-flex">
 	<div class="row align-items-start d-flex">
-		<div class="col-md-8 pr-4">
+		<div class="col-md-8 pr-3">
         @if (count($image->character->pets))
                     <div class="row justify-content-center text-center">
                         {{-- get one random pet --}}
@@ -113,10 +113,10 @@
 
     
     <div class="row align-items-start p-3 d-flex">
-		<div class="col-md-6 card m-2 p-2">
+		<div class="col-md-6 card m-1 p-1">
         @include('character._tab_skills', ['character' => $character, 'skills' => $skills])
 		</div>
-        <div class="col-md-6 card m-2 p-2">
+        <div class="col-md-6 card m-1 p-1">
         <div class="row">
         @foreach ($character->stats->chunk(4) as $chunk)
                 <div class="row justify-content-center no-gutters">
