@@ -77,10 +77,12 @@
                                     <br>
                                     <span class="text-light badge badge-dark" style="font-size:95%;">{!! $pet->pet_name !!}</span>
                                     </div>
-                                    <div class="float-right">
-                            <a href="{{ $character->url . '/pets' }}">View All...</a>
-                        </div>
+                                    
+
                                 @endif
+                                <div class="float-right">
+                                <a href="{{ $character->url . '/pets' }}">View All...</a>
+                                </div>
                         @endforeach
                     </div>
                 @endif
