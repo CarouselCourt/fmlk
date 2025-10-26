@@ -107,7 +107,6 @@
                         </div>
                     </div>
                 @endif
-            </div>
         </div>
 		<div class="col-md-4 card">
             <div class="row">
@@ -153,8 +152,8 @@
                 <div class="row justify-content-center no-gutters">
                     @foreach ($chunk as $stat)
                     
-                        <div class="col-2 p-2 m-2 rounded p-2 stat-entry" style="background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
-                            <h6 class="text-center text-transform-uppercase">
+                        <div class="col-3 m-2 rounded p-2 stat-entry" style="background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
+                            <h6 class="text-center" style="text-transform:uppercase;">
                                 {{ $stat->stat->name }}
                                 <br>
                                 (lvl {{ $stat->stat_level }})
