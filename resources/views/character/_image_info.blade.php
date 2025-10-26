@@ -225,10 +225,10 @@
                                     {!! Form::close() !!}
                                 </div>
                             @else
-                                <div class="alert alert-warning mb-0">{{ $pet->canBond(true) }}</div>
+                                <div class="alert alert-warning mb-0">{{ $pet->canBond(true) }}</div></div>
                             @endif
                                 @endif
-                                </div></div>
+                                
                                 
                         @endforeach
                         <div class="ml-auto float-right mr-3">
