@@ -232,6 +232,8 @@
                                     {!! Form::submit('Bond', ['class' => 'btn btn-primary']) !!}
                                     {!! Form::close() !!}
                                 </div>
+                                @else
+                                <div class="alert alert-warning mb-0">{{ $pet->canBond(true) }}</div>
                                 @endif
                             @endif
                         @endforeach
