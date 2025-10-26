@@ -56,7 +56,7 @@
     </div>
 
     <div class="container character-bio col-12 d-flex">
-	<div class="row align-items-start d-flex">
+	<div class="row no-gutters p-3">
 		<div class="col-md-8 pr-3">
         @if (count($image->character->pets))
                     <div class="row justify-content-center text-center">
@@ -109,7 +109,7 @@
     </div>
 
     
-    <div class="row align-items-start p-3 d-flex">
+    <div class="row no-gutters p-3">
 		<div class="col-md-6 card m-1 p-1">
         @include('character._tab_skills', ['character' => $character, 'skills' => $skills])
 		</div>
