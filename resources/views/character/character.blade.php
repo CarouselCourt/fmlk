@@ -85,7 +85,7 @@
 
 		<div class="col-6 p-1 card">
         @if (count($image->character->equipment()))
-                    <div class="mb-1 mt-4">
+                    <div class="p-2">
                         <div class="mb-0">
                             <h5>Equipment</h5>
                         </div>
@@ -119,7 +119,7 @@
                 <div class="row justify-content-between no-gutters">
                     @foreach ($chunk as $stat)
                     
-                        <div class="col-md-3 p-1 m-2 rounded p-2 stat-entry" style="background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
+                        <div class="p-1 m-2 rounded p-2 stat-entry" style="background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
                             <h6 class="text-center" style=" text-transform:uppercase;">
                                 {{ $stat->stat->name }}
                                 <br>
