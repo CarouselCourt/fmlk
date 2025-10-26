@@ -109,7 +109,7 @@
 
 
     
-    <div class="row justify-content-between p-3">
+    <div class="row justify-content-center p-3">
 		<div class="col-6 p-1 card">
         @include('character._tab_skills', ['character' => $character, 'skills' => $skills])
 		</div>
@@ -118,7 +118,7 @@
                 <div class="row align-items-center justify-content-between no-gutters">
                     @foreach ($chunk as $stat)
                     
-                        <div class="p-1 m-2 rounded p-2 stat-entry" style="width: 150px; height: 150px; background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
+                        <div class="p-1 m-2 rounded p-2 stat-entry" style="width: 100px; height: 100px; background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
                             <h6 class="text-center" style=" text-transform:uppercase;">
                                 {{ $stat->stat->name }}
                                 <br>
