@@ -56,7 +56,7 @@
     </div>
 
     <div class="container character-bio">
-	<div class="row align-items-start">
+	<div class="row align-items-start d-flex">
 		<div class="col-md-6">
         @if (count($image->character->pets))
                     <div class="row justify-content-center text-center">
@@ -77,12 +77,7 @@
                                     <br>
                                     <span class="text-light badge badge-dark" style="font-size:95%;">{!! $pet->pet_name !!}</span>
                                     </div>
-                                    
-
                                 @endif
-                                <div class="float-right">
-                                <a href="{{ $character->url . '/pets' }}">View All...</a>
-                                </div>
                         @endforeach
                     </div>
                 @endif
@@ -117,8 +112,8 @@
         </div>
         </div>
     
-    <div class="row align-items-start">
-		<div class="col-4 card">
+    <div class="row align-items-start d-flex">
+		<div class="col-4 card m-3">
         <div class="row">
                     <div class="col-lg-5 col-md-6 col-3">
                         <h5>Background</h5>
@@ -154,13 +149,13 @@
                     <div class="col-lg-7 col-md-6 col-8">{!! $image->species_id ? $image->species->displayName : 'None' !!}</div>
                 </div>
 		</div>
-        <div class="col-8 card">
+        <div class="col-8 card m-3">
         <div class="row">
         @foreach ($character->stats->chunk(4) as $chunk)
                 <div class="row justify-content-center no-gutters">
                     @foreach ($chunk as $stat)
                     
-                        <div class="col-md-2 p-1 m-2 rounded p-2 stat-entry" style="background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
+                        <div class="col-md-3 p-2 m-2 rounded p-2 stat-entry" style="background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
                             <h5 class="text-center">
                                 {{ $stat->stat->name }}
                                 (lvl {{ $stat->stat_level }})
