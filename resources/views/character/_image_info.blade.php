@@ -225,13 +225,13 @@
                                 {!! Form::submit('Bond', ['class' => 'btn btn-primary']) !!}
                                 {!! Form::close() !!}
                             
-                        @else
+                                @else
                             <div class="alert alert-warning mb-0">{{ $pet->canBond(true) }}</div>
-                            </div>
-                    @endif
+                            
+                                @endif
                                 @endif
                             
-                            
+                                </div>
                         @endforeach
                         <div class="ml-auto float-right mr-3">
                             <a href="{{ $character->url . '/pets' }}" class="btn btn-outline-info btn-sm">View All</a>
