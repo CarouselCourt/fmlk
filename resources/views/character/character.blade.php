@@ -83,7 +83,7 @@
                 @endif
 		</div>
 
-		<div class="col-md-5 card">
+		<div class="col-md-4 card">
         @if (count($image->character->equipment()))
                     <div class="mb-1 mt-4">
                         <div class="mb-0">
@@ -113,7 +113,7 @@
         </div>
     
     <div class="row align-items-start p-3 d-flex">
-		<div class="col-md-6 card m-2 p-2">
+		<div class="col-md-3 card m-2 p-2">
         @include('character._tab_skills', ['character' => $character, 'skills' => $skills])
 		</div>
         <div class="col-md-6 card m-2 p-2">
