@@ -77,10 +77,11 @@
                                     <br>
                                     <span class="text-light badge badge-dark" style="font-size:95%;">{!! $pet->pet_name !!}</span>
                                     </div>
+                                    <div class="ml-auto float-right mr-3">
+                                    <a href="{{ $character->url . '/pets' }}" class="btn btn-outline-info btn-sm">View All</a>
                                 @endif
                         @endforeach
-                        <div class="ml-auto float-right mr-3">
-                            <a href="{{ $character->url . '/pets' }}" class="btn btn-outline-info btn-sm">View All</a>
+
                         </div>
                     </div>
                 @endif
