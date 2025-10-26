@@ -229,7 +229,7 @@
                             <div class="alert alert-warning mb-0">{{ $pet->canBond(true) }}</div>
                             </div>
                                 @endif
-                                @endif
+                                
                         @endforeach
                         <div class="ml-auto float-right mr-3">
                             <a href="{{ $character->url . '/pets' }}" class="btn btn-outline-info btn-sm">View All</a>
