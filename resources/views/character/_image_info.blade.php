@@ -218,7 +218,7 @@
                                     <img src="{{ $pet->pet->variantImage($pet->id) }}" style="max-width: 75px;" />
                                     <br>
                                     <span class="text-light badge badge-dark" style="font-size:95%;">{!! $pet->pet_name !!}</span>
-                                
+                                    </div>
                                 @endif
                                 <div class="row justify-content-center text-center">
                                 @if (Auth::check() && Auth::user()->id == $pet->character->user_id && $pet->canBond())
