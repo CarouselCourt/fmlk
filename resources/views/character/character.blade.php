@@ -57,7 +57,7 @@
 
     <div class="container character-bio col-12 d-flex">
 	<div class="row align-items-start d-flex">
-		<div class="col-md-7">
+		<div class="col-md-7 mr-4">
         @if (count($image->character->pets))
                     <div class="row justify-content-center text-center">
                         {{-- get one random pet --}}
@@ -113,58 +113,26 @@
         </div>
     
     <div class="row align-items-start p-3 d-flex">
-		<div class="col-md-4 card m-2 p-2">
-        <div class="row">
-                    <div class="col-lg-5 col-md-6 col-3">
-                        <h5>Background</h5>
-                    </div>
-                    <div class="col-lg-7 col-md-6 col-8">{!! $image->character->class_id ? $image->character->class->displayName : 'None' !!}
-                        @if (Auth::check())
-                            @if (Auth::user()->isStaff == $image->character->user_id && $image->character->class_id == null)
-                                <a href="#" class="btn btn-outline-info btn-sm edit-class ml-1" data-id="{{ $image->character->id }}"><i class="fas fa-cog"></i></a>
-                            @endif
-                        @endif
-                    </div>
-                </div>
-                @if ($image->character->homeSetting)
-                    <div class="row">
-                        <div class="col-lg-5 col-md-6 col-4">
-                            <h5>Home</h5>
-                        </div>
-                        <div class="col-lg-7 col-md-6 col-8">{!! $image->character->location ? $image->character->location : 'None' !!}</div>
-                    </div>
-                @endif
-                @if ($image->character->factionSetting)
-                    <div class="row">
-                        <div class="col-lg-5 col-md-6 col-4">
-                            <h5>Faction</h5>
-                        </div>
-                        <div class="col-lg-7 col-md-6 col-8">{!! $image->character->faction ? $image->character->currentFaction : 'None' !!}{!! $character->factionRank ? ' (' . $character->factionRank->name . ')' : null !!}</div>
-                    </div>
-                @endif
-                <div class="row">
-                    <div class="col-lg-5 col-md-6 col-4">
-                            <h5>Species</h5>
-                    </div>
-                    <div class="col-lg-7 col-md-6 col-8">{!! $image->species_id ? $image->species->displayName : 'None' !!}</div>
-                </div>
+		<div class="col-md-8 card m-2 p-2">
+        @include('character._tab_skills', ['character' => $character, 'skills' => $skills])
 		</div>
-        <div class="col-md-5 card m-2 p-2">
+        <div class="col-md-4 card m-2 p-2">
         <div class="row">
         @foreach ($character->stats->chunk(4) as $chunk)
                 <div class="row justify-content-center no-gutters">
                     @foreach ($chunk as $stat)
                     
                         <div class="col-2 p-2 m-2 rounded p-2 stat-entry" style="background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
-                            <h6 class="text-center">
+                            <h5 class="text-center">
                                 {{ $stat->stat->name }}
+                                <br>
                                 (lvl {{ $stat->stat_level }})
-                            </h6>
-                            <h6 class="text-center">
+                            </h5>
+                            <h5 class="text-center">
                                     <b>
                                         {{ $character->currentStatCount($stat->stat->id) }}
                                     </b>
-                                    </h6>
+                                    </h5>
                             </div>
                         
                     @endforeach
@@ -202,7 +170,7 @@
                 @include('character._tab_notes', ['character' => $character])
             </div>
             <div class="tab-pane fade" id="skills">
-                @include('character._tab_skills', ['character' => $character, 'skills' => $skills])
+                
             </div>
             @if (Auth::check() && Auth::user()->hasPower('manage_characters'))
                 <div class="tab-pane fade" id="settings-{{ $character->slug }}">
