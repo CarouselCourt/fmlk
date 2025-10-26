@@ -59,7 +59,7 @@
 	<div class="row justify-content-between p-3">
 		<div class="col-6 p-1">
         @if (count($image->character->pets))
-                    <div class="row justify-content-center text-center p-2">
+                    <div class="row justify-content-center text-center">
                         {{-- get one random pet --}}
                         @php
                             $pets = $image->character
@@ -91,7 +91,7 @@
                         </div>
                         <div class="text-center row">
                             @foreach ($image->character->equipment()->take(5) as $equipment)
-                                <div class="col-md-5">
+                                <div class="col-md-4">
                                     @if ($equipment->has_image)
                                         <img class="rounded" src="{{ $equipment->imageUrl }}" data-toggle="tooltip" title="{{ $equipment->equipment->name }}" style="max-width: 75px;" />
                                     @elseif($equipment->equipment->imageurl)
@@ -114,12 +114,12 @@
         @include('character._tab_skills', ['character' => $character, 'skills' => $skills])
 		</div>
         <div class="col-6 p-1 card">
-        <div class="row justify-content-between no-gutters">
+        <div class="row justify-content-center no-gutters">
         @foreach ($character->stats->chunk(4) as $chunk)
                 <div class="row justify-content-center no-gutters">
                     @foreach ($chunk as $stat)
                     
-                        <div class="p-2 m-3 rounded p-3 stat-entry" style="background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
+                        <div class="p-3 m-4 rounded p-4 stat-entry" style="max-width: 200px;background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
                             <h6 class="text-center" style=" text-transform:uppercase;">
                                 {{ $stat->stat->name }}
                                 <br>
