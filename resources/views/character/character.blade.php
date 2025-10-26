@@ -57,7 +57,7 @@
 
     <div class="character-bio">
 	<div class="row align-items-start">
-		<div class="col-md-6 m-2">
+		<div class="col-md-6">
         @if (count($image->character->pets))
                     <div class="row justify-content-center text-center">
                         {{-- get one random pet --}}
@@ -84,7 +84,7 @@
                 @endif
 		</div>
 
-		<div class="col-md-6 card m-2">
+		<div class="col-md-6 card">
         @if (count($image->character->equipment()))
                     <div class="mb-1 mt-4">
                         <div class="mb-0">
@@ -114,7 +114,7 @@
         </div>
     
     <div class="row align-items-start">
-		<div class="col-4 card m-2">
+		<div class="col-4 card">
         <div class="row">
                     <div class="col-lg-5 col-md-6 col-3">
                         <h5>Background</h5>
@@ -150,7 +150,7 @@
                     <div class="col-lg-7 col-md-6 col-8">{!! $image->species_id ? $image->species->displayName : 'None' !!}</div>
                 </div>
 		</div>
-        <div class="col-8 card m-2">
+        <div class="col-8 card">
         <div class="row">
         @foreach ($character->stats->chunk(4) as $chunk)
                 <div class="row justify-content-center no-gutters">
