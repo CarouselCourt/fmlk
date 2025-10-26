@@ -114,7 +114,7 @@ main > .row {
 }
 
 .navbar .navbar-brand, .navbar .nav-item {
-    text-transform: uppercase;
+    text-transform: none;
     font-family: Roboto Condensed, serif;
 }
 
@@ -145,7 +145,7 @@ main > .row {
 
 .sidebar .sidebar-header,
 .sidebar .sidebar-section .sidebar-section-header {
-    text-transform: uppercase;
+    text-transform: none;
     font-family: Roboto Condensed, serif;
     font-weight: bold;
 }
@@ -168,7 +168,7 @@ main > .row {
 }
 
 .sidebar a {
-    text-transform: uppercase;
+    text-transform: none;
     font-family: Roboto Condensed, serif;
     color: rgba(0,0,0,0.4);
 }
