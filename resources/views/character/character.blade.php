@@ -55,9 +55,9 @@
         @include('character._image_info', ['image' => $character->image])
     </div>
 
-    <div class="container character-bio col-12 d-flex">
-	<div class="row no-gutters p-3">
-		<div class="col-md-6 m-1 p-1">
+    <div class="container character-bio">
+	<div class="row no-gutters justify-content-center p-3">
+		<div class="col-sm-5">
         @if (count($image->character->pets))
                     <div class="row justify-content-center text-center">
                         {{-- get one random pet --}}
@@ -83,7 +83,7 @@
                 @endif
 		</div>
 
-		<div class="col-md-5 card m-1 p-1" style="margin-left: 15px;">
+		<div class="col-sm-5 card">
         @if (count($image->character->equipment()))
                     <div class="mb-1 mt-4">
                         <div class="mb-0">
@@ -106,10 +106,10 @@
                 @endif
             </div>
         </div>
-    </div>
+
 
     
-    <div class="row no-gutters p-3">
+    <div class="row no-gutters justify-content-center p-3">
 		<div class="col-md-5 card m-1 p-1">
         @include('character._tab_skills', ['character' => $character, 'skills' => $skills])
 		</div>
@@ -119,7 +119,7 @@
                 <div class="row justify-content-center no-gutters">
                     @foreach ($chunk as $stat)
                     
-                        <div class="col-md-2 p-1 m-2 rounded p-2 stat-entry" style="background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
+                        <div class="col-md-3 p-1 m-2 rounded p-2 stat-entry" style="background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
                             <h6 class="text-center" style=" text-transform:uppercase;">
                                 {{ $stat->stat->name }}
                                 <br>
