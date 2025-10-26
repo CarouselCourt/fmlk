@@ -56,8 +56,8 @@
     </div>
 
     <div class="character-bio">
-	<div class="row align-items-start">
-		<div class="col-md-6">
+	<div class="row align-items-start d-flex">
+		<div class="col-md-6 m-2">
         @if (count($image->character->pets))
                     <div class="row justify-content-center text-center">
                         {{-- get one random pet --}}
@@ -77,16 +77,16 @@
                                     <br>
                                     <span class="text-light badge badge-dark" style="font-size:95%;">{!! $pet->pet_name !!}</span>
                                     </div>
+                                    <div class="float-right">
+                                    <a href="{{ $character->url . '/pets' }}">View All...</a>
                                 @endif
                         @endforeach
-                        <div class="ml-auto float-right mr-3">
-                            <a href="{{ $character->url . '/pets' }}" class="btn btn-outline-info btn-sm">View All</a>
                         </div>
                     </div>
                 @endif
 		</div>
 
-		<div class="col-md-6 card">
+		<div class="col-md-6 card m-2">
         @if (count($image->character->equipment()))
                     <div class="mb-1 mt-4">
                         <div class="mb-0">
@@ -115,8 +115,8 @@
         </div>
         </div>
     
-    <div class="row align-items-start">
-		<div class="col-4 card">
+    <div class="row align-items-start d-flex">
+		<div class="col-4 card m-2">
         <div class="row">
                     <div class="col-lg-5 col-md-6 col-3">
                         <h5>Background</h5>
@@ -152,7 +152,7 @@
                     <div class="col-lg-7 col-md-6 col-8">{!! $image->species_id ? $image->species->displayName : 'None' !!}</div>
                 </div>
 		</div>
-        <div class="col-8 card">
+        <div class="col-8 card m-2">
         <div class="row">
         @foreach ($character->stats->chunk(4) as $chunk)
                 <div class="row justify-content-center no-gutters">
