@@ -83,7 +83,7 @@
                 @endif
 		</div>
 
-		<div class="col card">
+		<div class="col card h-100">
         @if (count($image->character->equipment()))
                     <div class="mb-1 mt-4">
                         <div class="mb-0">
@@ -136,6 +136,7 @@
                     @endforeach
 	</div>
     @endforeach
+    </div>
     </div>
     </div>
     </div>
