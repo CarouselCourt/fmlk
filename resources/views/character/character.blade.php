@@ -55,9 +55,9 @@
         @include('character._image_info', ['image' => $character->image])
     </div>
 
-    <div class="container character-bio">
-	<div class="row no-gutters justify-content-center p-3">
-		<div class="col-sm-5">
+
+	<div class="row justify-content-between p-3">
+		<div class="col-6 p-1">
         @if (count($image->character->pets))
                     <div class="row justify-content-center text-center">
                         {{-- get one random pet --}}
@@ -83,7 +83,7 @@
                 @endif
 		</div>
 
-		<div class="col-sm-5 card">
+		<div class="col-6 p-1 card">
         @if (count($image->character->equipment()))
                     <div class="mb-1 mt-4">
                         <div class="mb-0">
@@ -109,14 +109,14 @@
 
 
     
-    <div class="row no-gutters justify-content-center p-3">
-		<div class="col-md-5 card m-1 p-1">
+    <div class="row justify-content-between p-3">
+		<div class="col-6 p-1 card">
         @include('character._tab_skills', ['character' => $character, 'skills' => $skills])
 		</div>
-        <div class="col-md-5 card m-1 p-1">
-        <div class="row justify-content-center no-gutters">
+        <div class="col-6 p-1 card">
+        <div class="row justify-content-between no-gutters">
         @foreach ($character->stats->chunk(4) as $chunk)
-                <div class="row justify-content-center no-gutters">
+                <div class="row justify-content-between no-gutters">
                     @foreach ($chunk as $stat)
                     
                         <div class="col-md-3 p-1 m-2 rounded p-2 stat-entry" style="background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
@@ -135,7 +135,6 @@
                     @endforeach
 	</div>
     @endforeach
-    </div>
     </div>
     </div>
 
