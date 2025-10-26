@@ -108,9 +108,40 @@
                     </div>
                 @endif
             </div>
-		</div>
         </div>
-        </div>
+		<div class="col-md-4 card">
+            <div class="row">
+                    <div class="col-lg-5 col-md-6 col-3">
+                        <h5>Background</h5>
+                    </div>
+                    <div class="col-lg-7 col-md-6 col-8">{!! $image->character->class_id ? $image->character->class->displayName : 'None' !!}
+                        @if (Auth::check())
+                            @if (Auth::user()->isStaff == $image->character->user_id && $image->character->class_id == null)
+                                <a href="#" class="btn btn-outline-info btn-sm edit-class ml-1" data-id="{{ $image->character->id }}"><i class="fas fa-cog"></i></a>
+                            @endif
+                        @endif
+                    </div>
+                </div>
+                @if ($image->character->homeSetting)
+                    <div class="row">
+                        <div class="col-lg-5 col-md-6 col-4">
+                            <h5>Home</h5>
+                        </div>
+                        <div class="col-lg-7 col-md-6 col-8">{!! $image->character->location ? $image->character->location : 'None' !!}</div>
+                    </div>
+                @endif
+                @if ($image->character->factionSetting)
+                    <div class="row">
+                        <div class="col-lg-5 col-md-6 col-4">
+                            <h5>Faction</h5>
+                        </div>
+                        <div class="col-lg-7 col-md-6 col-8">{!! $image->character->faction ? $image->character->currentFaction : 'None' !!}{!! $character->factionRank ? ' (' . $character->factionRank->name . ')' : null !!}</div>
+                    </div>
+                @endif
+                </div>
+            </div>
+    </div>
+
     
     <div class="row align-items-start p-3 d-flex">
 		<div class="col-md-5 card m-2 p-2">
@@ -122,12 +153,12 @@
                 <div class="row justify-content-center no-gutters">
                     @foreach ($chunk as $stat)
                     
-                        <div class="col-4 p-2 m-2 rounded p-2 stat-entry" style="background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
-                            <h5 class="text-center">
+                        <div class="col-2 p-2 m-2 rounded p-2 stat-entry" style="background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
+                            <h6 class="text-center text-transform-uppercase">
                                 {{ $stat->stat->name }}
                                 <br>
                                 (lvl {{ $stat->stat_level }})
-                            </h5>
+                            </h6>
                             <h5 class="text-center">
                                     <b>
                                         {{ $character->currentStatCount($stat->stat->id) }}
