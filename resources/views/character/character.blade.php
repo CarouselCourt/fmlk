@@ -126,7 +126,7 @@
                 <div class="row align-items-center justify-content-between no-gutters">
                     @foreach ($chunk as $stat)
                     
-                        <div class="px-4 p-1 m-2 rounded p-2 stat-entry" style="width: 100px; height: 100px; background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
+                        <div class="mx-4 p-1 m-2 rounded p-2 stat-entry" style="width: 100px; height: 100px; background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
                             <h6 class="text-center" style=" text-transform:uppercase;">
                                 {{ $stat->stat->name }}
                                 <br>
