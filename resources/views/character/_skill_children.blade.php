@@ -9,12 +9,12 @@
     @php $characterSkill = null; @endphp
 @endif
 <li class="mx-auto">
-    <div class="member-view-box" id="children-{{ $children->id }}">
-        <div class="member-image">
-            <button class="{{ $children->url }}" class="{{ isset($characterSkill) ? '' : 'disabled' }} btn btn-lg btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#skilltree" aria-expanded="false" aria-controls="skilltree">
+    <div class="member-view-box" data-bs-toggle="collapse" id="children-{{ $children->id }}" data-bs-target="#skilltree">
+        <div class="member-image collapse" id="skilltree">
+            <a href="{{ $children->url }}" class="{{ isset($characterSkill) ? '' : 'disabled' }} btn btn-lg btn-secondary">
                 <strong>{!! $children->name !!}</strong>
-</button>
-            <div class="member-details text-center collapse" id="skilltree">
+            </a>
+            <div class="member-details text-center">
                 <p class="mb-0">
                     <small data-toggle="tooltip" title="Prerequisite/Requires. <br>This children is required.">R: {!! isset($children->prerequisite) ? $children->prerequisite->displayName : 'None' !!}</small>
                     <br>
