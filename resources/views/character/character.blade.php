@@ -113,7 +113,7 @@
         </div>
     
     <div class="row align-items-start p-3 d-flex">
-		<div class="col-md-3 card m-2 p-2">
+		<div class="col-md-5 card m-2 p-2">
         @include('character._tab_skills', ['character' => $character, 'skills' => $skills])
 		</div>
         <div class="col-md-6 card m-2 p-2">
@@ -122,7 +122,7 @@
                 <div class="row justify-content-center no-gutters">
                     @foreach ($chunk as $stat)
                     
-                        <div class="col-2 p-2 m-2 rounded p-2 stat-entry" style="background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
+                        <div class="col-4 p-2 m-2 rounded p-2 stat-entry" style="background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
                             <h5 class="text-center">
                                 {{ $stat->stat->name }}
                                 <br>
