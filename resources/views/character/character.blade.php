@@ -160,9 +160,6 @@
                 <li class="nav-item">
                     <a class="nav-link" id="notesTab" data-toggle="tab" href="#notes" role="tab">Description</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="skillsTab" data-toggle="tab" href="#skills" role="tab">Skills</a>
-                </li>
                 @if (Auth::check() && Auth::user()->hasPower('manage_characters'))
                     <li class="nav-item">
                         <a class="nav-link" id="settingsTab" data-toggle="tab" href="#settings-{{ $character->slug }}" role="tab"><i class="fas fa-cog"></i></a>
