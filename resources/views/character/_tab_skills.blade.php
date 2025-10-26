@@ -3,8 +3,9 @@
         <div class="row">
             @foreach ($chunk as $skill)
                 <div class="col-md">
+                <a class="card-link" data-toggle="collapse" data-parent="#card-389853" href="#card-element-522475">
                     <div class="text-center">
-                    <a class="btn" data-bs-toggle="collapse" href="#skilltree" role="button" aria-expanded="false" aria-controls="skilltree"><h5>
+                        <h5>
                             {{ $skill->name }}
                         </h5>
                         @if ($character->skills()->where('skill_id', $skill->id)->exists())
@@ -14,12 +15,11 @@
                                     ->where('skill_id', $skill->id)
                                     ->first();
                             @endphp
-                            </a>
-                            <br>
                             Level: {{ $characterSkill->level }}
                     </div>
-                    <div class="collapse" id="skilltree">
+                    </a>
                     <div class="row">
+                    <div id="card-element-522475" class="collapse show">
                         @foreach ($skill->children as $children)
                             <div class="col-md  mx-auto body children-body children-scroll">
                                 <div class="children-skill ">
@@ -30,7 +30,6 @@
                             </div>
                         @endforeach
                     </div>
-                    
                 @else
                 </div>
                 <p class="mx-auto text-center">Not unlocked.
@@ -38,9 +37,9 @@
                     @if ($skill->prerequisite)
                         Requires {!! $skill->prerequisite->displayname !!}
                     @endif
-                </p>
+                </p></div>
             @endif
-        </div></div>
+        </div>
     @endforeach
     </div>
     <hr>
