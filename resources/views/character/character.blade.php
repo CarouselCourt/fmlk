@@ -114,12 +114,11 @@
         @include('character._tab_skills', ['character' => $character, 'skills' => $skills])
 		</div>
         <div class="col-6 p-1 card">
-        <div class="row align-items-center justify-content-between no-gutters">
         @foreach ($character->stats->chunk(4) as $chunk)
                 <div class="row align-items-center justify-content-between no-gutters">
                     @foreach ($chunk as $stat)
                     
-                        <div class="p-1 m-2 rounded p-2 stat-entry" style="max-width: 200px;background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
+                        <div class="p-1 m-2 rounded p-2 stat-entry" style="width: 150px; height: 150px; background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
                             <h6 class="text-center" style=" text-transform:uppercase;">
                                 {{ $stat->stat->name }}
                                 <br>
