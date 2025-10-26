@@ -21,7 +21,7 @@
 
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
-    text-transform: none;
+    text-transform: uppercase;
     font-family: Roboto Condensed, serif;
     font-weight: bold;
 }
@@ -114,7 +114,7 @@ main > .row {
 }
 
 .navbar .navbar-brand, .navbar .nav-item {
-    text-transform: none;
+    text-transform: uppercase;
     font-family: Roboto Condensed, serif;
 }
 
@@ -145,7 +145,7 @@ main > .row {
 
 .sidebar .sidebar-header,
 .sidebar .sidebar-section .sidebar-section-header {
-    text-transform: none;
+    text-transform: uppercase;
     font-family: Roboto Condensed, serif;
     font-weight: bold;
 }
@@ -168,7 +168,7 @@ main > .row {
 }
 
 .sidebar a {
-    text-transform: none;
+    text-transform: uppercase;
     font-family: Roboto Condensed, serif;
     color: rgba(0,0,0,0.4);
 }
@@ -330,7 +330,7 @@ main > .row {
     background-color: transparent;
 }
 .nav-tabs .nav-link {
-    text-transform: none;
+    text-transform: uppercase;
     font-family: Roboto Condensed, serif;
 }
 
@@ -349,7 +349,7 @@ main > .row {
     background-color: transparent;
     padding: 0;
     font-family: Roboto Condensed, serif;
-    text-transform: none;
+    text-transform: uppercase;
     align-items: center;
 }
 .breadcrumb a {
@@ -416,7 +416,7 @@ main > .row {
     font-size: .9rem;
     font-family: Roboto Condensed, serif;
     color: inherit;
-    text-transform: none;
+    text-transform: uppercase;
 }
 .spoiler-text {
     padding: .75rem 1.25rem;
