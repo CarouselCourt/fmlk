@@ -91,7 +91,7 @@
                         </div>
                         <div class="text-center row">
                             @foreach ($image->character->equipment()->take(5) as $equipment)
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     @if ($equipment->has_image)
                                         <img class="rounded" src="{{ $equipment->imageUrl }}" data-toggle="tooltip" title="{{ $equipment->equipment->name }}" style="max-width: 75px;" />
                                     @elseif($equipment->equipment->imageurl)
@@ -119,7 +119,7 @@
                 <div class="row justify-content-center no-gutters">
                     @foreach ($chunk as $stat)
                     
-                        <div class="col-4 rounded p-1 m-1 stat-entry" style="background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
+                        <div class="col-5 rounded p-1 m-1 stat-entry" style="background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
                             <h6 class="text-center" style=" text-transform:uppercase;">
                                 {{ $stat->stat->name }}
                                 <br>
