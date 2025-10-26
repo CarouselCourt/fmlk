@@ -54,9 +54,9 @@
         @include('character._image_info', ['image' => $character->image])
     </div>
 
-    <div class="container">
+    <div class="card character-bio">
 	<div class="row align-items-start">
-		<div class="col">
+		<div class="col card-body">
         @if (count($image->character->pets))
                     <div class="row justify-content-center text-center">
                         {{-- get one random pet --}}
@@ -84,8 +84,8 @@
                     </div>
                 @endif
 		</div>
-        
-		<div class="col">
+
+		<div class="col card-body">
         @if (count($image->character->equipment()))
                     <div class="mb-1 mt-4">
                         <div class="mb-0">
@@ -111,8 +111,11 @@
                 @endif
             </div>
 		</div>
-
-		<div class="col">
+        </div>
+        </div>
+    <div class="card character-bio">
+    <div class="row align-items-start">
+		<div class="col card-body">
         <div class="row">
                     <div class="col-lg-5 col-md-6 col-3">
                         <h5>Background</h5>
@@ -147,9 +150,39 @@
                     </div>
                     <div class="col-lg-7 col-md-6 col-8">{!! $image->species_id ? $image->species->displayName : 'None' !!}</div>
                 </div>
-			</p>
 		</div>
+        <div class="col card-body">
+        <div class="row">
+        @foreach ($character->stats->chunk(4) as $chunk)
+                <div class="row justify-content-center no-gutters">
+                    @foreach ($chunk as $stat)
+                        <div class="col-md-2 p-1 m-2 rounded p-2 stat-entry" style="background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
+                            <h5 class="text-center">
+                                {{ $stat->stat->name }}
+                                (lvl {{ $stat->stat_level }})
+                            </h5>
+                            <div class="text-center">
+                                <p>
+                                    <b>Stat Value:</b>
+                                    <u>
+                                        <span data-toggle="tooltip" title="Base Stat: {{ $stat->count }}">
+                                            {{ $character->totalStatCount($stat->stat->id) . ' (+ ' . $character->totalStatCount($stat->stat->id) - $stat->count . ')' }}
+                                            {!! $character->totalStatCount($stat->stat->id) - $stat->count > 0 ? add_help('This stat has gained extra points through equipment.') : '' !!}
+                                        </span>
+                                    </u>
+                                    <br />
+                                    <b>Current Value:</b>
+                                    <u>
+                                        {{ $character->currentStatCount($stat->stat->id) }}
+                                        {!! add_help('This is the current value of the stat. This can differ due to debuffs, damage taken, etc.') !!}
+                                    </u>
+                                </p>
+                            </div>
+                        </div>
+                    @endforeach
 	</div>
+    </div>
+    </div>
     </div>
 
     {{-- Info --}}
