@@ -55,7 +55,7 @@
         @include('character._image_info', ['image' => $character->image])
     </div>
 
-    <div class="character-bio">
+    <div class="container character-bio">
 	<div class="row align-items-start">
 		<div class="col-md-6">
         @if (count($image->character->pets))
@@ -79,9 +79,6 @@
                                     </div>
                                 @endif
                         @endforeach
-                        <div class="ml-auto float-right mr-3">
-                            <a href="{{ $character->url . '/pets' }}" class="btn btn-outline-info btn-sm">View All</a>
-                        </div>
                     </div>
                 @endif
 		</div>
