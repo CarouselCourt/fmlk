@@ -55,9 +55,9 @@
         @include('character._image_info', ['image' => $character->image])
     </div>
 
-    <div class="card character-bio">
+    <div class="character-bio">
 	<div class="row align-items-start">
-		<div class="col card-body">
+		<div class="col-md-6">
         @if (count($image->character->pets))
                     <div class="row justify-content-center text-center">
                         {{-- get one random pet --}}
@@ -77,17 +77,16 @@
                                     <br>
                                     <span class="text-light badge badge-dark" style="font-size:95%;">{!! $pet->pet_name !!}</span>
                                     </div>
-                                    <div class="ml-auto float-right mr-3">
-                                    <a href="{{ $character->url . '/pets' }}" class="btn btn-outline-info btn-sm">View All</a>
                                 @endif
                         @endforeach
-
+                        <div class="ml-auto float-right mr-3">
+                            <a href="{{ $character->url . '/pets' }}" class="btn btn-outline-info btn-sm">View All</a>
                         </div>
                     </div>
                 @endif
 		</div>
 
-		<div class="col card-body">
+		<div class="col-md-6 card-body">
         @if (count($image->character->equipment()))
                     <div class="mb-1 mt-4">
                         <div class="mb-0">
@@ -115,9 +114,9 @@
 		</div>
         </div>
         </div>
-    <div class="card character-bio">
+    
     <div class="row align-items-start">
-		<div class="col card-body">
+		<div class="col-md-6 card-body">
         <div class="row">
                     <div class="col-lg-5 col-md-6 col-3">
                         <h5>Background</h5>
@@ -153,7 +152,7 @@
                     <div class="col-lg-7 col-md-6 col-8">{!! $image->species_id ? $image->species->displayName : 'None' !!}</div>
                 </div>
 		</div>
-        <div class="col card-body">
+        <div class="col-md-6 card-body">
         <div class="row">
         @foreach ($character->stats->chunk(4) as $chunk)
                 <div class="row justify-content-center no-gutters">
@@ -187,7 +186,7 @@
     @endforeach
     </div>
     </div>
-    </div>
+
 
     {{-- Info --}}
     <div class="card character-bio">
@@ -242,7 +241,6 @@
 
 @section('scripts')
     @parent
-    @include('widgets._level_info', ['level' => $character->level])
     @include('character._transformation_js')
     @include('character._image_js', ['character' => $character])
 @endsection
