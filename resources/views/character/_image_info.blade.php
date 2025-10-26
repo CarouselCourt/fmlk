@@ -219,7 +219,7 @@
                                     <br>
                                     <span class="text-light badge badge-dark" style="font-size:95%;">{!! $pet->pet_name !!}</span>
                                     <br>
-                                    @if (Auth::check() && Auth::user()->id == $pet->character->user_id && $pet->canBond())
+                                    
                                 
                                 {!! Form::open(['url' => 'pets/bond/' . $pet->id]) !!}
                                 {!! Form::submit('Bond', ['class' => 'btn btn-primary']) !!}
@@ -228,7 +228,6 @@
                                 @else
                             <div class="alert alert-warning mb-0">{{ $pet->canBond(true) }}</div>
                             </div>
-                                @endif
                                 @endif
                                 @endif
                         @endforeach
