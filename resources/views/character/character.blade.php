@@ -54,10 +54,9 @@
         @include('character._image_info', ['image' => $character->image])
     </div>
 
-
-	<div class="row">
-		<div class="col-md-4">
-
+    <div class="container">
+	<div class="row align-items-start">
+		<div class="col">
         @if (count($image->character->pets))
                     <div class="row justify-content-center text-center">
                         {{-- get one random pet --}}
@@ -85,7 +84,8 @@
                     </div>
                 @endif
 		</div>
-		<div class="col-md-4">
+        
+		<div class="col">
         @if (count($image->character->equipment()))
                     <div class="mb-1 mt-4">
                         <div class="mb-0">
@@ -110,9 +110,9 @@
                     </div>
                 @endif
             </div>
-
 		</div>
-		<div class="col-md-4">
+
+		<div class="col">
         <div class="row">
                     <div class="col-lg-5 col-md-6 col-3">
                         <h5>Background</h5>
@@ -125,18 +125,6 @@
                         @endif
                     </div>
                 </div>
-                @if ($image->transformation_id)
-                    <div class="row">
-                        <div class="col-lg-5 col-md-6 col-4">
-                            <h5>Form {!! add_help('The main image is always the active image') !!}</h5>
-                        </div>
-                        <div class="col-lg-7 col-md-6 col-8">
-                            <a href="{{ $image->transformation->url }}">
-                                {!! $image->transformation->displayName !!}
-                            </a>
-                        </div>
-                    </div>
-                @endif
                 @if ($image->character->homeSetting)
                     <div class="row">
                         <div class="col-lg-5 col-md-6 col-4">
@@ -159,11 +147,10 @@
                     </div>
                     <div class="col-lg-7 col-md-6 col-8">{!! $image->species_id ? $image->species->displayName : 'None' !!}</div>
                 </div>
-
 			</p>
 		</div>
 	</div>
-
+    </div>
 
     {{-- Info --}}
     <div class="card character-bio">
