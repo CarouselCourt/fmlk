@@ -4,9 +4,9 @@
             @foreach ($chunk as $skill)
                 <div class="col-md">
                     <div class="text-center">
-                        <h5>
+                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#skilltree" role="button" aria-expanded="false" aria-controls="collapseExample"><h5>
                             {{ $skill->name }}
-                        </h5>
+                        </h5></a>
                         @if ($character->skills()->where('skill_id', $skill->id)->exists())
                             @php
                                 $characterSkill = $character
@@ -16,7 +16,7 @@
                             @endphp
                             Level: {{ $characterSkill->level }}
                     </div>
-                    <div class="row">
+                    <div class="row collapse" id="skilltree">
                         @foreach ($skill->children as $children)
                             <div class="col-md  mx-auto body children-body children-scroll">
                                 <div class="children-skill ">

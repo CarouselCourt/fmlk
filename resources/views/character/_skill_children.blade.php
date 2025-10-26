@@ -9,8 +9,8 @@
     @php $characterSkill = null; @endphp
 @endif
 <li class="mx-auto">
-    <div class="member-view-box" data-bs-toggle="collapse" id="children-{{ $children->id }}" data-bs-target="#skilltree">
-        <div class="member-image collapse" id="skilltree">
+    <div class="member-view-box" id="children-{{ $children->id }}">
+        <div class="member-image">
             <a href="{{ $children->url }}" class="{{ isset($characterSkill) ? '' : 'disabled' }} btn btn-lg btn-secondary">
                 <strong>{!! $children->name !!}</strong>
             </a>
