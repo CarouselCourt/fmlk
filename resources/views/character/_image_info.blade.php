@@ -37,7 +37,7 @@
             {{-- Basic info --}}
             <div class="tab-pane fade show active" id="info-{{ $image->id }}">
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 col-4">
+                    <div class="col-lg-4 col-md-5 col-4">
                         <h5>Background</h5>
                     </div>
                     <div class="col-lg-8 col-md-6 col-8">{!! $image->character->class_id ? $image->character->class->displayName : 'None' !!}
@@ -219,7 +219,7 @@
                                     <br>
                                     <span class="text-light badge badge-dark" style="font-size:95%;">{!! $pet->pet_name !!}</span>
                                 </div>
-                                
+                                @endif
                             @if (Auth::check() && Auth::user()->id == $pet->character->user_id && $pet->canBond())
                                 <div class="form-group mb-0">
                                     {!! Form::open(['url' => 'pets/bond/' . $pet->id]) !!}
@@ -230,7 +230,7 @@
                                 <div class="alert alert-warning mb-0">{{ $pet->canBond(true) }}</div>
                             
                         @endif
-                            @endif
+                            
                         @endforeach
                         <div class="ml-auto float-right mr-3">
                             <a href="{{ $character->url . '/pets' }}" class="btn btn-outline-info btn-sm">View All</a>
