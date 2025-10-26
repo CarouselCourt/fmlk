@@ -55,7 +55,7 @@
         @include('character._image_info', ['image' => $character->image])
     </div>
 
-    <div class="container character-bio">
+    <div class="container character-bio col-12 d-flex">
 	<div class="row align-items-start">
 		<div class="col-md-6">
         @if (count($image->character->pets))
@@ -155,27 +155,16 @@
                 <div class="row justify-content-center no-gutters">
                     @foreach ($chunk as $stat)
                     
-                        <div class="col-md-3 p-2 m-2 rounded p-2 stat-entry" style="background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
-                            <h5 class="text-center">
+                        <div class="col-3 p-2 m-2 rounded p-2 stat-entry" style="background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
+                            <h6 class="text-center">
                                 {{ $stat->stat->name }}
                                 (lvl {{ $stat->stat_level }})
-                            </h5>
-                            <div class="text-center">
-                                <p>
-                                    <b>Stat Value:</b>
-                                    <u>
-                                        <span data-toggle="tooltip" title="Base Stat: {{ $stat->count }}">
-                                            {{ $character->totalStatCount($stat->stat->id) . ' (+ ' . $character->totalStatCount($stat->stat->id) - $stat->count . ')' }}
-                                            {!! $character->totalStatCount($stat->stat->id) - $stat->count > 0 ? add_help('This stat has gained extra points through equipment.') : '' !!}
-                                        </span>
-                                    </u>
-                                    <br />
-                                    <b>Current Value:</b>
-                                    <u>
+                            </h6>
+                            <h6 class="text-center">
+                                    <b>
                                         {{ $character->currentStatCount($stat->stat->id) }}
-                                        {!! add_help('This is the current value of the stat. This can differ due to debuffs, damage taken, etc.') !!}
-                                    </u>
-                                </p>
+                                    </b>
+                                    </h6>
                             </div>
                         </div>
                     @endforeach
