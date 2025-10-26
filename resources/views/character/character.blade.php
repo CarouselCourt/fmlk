@@ -58,6 +58,10 @@
 
 	<div class="row justify-content-between p-3">
 		<div class="col-6 p-1">
+        <h3 class="text-center pt-4" style=" text-transform:uppercase;">
+            Pet
+        </h3>
+        <hr>
         @if (count($image->character->pets))
                     <div class="row justify-content-center text-center">
                         {{-- get one random pet --}}
@@ -86,9 +90,10 @@
 		<div class="col-6 p-1 card">
         @if (count($image->character->equipment()))
                     <div class="p-2">
-                        <div class="mb-0">
-                            <h5>Equipment</h5>
-                        </div>
+                    <h3 class="text-center pt-4" style=" text-transform:uppercase;">
+            Equipment
+        </h3>
+        <hr>
                         <div class="text-center row">
                             @foreach ($image->character->equipment()->take(5) as $equipment)
                                 <div class="col-md-4">
@@ -111,16 +116,16 @@
     
     <div class="row justify-content-between p-3">
 		<div class="col-6 p-1 card">
-        <h4 class="text-center" style=" text-transform:uppercase;">
+        <h3 class="text-center pt-4" style=" text-transform:uppercase;">
             Skills
-        </h4>
+        </h3>
         <hr>
         @include('character._tab_skills', ['character' => $character, 'skills' => $skills])
 		</div>
         <div class="col-6 p-1 card">
-        <h4 class="text-center" style=" text-transform:uppercase;">
+        <h3 class="text-center pt-4" style=" text-transform:uppercase;">
             Stats
-        </h4>
+        </h3>
         <hr>
         @foreach ($character->stats->chunk(4) as $chunk)
                 <div class="row align-items-center justify-content-between no-gutters">
