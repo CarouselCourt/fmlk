@@ -57,7 +57,7 @@
 
 
 	<div class="row justify-content-between p-3">
-		<div class="col-6 p-1">
+		<div class="col-6 p-1 card">
         <h3 class="text-center pt-4" style=" text-transform:uppercase;">
             Pet
         </h3>
