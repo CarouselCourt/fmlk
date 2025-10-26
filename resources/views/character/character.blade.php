@@ -112,7 +112,7 @@
         </div>
         </div>
     
-    <div class="row align-items-start mb-1 mt-4">
+    <div class="row align-items-start m-4 p-4">
 		<div class="col-4 card mb-1 mt-4">
         <div class="row">
                     <div class="col-lg-5 col-md-6 col-3">
@@ -149,13 +149,13 @@
                     <div class="col-lg-7 col-md-6 col-8">{!! $image->species_id ? $image->species->displayName : 'None' !!}</div>
                 </div>
 		</div>
-        <div class="col-8 card mb-1 mt-4">
+        <div class="col-8 card m-4 p-4">
         <div class="row">
         @foreach ($character->stats->chunk(4) as $chunk)
                 <div class="row justify-content-center no-gutters">
                     @foreach ($chunk as $stat)
                     
-                        <div class="col-3 p-2 m-2 rounded p-2 stat-entry" style="background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
+                        <div class="col-2 p-2 m-2 rounded p-2 stat-entry" style="background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
                             <h6 class="text-center">
                                 {{ $stat->stat->name }}
                                 (lvl {{ $stat->stat_level }})
