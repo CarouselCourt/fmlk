@@ -102,9 +102,6 @@
                                 </div>
                             @endforeach
                         </div>
-                        <div class="float-right">
-                            <a href="{{ $character->url . '/stats' }}">View All...</a>
-                        </div>
                     </div>
                 @endif
             </div>
@@ -122,7 +119,7 @@
                 <div class="row justify-content-center no-gutters">
                     @foreach ($chunk as $stat)
                     
-                        <div class="col-3 rounded p-2 m-2 stat-entry" style="background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
+                        <div class="col-4 rounded p-1 m-1 stat-entry" style="background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
                             <h6 class="text-center" style=" text-transform:uppercase;">
                                 {{ $stat->stat->name }}
                                 <br>
