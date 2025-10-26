@@ -228,7 +228,7 @@
                                 <div class="alert alert-warning mb-0">{{ $pet->canBond(true) }}</div>
                             @endif
                                 @endif
-                                </div>
+                                </div></div>
                                 
                         @endforeach
                         <div class="ml-auto float-right mr-3">
