@@ -157,7 +157,7 @@
         @foreach ($character->stats->chunk(4) as $chunk)
                 <div class="row justify-content-center no-gutters">
                     @foreach ($chunk as $stat)
-                    @include('widgets._level_info', ['level' => $character->level])
+                    
                         <div class="col-md-2 p-1 m-2 rounded p-2 stat-entry" style="background-color: {{ $stat->stat->colour }};" data-id="{{ $stat->id }}">
                             <h5 class="text-center">
                                 {{ $stat->stat->name }}
@@ -183,6 +183,7 @@
                         </div>
                     @endforeach
 	</div>
+    @endforeach
     </div>
     </div>
     </div>
@@ -240,6 +241,7 @@
 
 @section('scripts')
     @parent
+    @include('widgets._level_info', ['level' => $character->level])
     @include('character._transformation_js')
     @include('character._image_js', ['character' => $character])
 @endsection
