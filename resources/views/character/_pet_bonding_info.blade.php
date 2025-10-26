@@ -19,5 +19,14 @@
             </div>
             {{ $pet->level?->levelName }}
         </div>
+                            @if (Auth::check() && Auth::user()->id == $character->user_id && $pet->canBond())
+                                <div class="form-group mb-0">
+                                    {!! Form::open(['url' => 'pets/bond/' . $pet->id]) !!}
+                                    {!! Form::submit('Bond', ['class' => 'btn btn-primary']) !!}
+                                    {!! Form::close() !!}
+                                </div>
+                                @else
+                                <div class="alert alert-warning mb-0">{{ $pet->canBond(true) }}</div>
+                            @endif
     </div>
 </div>
