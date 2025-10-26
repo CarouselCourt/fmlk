@@ -37,12 +37,12 @@
             {{-- Basic info --}}
             <div class="tab-pane fade show active" id="info-{{ $image->id }}">
                 <div class="row">
-                    <div class="col-lg-4 col-md-5 col-4">
+                    <div class="col-lg-4 col-md-6 col-3">
                         <h5>Background</h5>
                     </div>
                     <div class="col-lg-8 col-md-6 col-8">{!! $image->character->class_id ? $image->character->class->displayName : 'None' !!}
                         @if (Auth::check())
-                            @if (Auth::user()->isStaff || (Auth::user()->id == $image->character->user_id && $image->character->class_id == null))
+                            @if (Auth::user()->isStaff == $image->character->user_id && $image->character->class_id == null)
                                 <a href="#" class="btn btn-outline-info btn-sm edit-class ml-1" data-id="{{ $image->character->id }}"><i class="fas fa-cog"></i></a>
                             @endif
                         @endif
@@ -221,7 +221,7 @@
                                 </div>
                                 @endif
                             @if (Auth::check() && Auth::user()->id == $pet->character->user_id && $pet->canBond())
-                                <div class="form-group mb-0">
+                                <div class="form-group col-md-4 mb-2 text-center">
                                     {!! Form::open(['url' => 'pets/bond/' . $pet->id]) !!}
                                     {!! Form::submit('Bond', ['class' => 'btn btn-primary']) !!}
                                     {!! Form::close() !!}

@@ -107,13 +107,13 @@ class CharacterClassService extends Service {
         try {
             // Check first if the class is currently in use
             if (GearCategory::where('class_restriction', $class->id)->exists()) {
-                throw new \Exception('A gear class with this restriction exists. Please change its class first.');
+                throw new \Exception('A gear class with this restriction exists. Please change its background first.');
             }
             if (WeaponCategory::where('class_restriction', $class->id)->exists()) {
-                throw new \Exception('A weapon class with this restriction exists. Please change its class first.');
+                throw new \Exception('A weapon class with this restriction exists. Please change its background first.');
             }
             if (Character::where('class_id', $class->id)->exists()) {
-                throw new \Exception('An character with this class exists. Please change its class first.');
+                throw new \Exception('An character with this background exists. Please change its background first.');
             }
 
             if ($class->has_image) {

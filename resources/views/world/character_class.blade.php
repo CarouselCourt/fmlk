@@ -1,12 +1,12 @@
 @extends('world.layout')
 
 @section('title')
-    Character Classes
+    Character Backgrounds
 @endsection
 
 @section('content')
-    {!! breadcrumbs(['World' => 'world', 'Character Classes' => 'world/character-classes']) !!}
-    <h1>Character Classes</h1>
+    {!! breadcrumbs(['World' => 'world', 'Character Backgrounds' => 'world/character-classes']) !!}
+    <h1>Character Backgrounds</h1>
 
     <div>
         {!! Form::open(['method' => 'GET', 'class' => 'form-inline justify-content-end']) !!}
@@ -24,7 +24,7 @@
         <div class="card mb-3">
             <div class="card-body">
                 @include('world._entry', [
-                    'edit' => ['object' => $class, 'title' => 'Class'],
+                    'edit' => ['object' => $class, 'title' => 'Backgrounds'],
                     'imageUrl' => $class->classImageUrl,
                     'name' => $class->displayName,
                     'description' => $class->parsed_description,
