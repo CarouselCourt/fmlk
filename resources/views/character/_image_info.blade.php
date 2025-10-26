@@ -37,10 +37,10 @@
             {{-- Basic info --}}
             <div class="tab-pane fade show active" id="info-{{ $image->id }}">
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 col-3">
+                    <div class="col-lg-5 col-md-6 col-3">
                         <h5>Background</h5>
                     </div>
-                    <div class="col-lg-8 col-md-6 col-8">{!! $image->character->class_id ? $image->character->class->displayName : 'None' !!}
+                    <div class="col-lg-7 col-md-6 col-8">{!! $image->character->class_id ? $image->character->class->displayName : 'None' !!}
                         @if (Auth::check())
                             @if (Auth::user()->isStaff == $image->character->user_id && $image->character->class_id == null)
                                 <a href="#" class="btn btn-outline-info btn-sm edit-class ml-1" data-id="{{ $image->character->id }}"><i class="fas fa-cog"></i></a>
@@ -50,10 +50,10 @@
                 </div>
                 @if ($image->transformation_id)
                     <div class="row">
-                        <div class="col-lg-4 col-md-6 col-4">
+                        <div class="col-lg-5 col-md-6 col-4">
                             <h5>Form {!! add_help('The main image is always the active image') !!}</h5>
                         </div>
-                        <div class="col-lg-8 col-md-6 col-8">
+                        <div class="col-lg-7 col-md-6 col-8">
                             <a href="{{ $image->transformation->url }}">
                                 {!! $image->transformation->displayName !!}
                             </a>
@@ -62,39 +62,39 @@
                 @endif
                 @if ($image->character->homeSetting)
                     <div class="row">
-                        <div class="col-lg-4 col-md-6 col-4">
+                        <div class="col-lg-5 col-md-6 col-4">
                             <h5>Home</h5>
                         </div>
-                        <div class="col-lg-8 col-md-6 col-8">{!! $image->character->location ? $image->character->location : 'None' !!}</div>
+                        <div class="col-lg-7 col-md-6 col-8">{!! $image->character->location ? $image->character->location : 'None' !!}</div>
                     </div>
                 @endif
                 @if ($image->character->factionSetting)
                     <div class="row">
-                        <div class="col-lg-4 col-md-6 col-4">
+                        <div class="col-lg-5 col-md-6 col-4">
                             <h5>Faction</h5>
                         </div>
-                        <div class="col-lg-8 col-md-6 col-8">{!! $image->character->faction ? $image->character->currentFaction : 'None' !!}{!! $character->factionRank ? ' (' . $character->factionRank->name . ')' : null !!}</div>
+                        <div class="col-lg-7 col-md-6 col-8">{!! $image->character->faction ? $image->character->currentFaction : 'None' !!}{!! $character->factionRank ? ' (' . $character->factionRank->name . ')' : null !!}</div>
                     </div>
                 @endif
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 col-4">
+                    <div class="col-lg-5 col-md-6 col-4">
                             <h5>Species</h5>
                     </div>
-                    <div class="col-lg-8 col-md-6 col-8">{!! $image->species_id ? $image->species->displayName : 'None' !!}</div>
+                    <div class="col-lg-7 col-md-6 col-8">{!! $image->species_id ? $image->species->displayName : 'None' !!}</div>
                 </div>
                 @if ($image->subtype_id)
                     <div class="row">
-                        <div class="col-lg-4 col-md-6 col-4">
+                        <div class="col-lg-5 col-md-6 col-4">
                             <h5>Subtype</h5>
                         </div>
-                        <div class="col-lg-8 col-md-6 col-8">{!! $image->subtype_id ? $image->subtype->displayName : 'None' !!}</div>
+                        <div class="col-lg-7 col-md-6 col-8">{!! $image->subtype_id ? $image->subtype->displayName : 'None' !!}</div>
                     </div>
                 @endif
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 col-4">
+                    <div class="col-lg-5 col-md-6 col-4">
                         <h5>Rarity</h5>
                     </div>
-                    <div class="col-lg-8 col-md-6 col-8">{!! $image->rarity_id ? $image->rarity->displayName : 'None' !!}</div>
+                    <div class="col-lg-7 col-md-6 col-8">{!! $image->rarity_id ? $image->rarity->displayName : 'None' !!}</div>
                 </div>
                 @php
                     // check if there is a type for this object if not passed
@@ -116,10 +116,10 @@
                 @endphp
                 @if ($type || (Auth::check() && Auth::user()->hasPower('manage_characters')))
                     <div class="row">
-                        <div class="col-lg-4 col-md-6 col-4">
+                        <div class="col-lg-5 col-md-6 col-4">
                             <h5>Typing</h5>
                         </div>
-                        <div class="col-lg-8 col-md-6 col-8 row">
+                        <div class="col-lg-7 col-md-6 col-8 row">
                             <h5>{!! $type?->displayElements !!}</h5>
                             @if (Auth::check() && Auth::user()->hasPower('manage_characters'))
                                 {!! add_help('Typing is assigned on an image basis') !!}
@@ -221,7 +221,7 @@
                                 </div>
                                 @endif
                             @if (Auth::check() && Auth::user()->id == $pet->character->user_id && $pet->canBond())
-                                <div class="form-group col-md-4 mb-2 text-center">
+                                <div class="form-group col-md-4 mb-2 float-center">
                                     {!! Form::open(['url' => 'pets/bond/' . $pet->id]) !!}
                                     {!! Form::submit('Bond', ['class' => 'btn btn-primary']) !!}
                                     {!! Form::close() !!}
