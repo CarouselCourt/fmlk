@@ -16,7 +16,6 @@
             $character->category->masterlist_sub_id ? $character->category->sublist->name . ' Masterlist' : 'Character masterlist' => $character->category->masterlist_sub_id ? 'sublist/' . $character->category->sublist->key : 'masterlist',
             $character->fullName => $character->url,
             'Stats' => $character->url . '/stats',
-            'Level' => $character->url . '/stats/level',
         ]) !!}
     @endif
 
@@ -112,12 +111,17 @@
     
     <div class="row justify-content-between p-3">
 		<div class="col-6 p-1 card">
+        <h4 class="text-center" style=" text-transform:uppercase;">
+            Skills
+        </h4>
+        <hr>
         @include('character._tab_skills', ['character' => $character, 'skills' => $skills])
 		</div>
         <div class="col-6 p-1 card">
-        <span class="badge badge-{{ $level->nextLevel ? 'dark' : 'success' }} text-white mx-1 justify-content-center">
-            {{ $level->nextLevel ? 'Current Lvl: ' . $level->current_level : 'Max Level' }}
-        </span>
+        <h4 class="text-center" style=" text-transform:uppercase;">
+            Stats
+        </h4>
+        <hr>
         @foreach ($character->stats->chunk(4) as $chunk)
                 <div class="row align-items-center justify-content-between no-gutters">
                     @foreach ($chunk as $stat)
