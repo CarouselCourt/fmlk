@@ -166,13 +166,13 @@
                                     </b>
                                     </h6>
                             </div>
-                        </div>
+                        
                     @endforeach
 	</div>
     @endforeach
     </div>
     </div>
-
+    </div>
 
     {{-- Info --}}
     <div class="card character-bio">
