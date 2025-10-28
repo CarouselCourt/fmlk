@@ -59,7 +59,7 @@
 	<div class="row justify-content-between p-3">
 		<div class="col-6 p-1 card">
         <h3 class="text-center pt-3" style=" text-transform:uppercase;">
-            Pet
+            Companion
         </h3>
         <hr>
         @if (count($image->character->pets))
