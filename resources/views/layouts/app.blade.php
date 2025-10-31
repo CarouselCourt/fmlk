@@ -178,7 +178,7 @@
                 <div class="sidebar col-lg-2" id="sidebar">
                     @yield('sidebar')
                 </div>
-                <div class="main-content col-lg-8 p-4">
+                <div class="main-content col-lg-9 p-4">
                     <div>
                         @if (Settings::get('is_maintenance_mode'))
                             <div class="alert alert-secondary">
