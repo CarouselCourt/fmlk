@@ -78,6 +78,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Tangerine" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Bad+Script" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Philosopher" rel="stylesheet" type="text/css">
     
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">

@@ -33,6 +33,9 @@ class SiteDesignController extends Controller
             'Gloria Hallelujah' => 'Gloria Hallelujah',
             'Tangerine' => 'Tangerine',
             'Bad Script' => 'Bad Script',
+            'Cinzel' => 'Cinzel',
+            'Crimson Pro' => 'Crimson Pro',
+            'Philosopher' => 'Philosopher',
         ];
 
         return view('admin.settings.design', [
